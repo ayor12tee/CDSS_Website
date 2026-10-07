@@ -55,6 +55,7 @@ export function buildNav(industries: Industry[]): NavItem[] {
             { title: 'Contex', desc: 'Large-format scanners up to 60″', href: '/products/contex' },
             { title: 'Avision', desc: 'A3/A4 document scanners', href: '/products/avision' },
             { title: 'Bureau Services', desc: 'Scanning, conversion & archiving', href: '/about/bureau-services' },
+            { title: 'BIM Implementation', desc: 'Workflows, CDE setup & role-based training', href: '/bim-implementation' },
           ],
         },
       ],
@@ -128,7 +129,7 @@ export function buildNav(industries: Industry[]): NavItem[] {
 
 /** Which top-level nav item a pathname belongs to. */
 export function navKeyFor(pathname: string): string {
-  if (pathname.startsWith('/products') || pathname.startsWith('/about/bureau-services')) return 'solutions';
+  if (pathname.startsWith('/products') || pathname.startsWith('/about/bureau-services') || pathname.startsWith('/bim-implementation')) return 'solutions';
   if (pathname.startsWith('/industries')) return 'industries';
   if (pathname.startsWith('/training')) return 'training';
   if (pathname.startsWith('/publications') || pathname.startsWith('/about/news')) return 'publications';

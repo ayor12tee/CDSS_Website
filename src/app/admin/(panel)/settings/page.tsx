@@ -38,7 +38,7 @@ export default async function SettingsPage() {
           <section className="adm-card adm-fields cols-2">
             <h2 className="adm-section-title adm-field full">Announcement</h2>
             <div className="adm-field full">
-              <CheckboxField name="announcementEnabled" label="Show the announcement" hint="Appears in the top bar and above the home page headline." defaultChecked={s.announcement.enabled} />
+              <CheckboxField name="announcementEnabled" label="Show the announcement" hint="Appears in the top bar of every page." defaultChecked={s.announcement.enabled} />
             </div>
             <TextField name="announcementText" label="Text" defaultValue={s.announcement.text} />
             <TextField name="announcementLabel" label="Badge" defaultValue={s.announcement.label} hint="Short, e.g. a year or “New”." />

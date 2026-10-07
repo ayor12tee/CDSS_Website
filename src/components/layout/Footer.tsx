@@ -15,7 +15,7 @@ interface FooterProps {
 
 export function Footer({ company, industries, products }: FooterProps) {
   const columns: Col[] = [
-    { title: 'Solutions', links: [...products.map(p => [p.name, `/products/${p.slug}`] as [string, string]), ['Bureau Services', '/about/bureau-services']] },
+    { title: 'Solutions', links: [...products.map(p => [p.name, `/products/${p.slug}`] as [string, string]), ['Bureau Services', '/about/bureau-services'], ['BIM Implementation', '/bim-implementation']] },
     { title: 'Industries', links: [...industries.map(i => [i.name, `/industries/${i.slug}`] as [string, string]), ['All industries', '/industries']] },
     {
       title: 'Resources',

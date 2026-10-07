@@ -25,7 +25,7 @@ export const seedSettings: SiteSettings = {
   "hero": {
     "titleLead": "Powering industry through",
     "titleAccent": "technology.",
-    "subtitle": "For over 35 years, CDSS has supplied Nigeria's engineering, industrial and public-sector organisations with world-class software, hardware, certified training and expert support, all from one accountable partner."
+    "subtitle": "Since 1989, CDSS has supported organisations across oil and gas, architecture, engineering and construction with world-class software, hardware, certified training and expert support, helping teams secure and deliver projects, more effectively."
   },
   "otherLines": [
     "Hexagon PPM",
@@ -310,13 +310,13 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
   },
   {
     "slug": "aec",
-    "name": "Architecture, Engineering & Construction",
+    "name": "Architecture, engineering and construction",
     "short": "Buildings, structures & infrastructure",
     "image": "industry-aec",
     "icon": "building",
     "title": "Design, analyse and coordinate buildings and infrastructure with confidence.",
     "lede": "Architects, consulting engineers and contractors rely on CDSS for the design and BIM tools that turn concepts into coordinated, buildable projects — along with certified training to move teams from 2D CAD to BIM without stalling live work.",
-    "summary": "BIM, structural design and construction coordination for architects, consultants and contractors.",
+    "summary": "Tools for design, documentation, analysis and project coordination, supporting the people who plan and deliver buildings and infrastructure.",
     "capabilities": [
       {
         "icon": "box",
