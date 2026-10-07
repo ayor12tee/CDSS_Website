@@ -20,7 +20,7 @@ export default async function IndustriesPage() {
       <PageHero
         trail={[['Industries']]}
         eyebrow="Industries we serve"
-        title="Built for the sectors that build Nigeria."
+        title="Technology shaped around your Industry."
         lede="Each industry has its own standards, deliverables and pressures. We combine the right tools from our vendor partners with training and support that reflect how your sector really works."
       />
       <section className="section">

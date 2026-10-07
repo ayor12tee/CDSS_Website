@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { Fragment } from 'react';
 import { getFaqs, getIndustries, getLogoWall, getPartners, getPublications, getSettings } from '@/lib/content';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { Art, Eyebrow, Faq, LinkArrow, SectionHead, Steps } from '@/components/ui/primitives';
@@ -8,18 +7,65 @@ import { CtaBand } from '@/components/layout/CtaBand';
 import { PostGrid } from '@/components/publications/PostCard';
 import { Newsletter } from '@/components/forms/Newsletter';
 
-const SERVICES: { icon: IconName; title: string; text: string; list: string[]; href: string; cta: string }[] = [
-  { icon: 'layers', title: 'Software Solutions', text: 'Licensed, installed and configured for your workflow.', list: ['Autodesk & Bentley', 'Seequent & ANSYS', 'Technical Toolboxes, Hexagon PPM, CYPE'], href: '/products', cta: 'Explore software' },
-  { icon: 'printer', title: 'Hardware & Bureau', text: 'Capture, plot and archive every drawing you hold.', list: ['Contex large-format scanners', 'Avision document scanners', 'Scanning & raster-to-vector'], href: '/about/bureau-services', cta: 'Explore bureau services' },
-  { icon: 'graduation', title: 'Certified Training', text: 'Get teams productive from day one, in person or online.', list: ['In-house Lagos facility', 'Zoom & MS Teams delivery', 'CAD-to-BIM programme'], href: '/training#training', cta: 'View training' },
-  { icon: 'headset', title: 'Technical Support', text: 'Keep your office running once you are live.', list: ['Unlimited phone & email', 'Scheduled on-site visits', 'Remote diagnosis via AnyDesk'], href: '/training#support', cta: 'View support plans' },
+const SERVICES: { icon: IconName; title: string; text: string; href: string; cta: string }[] = [
+  {
+    icon: 'layers',
+    title: 'Software licensing',
+    text: 'Explore design, analysis, simulation and specialist software. Ask CDSS for advice on available products and licensing options for your team.',
+    href: '/products',
+    cta: 'Explore software',
+  },
+  {
+    icon: 'printer',
+    title: 'Hardware and document digitisation',
+    text: 'Select scanning and plotting equipment, or discuss a managed service for drawings, maps and technical records.',
+    href: '/about/bureau-services',
+    cta: 'Explore scanning and bureau services',
+  },
+  {
+    icon: 'graduation',
+    title: 'Training',
+    text: 'Build practical software skills through training for individuals and teams, with the course scope and delivery format agreed before enrolment.',
+    href: '/training#training',
+    cta: 'Explore training',
+  },
+  {
+    icon: 'headset',
+    title: 'Technical support',
+    text: 'Discuss installation, configuration and application support, with coverage matched to your products and working environment.',
+    href: '/training#support',
+    cta: 'View support options',
+  },
 ];
 
-const WORKFLOWS: { icon: IconName; title: string; text: string; steps: string[] }[] = [
-  { icon: 'scan', title: 'Paper archive to live CAD', text: 'Turn decades of paper drawings into searchable, editable digital assets that are protected against fire, flood and wear.', steps: ['Paper drawings', 'Contex scan', 'GTX raster-to-vector', 'AutoCAD / MicroStation'] },
-  { icon: 'activity', title: 'Design to validated performance', text: 'Take a design model into detailed simulation and prove performance before fabrication, not after.', steps: ['Revit / STAAD.Pro', 'ANSYS simulation', 'Design sign-off'] },
-  { icon: 'box', title: 'CAD to BIM', text: 'Move a 2D drafting office to coordinated model-based delivery without stalling live projects.', steps: ['CAD standards', 'Revit templates', 'Navisworks coordination'] },
-  { icon: 'mountain', title: 'Field data to subsurface model', text: 'Combine drillhole, geophysical and survey data into 3D geological models the whole team can use.', steps: ['Drillhole data', 'Oasis montaj', 'Leapfrog Geo model'] },
+const APPROACH: { title: string; text: string; href: string; cta: string }[] = [
+  { title: 'Choose the right tools', text: 'Match software and hardware to your discipline, deliverables, users and budget.', href: '/products', cta: 'Explore solutions' },
+  { title: 'Prepare for productive use', text: 'Plan installation, configuration and the practical steps needed for adoption.', href: '/contact', cta: 'Plan your rollout' },
+  { title: 'Build team capability', text: 'Develop skills around the tasks your people need to complete.', href: '/training#training', cta: 'View training' },
+  { title: 'Keep work moving', text: 'Get help with application and deployment issues as your needs change.', href: '/training#support', cta: 'Support plans' },
+];
+
+const WORKFLOWS: { icon: IconName; title: string; text: string }[] = [
+  {
+    icon: 'scan',
+    title: 'Paper drawings to usable digital records',
+    text: 'Scan, check and organise historical drawings. Convert selected sheets into editable CAD where the condition and intended use justify it.',
+  },
+  {
+    icon: 'box',
+    title: 'CAD to coordinated BIM delivery',
+    text: 'Develop modelling skills alongside templates, coordination routines and agreed information-sharing practices.',
+  },
+  {
+    icon: 'activity',
+    title: 'Design to engineering assessment',
+    text: 'Select analysis and simulation tools appropriate to the engineering question, then build the skills needed to interpret results and document assumptions.',
+  },
+  {
+    icon: 'mountain',
+    title: 'Field data to geological interpretation',
+    text: 'Explore tools for managing exploration data and developing geological models for review and decision-making.',
+  },
 ];
 
 export default async function HomePage() {
@@ -32,7 +78,7 @@ export default async function HomePage() {
     getPartners(),
   ]);
   const latest = publications.slice(0, 3);
-  const { announcement, hero } = settings;
+  const { hero } = settings;
   const partnerNames = partners.filter(p => /Software|Hardware/.test(p.tag)).map(p => p.name);
 
   return (
@@ -41,12 +87,10 @@ export default async function HomePage() {
         <div className="blueprint" />
         <div className="container hero-inner">
           <div>
-            {announcement.enabled && (
-              <Link className="hero-kicker" href={announcement.href || '/'}>
-                {announcement.label && <b>{announcement.label}</b>}
-                {announcement.text} <Icon name="arrow" style={{ width: 14, height: 14 }} />
-              </Link>
-            )}
+            <p className="hero-since">
+              <span aria-hidden="true" />
+              Since 1989
+            </p>
             <h1>
               {hero.titleLead} <span className="chrome-text">{hero.titleAccent}</span>
             </h1>
@@ -60,14 +104,11 @@ export default async function HomePage() {
                 Speak to an Expert
               </Link>
             </div>
-            <div className="hero-points">
-              {['Authorised vendor licensing', 'Certified training', 'Local, tiered support'].map(p => (
-                <span key={p}>
-                  <Icon name="check" />
-                  {p}
-                </span>
+            <ul className="hero-points" aria-label="What we do">
+              {['Software licensing', 'Scanning and plotting', 'Training', 'Technical support'].map(p => (
+                <li key={p}>{p}</li>
               ))}
-            </div>
+            </ul>
           </div>
           <div className="hero-visual">
             <div className="hero-frame">
@@ -118,14 +159,39 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="section bg-soft" id="approach">
+        <div className="container approach">
+          <div className="approach-intro reveal">
+            <Eyebrow>Our approach</Eyebrow>
+            <h2 className="h2">Make your technology work for the way you work.</h2>
+            <p className="lead">
+              Your team needs more than access to software. It needs the right tools for its deliverables, a workable deployment, the skills to use them and a
+              clear route to technical help. CDSS brings these decisions together around your projects, people and IT environment.
+            </p>
+          </div>
+          <ol className="approach-rows reveal-stagger">
+            {APPROACH.map((row, i) => (
+              <li key={row.title}>
+                <Link className="approach-row" href={row.href}>
+                  <span className="approach-num">0{i + 1}</span>
+                  <div className="approach-copy">
+                    <h3>{row.title}</h3>
+                    <p>{row.text}</p>
+                  </div>
+                  <span className="approach-link">
+                    {row.cta}
+                    <Icon name="arrow" />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
       <section className="section" id="what-we-do">
         <div className="container">
-          <SectionHead
-            eyebrow="What we do"
-            title="Software, hardware, training and support from one partner."
-            lead="Every product line we carry comes with vendor-certified training and tiered technical support. You get far more than a licence key."
-            link={{ href: '/about', label: 'About CDSS' }}
-          />
+          <SectionHead eyebrow="Our services" title="From selecting technology to putting it to work." />
           <div className="grid-4 reveal-stagger">
             {SERVICES.map((s, i) => (
               <Link className="service-card" href={s.href} key={s.title}>
@@ -135,14 +201,6 @@ export default async function HomePage() {
                 </div>
                 <h3>{s.title}</h3>
                 <p>{s.text}</p>
-                <ul>
-                  {s.list.map(l => (
-                    <li key={l}>
-                      <Icon name="check" />
-                      {l}
-                    </li>
-                  ))}
-                </ul>
                 <span className="link-arrow">
                   {s.cta}
                   <Icon name="arrow" />
@@ -150,6 +208,24 @@ export default async function HomePage() {
               </Link>
             ))}
           </div>
+          <Link className="service-feature reveal" href="/bim-implementation">
+            <div className="blueprint" />
+            <div className="icon-box">
+              <Icon name="box" />
+            </div>
+            <div className="service-feature-copy">
+              <span className="service-feature-kicker">05 · Dedicated service</span>
+              <h3>BIM implementation and information management</h3>
+              <p>
+                Connect your people, processes and project information. We help teams adopt BIM and establish practical workflows for sharing models, managing
+                documents and coordinating reviews, supported by common data environment setup and role-based training.
+              </p>
+            </div>
+            <span className="btn btn-light">
+              Explore BIM implementation
+              <Icon name="arrow" />
+            </span>
+          </Link>
         </div>
       </section>
 
@@ -157,7 +233,7 @@ export default async function HomePage() {
         <div className="container">
           <SectionHead
             eyebrow="Industries we serve"
-            title="Built for the sectors that build Nigeria."
+            title="Technology shaped around your Industry."
             lead="For more than three decades we have supported the country's most demanding engineering, industrial and public-sector work."
             link={{ href: '/industries', label: 'All industries' }}
           />
@@ -182,8 +258,8 @@ export default async function HomePage() {
         <div className="container">
           <SectionHead
             eyebrow="Connected workflows"
-            title="Tools that work together, not in isolation."
-            lead="We combine the right products from our vendor partners into complete workflows, and train your team to run them."
+            title="Technology makes more sense when the workflow is clear."
+            lead="Start with the information you have and the deliverable you need. CDSS can help you identify the tools, training and support required along the way."
             link={{ href: '/contact', label: 'Discuss your workflow' }}
             onDark
           />
@@ -195,14 +271,6 @@ export default async function HomePage() {
                 </div>
                 <h3>{w.title}</h3>
                 <p>{w.text}</p>
-                <div className="flow-steps">
-                  {w.steps.map((s, i) => (
-                    <Fragment key={s}>
-                      {i > 0 && <Icon name="arrow" />}
-                      <span className="flow-chip">{s}</span>
-                    </Fragment>
-                  ))}
-                </div>
               </div>
             ))}
           </div>
@@ -298,8 +366,8 @@ export default async function HomePage() {
         <div className="container">
           <SectionHead
             eyebrow="Publications"
-            title="Insights, guides and news."
-            lead="Practical thinking from our engineers on the tools and workflows shaping engineering in Nigeria."
+            title="Practical guidance from the people behind the tools."
+            lead="Product guidance, workflow lessons and technical insights from CDSS's team."
             link={{ href: '/publications', label: 'All publications' }}
           />
           <PostGrid posts={latest} />
