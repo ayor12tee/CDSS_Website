@@ -296,7 +296,7 @@ export default async function HomePage() {
             </div>
             <div className="stat">
               <div className="stat-num">
-                <CountUp to={partners.length} />
+                <CountUp to={20} suffix="+" />
               </div>
               <div className="stat-label">Vendor, training and technology partners</div>
             </div>
