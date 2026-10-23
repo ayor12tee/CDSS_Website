@@ -45,7 +45,7 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "name": "Autodesk",
     "group": "Software",
     "kind": "Design & Engineering",
-    "tagline": "The world's design and make platform.",
+    "tagline": "Create precise technical drawings, develop intelligent building models, and design civil infrastructure with industry-standard CAD, BIM and infrastructure design tools.",
     "lede": "Autodesk is the company behind AutoCAD, Revit, Civil 3D and Inventor — software used by millions of architects, engineers and manufacturers to design buildings, infrastructure and products. As an authorised Autodesk reseller, CDSS licenses, installs, trains and supports the full Autodesk AEC and manufacturing line-up for engineering offices across Nigeria.",
     "uses": [
       "Architectural design and documentation (Revit, AutoCAD)",
@@ -59,11 +59,8 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "Revit",
       "Civil 3D",
       "InfraWorks",
-      "Advance Steel",
-      "Robot Structural Analysis",
-      "Inventor",
-      "Fusion",
-      "Navisworks"
+      "Navisworks",
+      "Forma"
     ],
     "why": "CDSS has been an Autodesk reseller and training provider since AutoCAD's earliest days in Nigeria — including the country's first-ever AutoCAD installation, delivered for Chevron in 1992. Every licence we sell is genuine and vendor-backed, and comes with certified training and ongoing local support rather than a bare software key.",
     "industries": [
@@ -77,8 +74,8 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "slug": "bentley",
     "name": "Bentley Systems",
     "group": "Software",
-    "kind": "Infrastructure Engineering",
-    "tagline": "Advancing the world's infrastructure.",
+    "kind": "Infrastructure & Industrial Engineering",
+    "tagline": "Design infrastructure, analyse structural performance, and evaluate piping systems and pressure vessels with specialised engineering software.",
     "lede": "Bentley Systems builds the infrastructure engineering software behind MicroStation, STAAD.Pro, OpenRoads and the OpenPlant and AutoPIPE product families used across oil & gas, civil and structural engineering worldwide. Bentley has named CDSS its top-performing partner in Sub-Saharan Africa for 2025 — recognition built on more than three decades of licensing, training and support for Nigeria's Bentley users.",
     "uses": [
       "Piping stress analysis and pressure vessel design (AutoPIPE, AutoPIPE Vessel)",
@@ -90,16 +87,10 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     ],
     "keyProducts": [
       "MicroStation",
+      "OpenRoads Designer",
       "STAAD.Pro",
       "AutoPIPE",
-      "AutoPIPE Vessel",
-      "AutoPLANT",
-      "OpenPlant",
-      "ProSteel",
-      "ProConcrete",
-      "SACS",
-      "ContextCapture",
-      "OpenRoads"
+      "Plaxis"
     ],
     "why": "CDSS has served primarily the oil & gas industry as a Bentley channel partner for many years — the relationship Bentley itself recognised with its 2025 Sub-Saharan Africa Top-Performing Partner award. That means genuine, vendor-backed licensing plus certified training and support from the same team that has supported Nigeria's Bentley users for decades.",
     "industries": [
@@ -114,8 +105,8 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "slug": "seequent",
     "name": "Seequent",
     "group": "Software",
-    "kind": "Geoscience & Subsurface Modelling",
-    "tagline": "Bringing certainty to the subsurface.",
+    "kind": "Geology, Geophysics & Subsurface Modelling",
+    "tagline": "Turn geological and geophysical data into actionable subsurface insights with tools for 3D geological modelling, geoscience data management, and geophysical analysis.",
     "lede": "Seequent, part of Bentley Systems, builds the geological and geotechnical modelling software used across mining, civil and environmental projects — including Leapfrog Geo, MX Deposit and Oasis montaj. CDSS brings Seequent's subsurface modelling tools to Nigeria's mining, survey and geoscience sector.",
     "uses": [
       "Geological and orebody modelling (Leapfrog Geo)",
@@ -124,6 +115,7 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "Geotechnical and environmental site modelling (Leapfrog)"
     ],
     "keyProducts": [
+      "Leapfrog Works",
       "Leapfrog Geo",
       "MX Deposit",
       "Oasis montaj"
@@ -140,8 +132,8 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "slug": "ansys",
     "name": "ANSYS",
     "group": "Software",
-    "kind": "Engineering Simulation",
-    "tagline": "Simulate what matters, before you build it.",
+    "kind": "Engineering Simulation & Analysis",
+    "tagline": "Predict how products and engineering systems perform under real-world conditions through advanced structural, thermal, fluid-flow and multiphysics simulation.",
     "lede": "ANSYS is the industry standard for engineering simulation, letting teams test how a design will perform — structurally, thermally or in a fluid flow — before it is ever built. CDSS licenses and supports ANSYS's multiphysics simulation tools for Nigerian engineering teams who need to validate a design before committing to it.",
     "uses": [
       "Structural mechanics and stress analysis (Mechanical)",
@@ -150,10 +142,10 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "Coupled multiphysics simulation (Multiphysics)"
     ],
     "keyProducts": [
-      "Structural",
-      "Thermal",
-      "Fluids / CFD",
-      "Multiphysics"
+      "Structural Analysis",
+      "Thermal Analysis",
+      "CFD & Fluid Flow",
+      "Multiphysics Simulation"
     ],
     "why": "CDSS pairs ANSYS licensing with the same certified training and technical support model used across its whole software line-up, so simulation isn't a standalone tool bought in isolation — it sits alongside the design and analysis software your team already uses.",
     "industries": [
@@ -167,8 +159,8 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "slug": "technical-toolboxes",
     "name": "Technical Toolboxes",
     "group": "Software",
-    "kind": "Pipeline Engineering",
-    "tagline": "Pipeline expertise you can rely on.",
+    "kind": "Pipeline Engineering & Integrity",
+    "tagline": "Support safer pipeline design, corrosion assessment, integrity management and engineering calculations with specialised tools for pipeline infrastructure and operations.",
     "lede": "Technical Toolboxes builds specialised engineering software and training for the pipeline industry, covering integrity assessment, corrosion evaluation and pipeline design calculations used by oil & gas operators worldwide. CDSS brings Technical Toolboxes' pipeline engineering tools to Nigeria's upstream and midstream oil & gas sector.",
     "uses": [
       "Pipeline integrity and fitness-for-service assessment (Integrity)",
@@ -177,10 +169,10 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "Industry-standard pipeline engineering training (Training)"
     ],
     "keyProducts": [
-      "Integrity assessment",
-      "Corrosion evaluation",
-      "Design calculations",
-      "Pipeline training"
+      "Pipeline Design",
+      "Corrosion Analysis",
+      "Integrity Assessment",
+      "Engineering Calculations"
     ],
     "why": "Pipeline integrity software is a natural extension of CDSS's long-standing oil & gas client base — the same engineering offices already using CDSS for design and structural software often need pipeline-specific tools too, and CDSS can support both from one relationship.",
     "industries": [
@@ -193,8 +185,8 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "slug": "contex",
     "name": "Contex",
     "group": "Hardware",
-    "kind": "Large-Format Scanning",
-    "tagline": "The market leader in large-format scanning.",
+    "kind": "Large-Format Technical Scanning",
+    "tagline": "Digitise large-format technical drawings, engineering plans, maps and archival documents with professional scanning solutions designed for accuracy, image quality and efficient workflows.",
     "lede": "Contex is a Danish manufacturer of large-format scanners used to digitise engineering drawings, maps and archives — trusted by engineering offices in over 100 countries. CDSS supplies and supports Contex scanners in 24″, 36″, 42″, 44″ and 60″ widths, and uses them in its own bureau services to convert paper drawings into usable digital and CAD-ready files.",
     "uses": [
       "Digitising engineering and CAD drawings (Monochrome & colour)",
@@ -203,11 +195,10 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "Feeding raster-to-vector conversion workflows (GTX, Autodesk Raster Design)"
     ],
     "keyProducts": [
-      "24″ scanners",
-      "36″ scanners",
-      "42″ scanners",
-      "44″ scanners",
-      "60″ scanners"
+      "24-inch scanners",
+      "36-inch scanners",
+      "44-inch scanners",
+      "60-inch scanners"
     ],
     "why": "CDSS doesn't just sell the scanner — it runs the full bureau-services workflow around it, turning scanned paper drawings back into live, editable CAD files via GTX RasterCAD/ImageCAD and Autodesk Raster Design, which is where a scanner alone stops being useful.",
     "industries": [
@@ -221,8 +212,8 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "slug": "avision",
     "name": "Avision",
     "group": "Hardware",
-    "kind": "Document Scanning",
-    "tagline": "Quality, high-performance document scanning.",
+    "kind": "Document & Records Digitisation",
+    "tagline": "Convert paper documents into searchable digital records with document scanning solutions for offices, records departments and high-volume document processing environments.",
     "lede": "Avision designs and manufactures document scanners and imaging components used across offices worldwide. CDSS supplies Avision's A3/A4 document scanning hardware to complement its large-format Contex line, covering everyday office document digitisation alongside engineering drawing archives.",
     "uses": [
       "Everyday office document scanning and digitisation (A4)",
@@ -231,7 +222,9 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     ],
     "keyProducts": [
       "A4 document scanners",
-      "A3 document scanners"
+      "A3 document scanners",
+      "High-speed scanners",
+      "Network scanners"
     ],
     "why": "Avision's document scanners round out CDSS's hardware line-up alongside Contex's large-format scanners, so an engineering office can source both everyday document scanning and large-format drawing capture from the same partner.",
     "industries": [
@@ -247,7 +240,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
     "slug": "oil-gas",
     "name": "Oil & Gas",
     "short": "Upstream, midstream & offshore",
-    "image": "industry-oil-gas",
+    "image": "/img/industry-oil-gas.jpg",
     "icon": "flame",
     "title": "Engineering software for oil & gas — from the jacket to the pipeline.",
     "lede": "Nigeria's first AutoCAD workstation was installed for an oil major, and the oil & gas sector has been at the centre of CDSS's work ever since. We equip upstream, midstream and offshore engineering teams with the design, analysis and integrity tools the industry runs on — and the training and support to use them well.",
@@ -312,7 +305,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
     "slug": "aec",
     "name": "Architecture, engineering and construction",
     "short": "Buildings, structures & infrastructure",
-    "image": "industry-aec",
+    "image": "/img/industry-aec.jpg",
     "icon": "building",
     "title": "Design, analyse and coordinate buildings and infrastructure with confidence.",
     "lede": "Architects, consulting engineers and contractors rely on CDSS for the design and BIM tools that turn concepts into coordinated, buildable projects — along with certified training to move teams from 2D CAD to BIM without stalling live work.",
@@ -377,7 +370,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
     "slug": "government-gis",
     "name": "Government, Survey & GIS",
     "short": "Mapping, land & public records",
-    "image": "industry-gis",
+    "image": "/img/industry-gis.jpg",
     "icon": "map",
     "title": "Mapping, survey and records technology for the public sector.",
     "lede": "Government agencies and survey organisations use CDSS to capture, map and preserve the information public infrastructure depends on — from reality modelling and civil design to scanning and digitising decades of paper maps and plans.",
@@ -435,7 +428,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
     "slug": "mining-geoscience",
     "name": "Mining & Geoscience",
     "short": "Exploration & subsurface modelling",
-    "image": "industry-mining",
+    "image": "/img/industry-mining.jpg",
     "icon": "mountain",
     "title": "Subsurface certainty for mining and geoscience teams.",
     "lede": "From exploration data to 3D geological models, CDSS brings Seequent's geoscience software to Nigeria's mining and geoscience sector — backed by the same certified training and local support model we have run for more than three decades.",

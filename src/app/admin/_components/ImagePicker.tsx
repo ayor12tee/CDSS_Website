@@ -4,7 +4,11 @@ import { useState } from 'react';
 import { artSrc } from '@/components/ui/primitives';
 import { useFormState } from './ActionForm';
 
-export const ILLUSTRATIONS = ['hero', 'award', 'history', 'archive', 'bim', 'pipeline', 'simulation', 'training', 'industry-oil-gas', 'industry-aec', 'industry-gis', 'industry-mining'];
+export const ILLUSTRATIONS = [
+  'hero', 'award', 'history', 'archive', 'bim', 'pipeline', 'simulation', 'training',
+  'industry-oil-gas', 'industry-aec', 'industry-gis', 'industry-mining',
+  '/img/industry-oil-gas.jpg', '/img/industry-aec.jpg', '/img/industry-gis.jpg', '/img/industry-mining.jpg',
+];
 
 interface ImagePickerProps {
   name: string;
@@ -32,7 +36,7 @@ export function ImagePicker({ name, label, defaultValue = 'hero', images = [], h
         {ILLUSTRATIONS.map(n => (
           <button type="button" key={n} className="adm-pick" aria-pressed={value === n} onClick={() => setValue(n)}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={`/img/${n}.svg`} alt="" />
+            <img src={artSrc(n)} alt="" />
             <span>{n}</span>
           </button>
         ))}
