@@ -19,6 +19,12 @@ const GROUPS: { group: ProductGroup; title: string }[] = [
   { group: 'Hardware', title: 'Scanning and capture hardware.' },
 ];
 
+// Card button labels that don't follow the default "Explore {name} Solutions".
+const CTA_LABELS: Record<string, string> = {
+  bentley: 'Explore Bentley Solutions',
+  'technical-toolboxes': 'Explore Technical Toolboxes',
+};
+
 export default async function ProductsPage() {
   const [products, { otherLines }] = await Promise.all([getProducts(), getSettings()]);
   return (
@@ -57,14 +63,14 @@ export default async function ProductsPage() {
                     <h3>{p.name}</h3>
                     <p>{p.tagline}</p>
                     <div className="chip-list" style={{ marginTop: 18 }}>
-                      {p.keyProducts.slice(0, 4).map(k => (
+                      {p.keyProducts.slice(0, 6).map(k => (
                         <span className="chip" key={k}>
                           {k}
                         </span>
                       ))}
                     </div>
                     <span className="link-arrow">
-                      View {p.name}
+                      {CTA_LABELS[p.slug] ?? `Explore ${p.name} Solutions`}
                       <Icon name="arrow" />
                     </span>
                   </Link>

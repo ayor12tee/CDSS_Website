@@ -6,6 +6,58 @@ import { CountUp } from '@/components/layout/Motion';
 import { CtaBand } from '@/components/layout/CtaBand';
 import { PostGrid } from '@/components/publications/PostCard';
 import { Newsletter } from '@/components/forms/Newsletter';
+import { HeroCarousel, type HeroSlide } from '@/components/home/HeroCarousel';
+
+const SLIDES: HeroSlide[] = [
+  {
+    image: '/img/banner-autodesk.jpg',
+    kicker: 'Autodesk · BIM & digital construction',
+    headline: 'Design better. Build smarter.',
+    body: 'CAD, BIM and digital construction solutions for building and infrastructure teams.',
+    cta: { label: 'Explore Autodesk Solutions', href: '/products/autodesk' },
+    tone: 'light',
+  },
+  {
+    image: '/img/banner-bentley.jpg',
+    kicker: 'Bentley · Infrastructure engineering',
+    headline: 'Engineer the infrastructure of tomorrow.',
+    body: 'Digital engineering tools for infrastructure design, delivery and asset workflows.',
+    cta: { label: 'Explore Bentley Solutions', href: '/products/bentley' },
+    tone: 'light',
+  },
+  {
+    image: '/img/banner-ansys.jpg',
+    kicker: 'ANSYS · Engineering simulation',
+    headline: 'Test ideas before they become reality.',
+    body: 'Engineering simulation tools that help teams investigate performance, safety and design behaviour.',
+    cta: { label: 'Explore Simulation Solutions', href: '/products/ansys' },
+    tone: 'dark',
+  },
+  {
+    image: '/img/banner-training.jpg',
+    kicker: 'Training & technical support',
+    headline: 'Get more from your technology.',
+    body: 'Build practical skills and get expert guidance to support your engineering workflows.',
+    cta: { label: 'Explore Training & Support', href: '/training' },
+    tone: 'light',
+  },
+  {
+    image: '/img/banner-scanning.jpg',
+    kicker: 'Scanning & document solutions',
+    headline: 'Bring technical documents into the digital workflow.',
+    body: 'Large-format scanning, printing, plotting and document digitisation solutions for technical teams.',
+    cta: { label: 'Explore Document Solutions', href: '/about/bureau-services' },
+    tone: 'light',
+  },
+  {
+    image: '/img/banner-masterseries.jpg',
+    kicker: 'MasterSeries · Structural engineering',
+    headline: 'Structural design with greater confidence.',
+    body: 'Structural engineering software and support for professional design workflows.',
+    cta: { label: 'Explore Structural Solutions', href: '/products' },
+    tone: 'light',
+  },
+];
 
 const SERVICES: { icon: IconName; title: string; text: string; href: string; cta: string }[] = [
   {
@@ -84,65 +136,10 @@ export default async function HomePage() {
   return (
     <>
       <section className="hero">
-        <div className="blueprint" />
-        <div className="container hero-inner">
-          <div>
-            <p className="hero-since">
-              <span aria-hidden="true" />
-              Since 1989
-            </p>
-            <h1>
-              {hero.titleLead} <span className="chrome-text">{hero.titleAccent}</span>
-            </h1>
-            <p className="hero-sub">{hero.subtitle}</p>
-            <div className="hero-actions">
-              <Link className="btn btn-light" href="/products">
-                Explore Our Solutions
-                <Icon name="arrow" />
-              </Link>
-              <Link className="btn btn-ghost" href="/contact">
-                Speak to an Expert
-              </Link>
-            </div>
-            <ul className="hero-points" aria-label="What we do">
-              {['Software licensing', 'Scanning and plotting', 'Training', 'Technical support'].map(p => (
-                <li key={p}>{p}</li>
-              ))}
-            </ul>
-          </div>
-          <div className="hero-visual">
-            <div className="hero-frame">
-              <Art name="hero" alt="Isometric blueprint of buildings and a tower crane over survey contours" priority />
-            </div>
-            <div className="float-card fc-1">
-              <div className="icon-box">
-                <Icon name="award" />
-              </div>
-              <div>
-                <strong>#1 Bentley Partner</strong>
-                <span>Sub-Saharan Africa, 2025</span>
-              </div>
-            </div>
-            <div className="float-card fc-2">
-              <div className="icon-box">
-                <Icon name="clock" />
-              </div>
-              <div>
-                <strong>Since 1989</strong>
-                <span>Nigeria&apos;s first CADD company</span>
-              </div>
-            </div>
-            <div className="float-card fc-3">
-              <div className="icon-box">
-                <Icon name="layers" />
-              </div>
-              <div>
-                <strong>{partners.length} vendor partners</strong>
-                <span>One accountable partner</span>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h1 className="sr-only">
+          {hero.titleLead} {hero.titleAccent}
+        </h1>
+        <HeroCarousel slides={SLIDES} label="Featured solutions" />
         <div className="partner-strip">
           <div className="container">
             <p>Authorised partner for</p>

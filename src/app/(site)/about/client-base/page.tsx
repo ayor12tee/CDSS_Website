@@ -17,7 +17,7 @@ export default async function ClientBasePage() {
       <PageHero
         trail={[['About', '/about'], ['Client Base']]}
         eyebrow="Client base"
-        title="Trusted across oil & gas, government and engineering consultancy."
+        title="Trusted by organizations across industries that build Nigeria."
         lede="Over the years CDSS has built a strong client base. It includes government and its agencies, educational institutions, architectural and engineering consultancies, contractors, property developers, utilities and other institutions. Below is a sample of the organisations that rely on CDSS."
       />
       <section className="section">
