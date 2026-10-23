@@ -87,7 +87,7 @@ export function HeroCarousel({ slides, label, children }: { slides: HeroSlide[];
             aria-label={`${i + 1} of ${count}: ${s.label}`}
             aria-hidden={i !== index}
           >
-            <Image src={s.image} alt="" width={2000} height={667} unoptimized priority={i === 0} />
+            <Image src={s.image} alt="" width={2172} height={724} unoptimized priority={i === 0} />
           </div>
         ))}
       </div>
