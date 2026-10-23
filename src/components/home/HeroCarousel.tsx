@@ -1,19 +1,15 @@
 'use client';
 
 import Image from 'next/image';
-import Link from 'next/link';
-import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type FocusEvent, type KeyboardEvent, type TouchEvent } from 'react';
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, type FocusEvent, type KeyboardEvent, type ReactNode, type TouchEvent } from 'react';
 import { Icon } from '@/components/ui/Icon';
-import { Eyebrow } from '@/components/ui/primitives';
 
 export interface HeroSlide {
-  /** 3:1 banner from /public/img; the subject sits on the right, copy goes over the left */
+  /** 3:1 banner from /public/img; the subject sits on the right, the hero copy goes over the left */
   image: string;
-  kicker: string;
-  headline: string;
-  body: string;
-  cta: { label: string; href: string };
-  /** brightness of the image's left side: light gets navy text, dark gets white text */
+  /** names the slide for the dot buttons */
+  label: string;
+  /** brightness of the image's left side: light gets navy copy, dark gets white copy */
   tone: 'light' | 'dark';
 }
 
@@ -28,10 +24,11 @@ const subscribeReducedMotion = (cb: () => void) => {
 };
 
 /**
- * Full-width homepage banner carousel. Auto-advances unless the visitor prefers reduced motion,
- * pauses while hovered or focused, and has a pause button, arrows, dots, swipe and arrow keys.
+ * Full-width homepage hero: fixed copy (children) over cross-fading banner images. The copy takes the
+ * active image's tone. Auto-advances unless the visitor prefers reduced motion, pauses while hovered or
+ * focused, and has a pause button, arrows, dots, swipe and arrow keys.
  */
-export function HeroCarousel({ slides, label }: { slides: HeroSlide[]; label: string }) {
+export function HeroCarousel({ slides, label, children }: { slides: HeroSlide[]; label: string; children: ReactNode }) {
   const count = slides.length;
   const [index, setIndex] = useState(0);
   // null until the visitor presses pause/play; until then autoplay follows their motion preference
@@ -68,7 +65,7 @@ export function HeroCarousel({ slides, label }: { slides: HeroSlide[]; label: st
 
   return (
     <div
-      className="hero-carousel"
+      className={`hero-carousel tone-${slides[index].tone}`}
       role="region"
       aria-roledescription="carousel"
       aria-label={label}
@@ -80,36 +77,23 @@ export function HeroCarousel({ slides, label }: { slides: HeroSlide[]; label: st
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      <div className="hc-track" aria-live={playing ? 'off' : 'polite'}>
-        {slides.map((s, i) => {
-          const active = i === index;
-          return (
-            <div
-              key={s.image}
-              className={`hc-slide tone-${s.tone}${active ? ' is-active' : ''}`}
-              role="group"
-              aria-roledescription="slide"
-              aria-label={`${i + 1} of ${count}`}
-              aria-hidden={!active}
-              inert={!active}
-            >
-              <div className="hc-media">
-                <Image src={s.image} alt="" width={2000} height={667} unoptimized priority={i === 0} />
-              </div>
-              <div className="container hc-content">
-                <div className="hc-copy">
-                  <Eyebrow onDark={s.tone === 'dark'}>{s.kicker}</Eyebrow>
-                  <h2>{s.headline}</h2>
-                  <p>{s.body}</p>
-                  <Link className={`btn ${s.tone === 'dark' ? 'btn-light' : 'btn-primary'}`} href={s.cta.href}>
-                    {s.cta.label}
-                    <Icon name="arrow" />
-                  </Link>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+      <div className="hc-track">
+        {slides.map((s, i) => (
+          <div
+            key={s.image}
+            className={`hc-slide tone-${s.tone}${i === index ? ' is-active' : ''}`}
+            role="group"
+            aria-roledescription="slide"
+            aria-label={`${i + 1} of ${count}: ${s.label}`}
+            aria-hidden={i !== index}
+          >
+            <Image src={s.image} alt="" width={2000} height={667} unoptimized priority={i === 0} />
+          </div>
+        ))}
+      </div>
+
+      <div className="container hc-content">
+        <div className="hc-copy">{children}</div>
       </div>
 
       {count > 1 && (
@@ -126,7 +110,7 @@ export function HeroCarousel({ slides, label }: { slides: HeroSlide[]; label: st
                     key={s.image}
                     className="hc-dot"
                     onClick={() => go(i)}
-                    aria-label={`Slide ${i + 1}: ${s.kicker}`}
+                    aria-label={`Slide ${i + 1}: ${s.label}`}
                     aria-current={i === index || undefined}
                   />
                 ))}

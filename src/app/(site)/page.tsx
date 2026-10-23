@@ -9,54 +9,12 @@ import { Newsletter } from '@/components/forms/Newsletter';
 import { HeroCarousel, type HeroSlide } from '@/components/home/HeroCarousel';
 
 const SLIDES: HeroSlide[] = [
-  {
-    image: '/img/banner-autodesk.jpg',
-    kicker: 'Autodesk · BIM & digital construction',
-    headline: 'Design better. Build smarter.',
-    body: 'CAD, BIM and digital construction solutions for building and infrastructure teams.',
-    cta: { label: 'Explore Autodesk Solutions', href: '/products/autodesk' },
-    tone: 'light',
-  },
-  {
-    image: '/img/banner-bentley.jpg',
-    kicker: 'Bentley · Infrastructure engineering',
-    headline: 'Engineer the infrastructure of tomorrow.',
-    body: 'Digital engineering tools for infrastructure design, delivery and asset workflows.',
-    cta: { label: 'Explore Bentley Solutions', href: '/products/bentley' },
-    tone: 'light',
-  },
-  {
-    image: '/img/banner-ansys.jpg',
-    kicker: 'ANSYS · Engineering simulation',
-    headline: 'Test ideas before they become reality.',
-    body: 'Engineering simulation tools that help teams investigate performance, safety and design behaviour.',
-    cta: { label: 'Explore Simulation Solutions', href: '/products/ansys' },
-    tone: 'dark',
-  },
-  {
-    image: '/img/banner-training.jpg',
-    kicker: 'Training & technical support',
-    headline: 'Get more from your technology.',
-    body: 'Build practical skills and get expert guidance to support your engineering workflows.',
-    cta: { label: 'Explore Training & Support', href: '/training' },
-    tone: 'light',
-  },
-  {
-    image: '/img/banner-scanning.jpg',
-    kicker: 'Scanning & document solutions',
-    headline: 'Bring technical documents into the digital workflow.',
-    body: 'Large-format scanning, printing, plotting and document digitisation solutions for technical teams.',
-    cta: { label: 'Explore Document Solutions', href: '/about/bureau-services' },
-    tone: 'light',
-  },
-  {
-    image: '/img/banner-masterseries.jpg',
-    kicker: 'MasterSeries · Structural engineering',
-    headline: 'Structural design with greater confidence.',
-    body: 'Structural engineering software and support for professional design workflows.',
-    cta: { label: 'Explore Structural Solutions', href: '/products' },
-    tone: 'light',
-  },
+  { image: '/img/banner-autodesk.jpg', label: 'BIM and digital construction', tone: 'light' },
+  { image: '/img/banner-bentley.jpg', label: 'Infrastructure engineering', tone: 'light' },
+  { image: '/img/banner-ansys.jpg', label: 'Engineering simulation', tone: 'dark' },
+  { image: '/img/banner-training.jpg', label: 'Training and technical support', tone: 'light' },
+  { image: '/img/banner-scanning.jpg', label: 'Scanning and document solutions', tone: 'light' },
+  { image: '/img/banner-masterseries.jpg', label: 'Structural engineering', tone: 'light' },
 ];
 
 const SERVICES: { icon: IconName; title: string; text: string; href: string; cta: string }[] = [
@@ -136,10 +94,26 @@ export default async function HomePage() {
   return (
     <>
       <section className="hero">
-        <h1 className="sr-only">
-          {hero.titleLead} {hero.titleAccent}
-        </h1>
-        <HeroCarousel slides={SLIDES} label="Featured solutions" />
+        <HeroCarousel slides={SLIDES} label="Featured solutions">
+          <h1>
+            {hero.titleLead} <span className="hc-accent">{hero.titleAccent}</span>
+          </h1>
+          <p>{hero.subtitle}</p>
+          <div className="hero-actions">
+            <Link className="btn hc-cta-main" href="/products">
+              Explore Our Solutions
+              <Icon name="arrow" />
+            </Link>
+            <Link className="btn hc-cta-alt" href="/contact">
+              Speak to an Expert
+            </Link>
+          </div>
+          <ul className="hc-points" aria-label="What we do">
+            {['Software licensing', 'Scanning and plotting', 'Training', 'Technical support'].map(p => (
+              <li key={p}>{p}</li>
+            ))}
+          </ul>
+        </HeroCarousel>
         <div className="partner-strip">
           <div className="container">
             <p>Authorised partner for</p>
