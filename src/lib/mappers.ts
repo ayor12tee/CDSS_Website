@@ -40,12 +40,21 @@ export const fromProduct = (p: Omit<Product, 'id'>) => ({
   published: p.published,
 });
 
+// The industry illustrations were replaced by photos. Rows still naming an illustration get its photo,
+// so the swap needs no database change; saving the industry in /admin stores the photo path.
+const INDUSTRY_PHOTOS: Record<string, string> = {
+  'industry-oil-gas': '/img/industry-oil-gas.jpg',
+  'industry-aec': '/img/industry-aec.jpg',
+  'industry-gis': '/img/industry-gis.jpg',
+  'industry-mining': '/img/industry-mining.jpg',
+};
+
 export const toIndustry = (r: Row): Industry => ({
   id: r.id,
   slug: r.slug,
   name: r.name,
   short: r.short,
-  image: r.image,
+  image: INDUSTRY_PHOTOS[r.image] ?? r.image,
   icon: r.icon,
   title: r.title,
   lede: r.lede,
