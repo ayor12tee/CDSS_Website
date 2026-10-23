@@ -9,6 +9,7 @@ import { Newsletter } from '@/components/forms/Newsletter';
 import { HeroCarousel, type HeroSlide } from '@/components/home/HeroCarousel';
 
 const SLIDES: HeroSlide[] = [
+  { image: '/img/banner-oil-gas.png', label: 'Oil and gas', tone: 'dark' },
   { image: '/img/banner-autodesk.jpg', label: 'BIM and digital construction', tone: 'light' },
   { image: '/img/banner-bentley.jpg', label: 'Infrastructure engineering', tone: 'light' },
   { image: '/img/banner-ansys.jpg', label: 'Engineering simulation', tone: 'dark' },
