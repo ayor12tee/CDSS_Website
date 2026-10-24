@@ -377,7 +377,7 @@ body.drawer-open .drawer-backdrop{opacity:1;visibility:visible;}
    FOOTER
    ========================================================================= */
 .site-footer{background:var(--deep);color:var(--silver);font-size:14.5px;border-top:1px solid var(--line-dark);}
-.footer-top{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:40px;padding:80px 0 56px;}
+.footer-top{display:grid;grid-template-columns:1.5fr repeat(4,1fr);gap:40px;padding-top:80px;padding-bottom:56px;}
 .footer-brand img{height:38px;width:166px;margin-bottom:22px;}
 .footer-brand p{max-width:330px;line-height:1.7;}
 .footer-contact{display:grid;gap:12px;margin-top:26px;}
@@ -388,7 +388,7 @@ body.drawer-open .drawer-backdrop{opacity:1;visibility:visible;}
 .footer-col ul{display:grid;gap:11px;}
 .footer-col a{transition:color .2s;}
 .footer-col a:hover{color:#fff;}
-.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding:26px 0 32px;border-top:1px solid var(--line-dark);font-size:13.5px;}
+.footer-bottom{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;padding-top:26px;padding-bottom:32px;border-top:1px solid var(--line-dark);font-size:13.5px;}
 .footer-bottom nav{display:flex;gap:24px;flex-wrap:wrap;}
 .footer-bottom a:hover{color:#fff;}
 
