@@ -8,6 +8,6 @@ export default function Image() {
   return ogCard({
     eyebrow: "Nigeria's first CADD technology company",
     title: 'Powering industry through technology.',
-    footer: 'Autodesk · Bentley · Seequent · ANSYS · Technical Toolboxes · Contex',
+    footer: 'Autodesk · Bentley · Seequent · Ansys · Technical Toolboxes · Contex',
   });
 }

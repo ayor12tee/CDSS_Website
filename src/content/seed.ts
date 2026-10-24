@@ -28,14 +28,15 @@ export const seedSettings: SiteSettings = {
     "subtitle": "Since 1989, CDSS has supported organisations across oil and gas, architecture, engineering and construction with world-class software, hardware, certified training and expert support, helping teams secure and deliver projects, more effectively."
   },
   "otherLines": [
-    "Hexagon PPM",
+    "Octave (formerly Hexagon PPM)",
     "CYPE",
     "MasterSeries",
     "GTX",
     "ClearEdge3D",
     "InnoDraw",
     "HP DesignJet",
-    "Getac"
+    "Getac",
+    "Peachel Innovations"
   ]
 };
 
@@ -46,7 +47,7 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "group": "Software",
     "kind": "Design & Engineering",
     "tagline": "Create precise technical drawings, develop intelligent building models, and design civil infrastructure with industry-standard CAD, BIM and infrastructure design tools.",
-    "lede": "Autodesk is the company behind AutoCAD, Revit, Civil 3D and Inventor — software used by millions of architects, engineers and manufacturers to design buildings, infrastructure and products. As an authorised Autodesk reseller, CDSS licenses, installs, trains and supports the full Autodesk AEC and manufacturing line-up for engineering offices across Nigeria.",
+    "lede": "Autodesk is the company behind AutoCAD, Revit, Civil 3D and Inventor — software used by millions of architects, engineers and manufacturers to design buildings, infrastructure and products. As an authorised Autodesk reseller, CDSS licenses, installs, trains and supports Autodesk's AEC and manufacturing software for engineering offices across Nigeria.",
     "uses": [
       "Architectural design and documentation (Revit, AutoCAD)",
       "Civil infrastructure design (Civil 3D, InfraWorks)",
@@ -79,18 +80,19 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "lede": "Bentley Systems builds the infrastructure engineering software behind MicroStation, STAAD.Pro, OpenRoads and the OpenPlant and AutoPIPE product families used across oil & gas, civil and structural engineering worldwide. Bentley has named CDSS its top-performing partner in Sub-Saharan Africa for 2025 — recognition built on more than three decades of licensing, training and support for Nigeria's Bentley users.",
     "uses": [
       "Piping stress analysis and pressure vessel design (AutoPIPE, AutoPIPE Vessel)",
-      "Plant design and isometric drawing production (AutoPLANT, OpenPlant)",
-      "Structural analysis and steel/concrete design (STAAD.Pro, ProSteel, ProConcrete)",
+      "Plant design and isometric drawing production (OpenPlant)",
+      "Structural analysis, design and steel/concrete detailing (STAAD.Pro, ProStructures)",
       "Offshore structural analysis (SACS)",
-      "Reality modelling from photographs and laser scans (ContextCapture)",
-      "Civil infrastructure design (OpenRoads, MicroStation)"
+      "Geotechnical analysis of soil and foundations (PLAXIS)",
+      "Reality modelling from photographs and laser scans (iTwin Capture Modeler)",
+      "Civil infrastructure design (OpenRoads Designer, MicroStation)"
     ],
     "keyProducts": [
       "MicroStation",
       "OpenRoads Designer",
       "STAAD.Pro",
       "AutoPIPE",
-      "Plaxis"
+      "PLAXIS"
     ],
     "why": "CDSS has served primarily the oil & gas industry as a Bentley channel partner for many years — the relationship Bentley itself recognised with its 2025 Sub-Saharan Africa Top-Performing Partner award. That means genuine, vendor-backed licensing plus certified training and support from the same team that has supported Nigeria's Bentley users for decades.",
     "industries": [
@@ -130,11 +132,11 @@ export const seedProducts: Omit<Product, 'id'>[] = [
   },
   {
     "slug": "ansys",
-    "name": "ANSYS",
+    "name": "Ansys",
     "group": "Software",
     "kind": "Engineering Simulation & Analysis",
     "tagline": "Predict how products and engineering systems perform under real-world conditions through advanced structural, thermal, fluid-flow and multiphysics simulation.",
-    "lede": "ANSYS is the industry standard for engineering simulation, letting teams test how a design will perform — structurally, thermally or in a fluid flow — before it is ever built. CDSS licenses and supports ANSYS's multiphysics simulation tools for Nigerian engineering teams who need to validate a design before committing to it.",
+    "lede": "Ansys, now part of Synopsys, develops one of the most widely used engineering simulation portfolios, letting teams test how a design will perform — structurally, thermally or in a fluid flow — before it is ever built. CDSS licenses and supports Ansys simulation tools for Nigerian engineering teams who need to validate a design before committing to it.",
     "uses": [
       "Structural mechanics and stress analysis (Mechanical)",
       "Heat transfer and thermal simulation (Thermal)",
@@ -147,7 +149,7 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "CFD & Fluid Flow",
       "Multiphysics Simulation"
     ],
-    "why": "CDSS pairs ANSYS licensing with the same certified training and technical support model used across its whole software line-up, so simulation isn't a standalone tool bought in isolation — it sits alongside the design and analysis software your team already uses.",
+    "why": "CDSS pairs Ansys licensing with the same certified training and technical support model used across its whole software line-up, so simulation isn't a standalone tool bought in isolation — it sits alongside the design and analysis software your team already uses.",
     "industries": [
       "oil-gas",
       "aec"
@@ -200,7 +202,7 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "44-inch scanners",
       "60-inch scanners"
     ],
-    "why": "CDSS doesn't just sell the scanner — it runs the full bureau-services workflow around it, turning scanned paper drawings back into live, editable CAD files via GTX RasterCAD/ImageCAD and Autodesk Raster Design, which is where a scanner alone stops being useful.",
+    "why": "CDSS doesn't just sell the scanner — it runs the full bureau-services workflow around it, turning scanned paper drawings back into live, editable CAD files via GTXRaster CAD, GTXImage CAD and Autodesk Raster Design, which is where a scanner alone stops being useful.",
     "industries": [
       "government-gis",
       "aec"
@@ -249,7 +251,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
       {
         "icon": "layers",
         "title": "Plant & piping design",
-        "text": "Plant layout, piping design and isometric drawing production with AutoPLANT and OpenPlant."
+        "text": "Plant layout, piping design and isometric drawing production with OpenPlant, Bentley's successor to AutoPLANT."
       },
       {
         "icon": "activity",
@@ -269,7 +271,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
       {
         "icon": "cpu",
         "title": "Simulation",
-        "text": "Structural, thermal and CFD simulation of critical equipment with ANSYS."
+        "text": "Structural, thermal and CFD simulation of critical equipment with Ansys."
       },
       {
         "icon": "file",
@@ -319,12 +321,12 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
       {
         "icon": "building",
         "title": "Structural design",
-        "text": "Analysis and design of steel and concrete structures with STAAD.Pro, Robot, MasterSeries and CYPE."
+        "text": "Analysis and design of steel and concrete structures with STAAD.Pro, Robot Structural Analysis, MasterSeries and CYPE."
       },
       {
         "icon": "layers",
         "title": "Detailing",
-        "text": "Steel detailing with Advance Steel and ProSteel; rebar detailing with InnoDraw."
+        "text": "Steel and reinforced-concrete detailing with Advance Steel and ProStructures."
       },
       {
         "icon": "map",
@@ -384,7 +386,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
       {
         "icon": "scan",
         "title": "Reality modelling",
-        "text": "Accurate 3D models from photographs and laser scans with ContextCapture and ClearEdge3D."
+        "text": "Accurate 3D models from photographs and laser scans with iTwin Capture Modeler and ClearEdge3D EdgeWise."
       },
       {
         "icon": "file",
@@ -394,7 +396,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
       {
         "icon": "layers",
         "title": "Raster-to-vector",
-        "text": "Converting scanned maps into editable CAD with GTX RasterCAD and ImageCAD."
+        "text": "Converting scanned maps into editable CAD with GTXRaster CAD and GTXImage CAD."
       },
       {
         "icon": "shield",
@@ -505,9 +507,9 @@ export const seedPartners: Omit<Partner, 'id'>[] = [
     "sortOrder": 2
   },
   {
-    "name": "ANSYS",
+    "name": "Ansys",
     "tag": "Software Partner",
-    "description": "Multiphysics engineering simulation — structural, thermal and fluid flow.",
+    "description": "Multiphysics engineering simulation — structural, thermal and fluid flow. Ansys is now part of Synopsys.",
     "productSlug": "ansys",
     "sortOrder": 3
   },
@@ -547,30 +549,30 @@ export const seedPartners: Omit<Partner, 'id'>[] = [
     "sortOrder": 8
   },
   {
-    "name": "Hexagon PPM",
+    "name": "Octave (formerly Hexagon PPM)",
     "tag": "Software Partner",
-    "description": "Plant, process and marine design and engineering software.",
+    "description": "Plant, process and marine design and engineering software, including Forte 3D (formerly Intergraph Smart 3D).",
     "productSlug": null,
     "sortOrder": 9
   },
   {
     "name": "GTX",
     "tag": "Software Partner",
-    "description": "RasterCAD and ImageCAD — intelligent paper-to-CAD raster editing and conversion.",
+    "description": "GTXRaster CAD and GTXImage CAD — raster editing and raster-to-vector conversion of scanned drawings.",
     "productSlug": null,
     "sortOrder": 10
   },
   {
     "name": "ClearEdge3D",
     "tag": "Software Partner",
-    "description": "Point-cloud registration and BIM verification software for reality-capture workflows.",
+    "description": "EdgeWise point-cloud modelling and Verity construction verification software for reality-capture workflows.",
     "productSlug": null,
     "sortOrder": 11
   },
   {
     "name": "InnoDraw",
     "tag": "Software Partner",
-    "description": "Reinforcement and rebar detailing software for structural engineers.",
+    "description": "On-site measuring software that turns laser distance meter readings into 2D and 3D drawings.",
     "productSlug": null,
     "sortOrder": 12
   },
@@ -582,14 +584,14 @@ export const seedPartners: Omit<Partner, 'id'>[] = [
     "sortOrder": 13
   },
   {
-    "name": "Bentley Institute",
+    "name": "Bentley Systems Training",
     "tag": "Training Partner",
-    "description": "Bentley's official product training curriculum, delivered by CDSS as a certified training partner.",
+    "description": "Bentley's official product training curriculum (formerly the Bentley Institute), delivered by CDSS as a Bentley training partner.",
     "productSlug": null,
     "sortOrder": 14
   },
   {
-    "name": "Zigurat Global Institute of Technology",
+    "name": "ZIGURAT Institute of Technology",
     "tag": "Education Partner",
     "description": "Postgraduate engineering and technology education, offered in partnership with CDSS.",
     "productSlug": null,
@@ -620,6 +622,12 @@ export const seedClients: Omit<Client, 'id'>[] = [
   {
     "name": "Chevron",
     "group": "Oil & Gas",
+    "onLogoWall": true,
+    "sortOrder": 2
+  },
+  {
+    "name": "Advanced Engineering Consultants",
+    "group": "Engineering & Consultancy",
     "onLogoWall": true,
     "sortOrder": 2
   },
@@ -815,7 +823,7 @@ export const seedFaqs: Omit<Faq, 'id'>[] = [
   {
     "section": "home",
     "question": "Are the software products you sell genuine and licensed?",
-    "answer": "Yes. CDSS is an authorised reseller or partner for every vendor line we carry, including Autodesk, Bentley, Seequent, ANSYS and Technical Toolboxes. Every licence is genuine and backed by the vendor.",
+    "answer": "Yes. CDSS is an authorised reseller or partner for every vendor line we carry, including Autodesk, Bentley, Seequent, Ansys and Technical Toolboxes. Every licence is genuine and backed by the vendor.",
     "sortOrder": 0
   },
   {
@@ -851,7 +859,7 @@ export const seedFaqs: Omit<Faq, 'id'>[] = [
   {
     "section": "training",
     "question": "Do you offer certified training?",
-    "answer": "Yes. We offer certified training tracks across our product lines, including delivery as a Bentley Institute training partner.",
+    "answer": "Yes. We offer certified training tracks across our product lines, including Bentley's official curriculum, delivered as a Bentley training partner.",
     "sortOrder": 6
   },
   {
@@ -891,7 +899,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "bentley"
     ],
     "status": "published",
-    "body": "Bentley Systems has named CDSS its top-performing partner in the Sub-Saharan Africa region for 2025. The recognition reflects a partnership that spans many years and much of Nigeria's oil & gas engineering community.\n\n> “Bentley Systems is proud to recognize CDSS as the top-performing partner in the Sub-Saharan Africa region for 2025. CDSS has been a trusted Bentley partner for many years, serving primarily the oil and gas industry.”\n>\n> — Allan Murphy, Senior Vice President, Bentley Systems\n\n## What the recognition reflects\n\nCDSS has worked with Bentley as a channel partner for many years, bringing its infrastructure engineering software to design offices, operators and consultants across Nigeria. Much of that work has been in oil & gas, where Bentley's plant, piping and offshore tools are part of everyday engineering.\n\n- **Plant and piping:** AutoPLANT and OpenPlant for plant design and isometric drawing production.\n- **Stress and vessels:** AutoPIPE and AutoPIPE Vessel for piping stress analysis and pressure vessel design.\n- **Structures:** STAAD.Pro, ProSteel and ProConcrete for structural analysis and design, and SACS for offshore structures.\n- **Infrastructure and reality modelling:** MicroStation, OpenRoads and ContextCapture.\n\nSales alone don't make a strong partnership. We deliver certified training as a Bentley Institute training partner, and we support clients locally, both on-site and remotely. That keeps licences in productive use long after they are bought.\n\n## What it means for our clients\n\nFor organisations that already run Bentley software with CDSS, the award confirms that they are working with a partner Bentley itself rates highly. In practice, that means:\n\n- Genuine, vendor-backed licensing, with access to current releases and licensing options.\n- Certified training for new starters and experienced users, in person at our Lagos facility or online via Zoom and Microsoft Teams.\n- Local technical support from engineers who know both the software and the projects it is used on.\n- One accountable partner across Bentley and the other vendor lines engineering offices typically need, including Autodesk, Seequent, ANSYS and Technical Toolboxes.\n\n## Looking ahead\n\nWe see the award as a reason to keep raising the standard, not to rest on it. Our focus stays on what has served clients since 1989: recommending the right tools for the job, training the people who use them, and being there when something needs fixing.\n\nWe would like to thank our clients for their continued trust, and the Bentley Systems team for their partnership and recognition.\n\n:::callout{icon=award title=\"Working with Bentley software?\"}\nTalk to our Bentley team about licensing, upgrades, training or support. [Speak to an expert](/contact).\n:::\n",
+    "body": "Bentley Systems has named CDSS its top-performing partner in the Sub-Saharan Africa region for 2025. The recognition reflects a partnership that spans many years and much of Nigeria's oil & gas engineering community.\n\n> “Bentley Systems is proud to recognize CDSS as the top-performing partner in the Sub-Saharan Africa region for 2025. CDSS has been a trusted Bentley partner for many years, serving primarily the oil and gas industry.”\n>\n> — Allan Murphy, Senior Vice President, Bentley Systems\n\n## What the recognition reflects\n\nCDSS has worked with Bentley as a channel partner for many years, bringing its infrastructure engineering software to design offices, operators and consultants across Nigeria. Much of that work has been in oil & gas, where Bentley's plant, piping and offshore tools are part of everyday engineering.\n\n- **Plant and piping:** OpenPlant, Bentley's successor to AutoPLANT, for plant design and isometric drawing production.\n- **Stress and vessels:** AutoPIPE and AutoPIPE Vessel for piping stress analysis and pressure vessel design.\n- **Structures:** STAAD.Pro and ProStructures for structural analysis, design and detailing, and SACS for offshore structures.\n- **Infrastructure and reality modelling:** MicroStation, OpenRoads and iTwin Capture Modeler (formerly ContextCapture).\n\nSales alone don't make a strong partnership. We deliver certified training as a Bentley training partner, and we support clients locally, both on-site and remotely. That keeps licences in productive use long after they are bought.\n\n## What it means for our clients\n\nFor organisations that already run Bentley software with CDSS, the award confirms that they are working with a partner Bentley itself rates highly. In practice, that means:\n\n- Genuine, vendor-backed licensing, with access to current releases and licensing options.\n- Certified training for new starters and experienced users, in person at our Lagos facility or online via Zoom and Microsoft Teams.\n- Local technical support from engineers who know both the software and the projects it is used on.\n- One accountable partner across Bentley and the other vendor lines engineering offices typically need, including Autodesk, Seequent, Ansys and Technical Toolboxes.\n\n## Looking ahead\n\nWe see the award as a reason to keep raising the standard, not to rest on it. Our focus stays on what has served clients since 1989: recommending the right tools for the job, training the people who use them, and being there when something needs fixing.\n\nWe would like to thank our clients for their continued trust, and the Bentley Systems team for their partnership and recognition.\n\n:::callout{icon=award title=\"Working with Bentley software?\"}\nTalk to our Bentley team about licensing, upgrades, training or support. [Speak to an expert](/contact).\n:::\n",
     "publishedOn": "2026-02-10"
   },
   {
@@ -910,7 +918,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "bentley"
     ],
     "status": "published",
-    "body": "In 1989, most engineering drawings in Nigeria were still produced by hand. That year, a registered civil engineer set up a company to change it. Thirty-five years later, CDSS is still doing that work. The tools have changed a great deal; the mission has not.\n\n:::facts\n- **1989** CDSS incorporated in Lagos as Nigeria's first CADD-specific technology company\n- **1992** Nigeria's first AutoCAD installation, delivered for Chevron\n- **2025** Named Bentley's top-performing partner in Sub-Saharan Africa\n:::\n\n## 1989: a company built around CADD\n\nEng. Peter A. O. Fisher founded CDSS as a company dedicated to computer-aided design and drafting (CADD). It was the first of its kind in Nigeria. The company was incorporated in June 1989 and became an authorised AutoCAD reseller for Nigeria that December.\n\nBecause the founder was an engineer, he understood what design offices actually needed. They didn't just need software. They needed reliable systems, people trained to use them properly, and support they could count on when deadlines were close. That thinking still shapes how CDSS works today.\n\n## 1992: Nigeria's first AutoCAD installation\n\nIn 1992, CDSS installed Nigeria's first AutoCAD workstation, for Chevron. It was an early sign of how quickly computer-aided design would become the standard way to produce drawings, first in oil & gas and then across architecture, engineering and construction.\n\n## Growing into a multi-vendor partner\n\nAs the industry's needs grew, so did the portfolio. Today CDSS is an authorised partner for a broad range of software and hardware vendors, including:\n\n- **Design and engineering:** Autodesk, Bentley Systems, CYPE, MasterSeries, Hexagon PPM and InnoDraw.\n- **Simulation and integrity:** ANSYS and Technical Toolboxes.\n- **Geoscience:** Seequent.\n- **Capture and conversion:** Contex, Avision, GTX and ClearEdge3D.\n\nOffering all of this through one partner means an engineering office can source design, analysis, scanning and archiving through a single relationship. It no longer has to manage five separate suppliers.\n\n## What hasn't changed\n\nEvery product line CDSS carries still comes with certified training and tiered technical support, not just a licence key. We run training from a dedicated in-house facility and online, and our support covers installation, commissioning and application support, with remote diagnosis when a site visit isn't needed.\n\nThe same values still guide the business: integrity in every client relationship, and partnership rather than one-off transactions. We also keep looking for technologies ahead of the market and bring them in together with the skills to use them.\n\n## The next chapter\n\nThe next stage of engineering technology is about connection. Design models feed simulation. Laser scans and photographs become reality models. Paper archives become searchable digital records. 2D CAD standards turn into shared BIM workflows. Through partnerships built over three decades, CDSS now works with clients well beyond Nigeria, in Kenya, Zambia, Angola, South Africa, Ghana and Côte d'Ivoire.\n\nWe will keep following the same approach that got us here: the right tools, properly taught and properly supported.\n",
+    "body": "In 1989, most engineering drawings in Nigeria were still produced by hand. That year, a registered civil engineer set up a company to change it. Thirty-five years later, CDSS is still doing that work. The tools have changed a great deal; the mission has not.\n\n:::facts\n- **1989** CDSS incorporated in Lagos as Nigeria's first CADD-specific technology company\n- **1992** Nigeria's first AutoCAD installation, delivered for Chevron\n- **2025** Named Bentley's top-performing partner in Sub-Saharan Africa\n:::\n\n## 1989: a company built around CADD\n\nEng. Peter A. O. Fisher founded CDSS as a company dedicated to computer-aided design and drafting (CADD). It was the first of its kind in Nigeria. The company was incorporated in June 1989 and became an authorised AutoCAD reseller for Nigeria that December.\n\nBecause the founder was an engineer, he understood what design offices actually needed. They didn't just need software. They needed reliable systems, people trained to use them properly, and support they could count on when deadlines were close. That thinking still shapes how CDSS works today.\n\n## 1992: Nigeria's first AutoCAD installation\n\nIn 1992, CDSS installed Nigeria's first AutoCAD workstation, for Chevron. It was an early sign of how quickly computer-aided design would become the standard way to produce drawings, first in oil & gas and then across architecture, engineering and construction.\n\n## Growing into a multi-vendor partner\n\nAs the industry's needs grew, so did the portfolio. Today CDSS is an authorised partner for a broad range of software and hardware vendors, including:\n\n- **Design and engineering:** Autodesk, Bentley Systems, CYPE, MasterSeries and Octave (formerly Hexagon PPM).\n- **Simulation and integrity:** Ansys and Technical Toolboxes.\n- **Geoscience:** Seequent.\n- **Capture and conversion:** Contex, Avision, GTX, ClearEdge3D and InnoDraw.\n\nOffering all of this through one partner means an engineering office can source design, analysis, scanning and archiving through a single relationship. It no longer has to manage five separate suppliers.\n\n## What hasn't changed\n\nEvery product line CDSS carries still comes with certified training and tiered technical support, not just a licence key. We run training from a dedicated in-house facility and online, and our support covers installation, commissioning and application support, with remote diagnosis when a site visit isn't needed.\n\nThe same values still guide the business: integrity in every client relationship, and partnership rather than one-off transactions. We also keep looking for technologies ahead of the market and bring them in together with the skills to use them.\n\n## The next chapter\n\nThe next stage of engineering technology is about connection. Design models feed simulation. Laser scans and photographs become reality models. Paper archives become searchable digital records. 2D CAD standards turn into shared BIM workflows. Through partnerships built over three decades, CDSS now works with clients well beyond Nigeria, in Kenya, Zambia, Angola, South Africa, Ghana and Côte d'Ivoire.\n\nWe will keep following the same approach that got us here: the right tools, properly taught and properly supported.\n",
     "featured": false,
     "publishedOn": "2026-03-18"
   },
@@ -930,7 +938,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "avision"
     ],
     "status": "published",
-    "body": "Many organisations hold thousands of paper drawings, from A3 sheets to A0+ plans and maps. Together they record how facilities, buildings and infrastructure were actually built. One fire, flood or leaking roof can destroy them, and so can decades of handling. Digitising the archive protects it, and it also makes the information much easier to use.\n\n## Why paper archives are at risk\n\nPaper archives usually decline slowly and without anyone noticing. Sheets tear along their folds. Diazo prints fade. Drawings are borrowed and never returned. Sometimes the only person who knows where a drawing is filed retires. When a drawing is finally needed for a modification, an inspection or a dispute, it may be damaged or missing.\n\nA digital archive removes most of these risks. Scanned drawings can be copied, backed up, searched and shared without the original ever leaving storage.\n\n## Step 1: Survey and prioritise\n\nBefore any scanning begins, find out what you have:\n\n- **Volume and sizes:** roughly how many sheets there are in each size, from A4 and A3 up to A0 and oversized rolls.\n- **Condition:** fragile, torn or taped sheets need careful handling and may call for a different scanner or feed.\n- **Content type:** black-and-white line drawings, colour maps, and marked-up or annotated prints.\n- **Business value:** which drawings describe live assets that will be modified or inspected. Scan these first.\n\n## Step 2: Scan at the right settings\n\nLarge-format scanners such as Contex capture sheets up to 44″ and 60″ wide at unlimited length, in monochrome or colour. A few settings make a big difference to the result:\n\n- **Colour mode:** monochrome or greyscale suits most line drawings and keeps files small. Use colour for maps, coloured markups and anything where colour carries meaning.\n- **Resolution:** for engineering line drawings, 300 to 400 dpi is a common choice. Very fine detail or small text may need more.\n- **Clean-up:** deskewing, despeckling and background removal make scans easier to read and give better results if the drawing is later converted to CAD.\n- **File format:** multi-page TIFF or PDF are common archive formats. Agree on one standard at the start and keep to it.\n\nAvision A3/A4 document scanners handle the smaller documents that usually sit next to the drawings, such as specifications, letters and data sheets.\n\n## Step 3: Decide what needs to become CAD\n\nNot every drawing needs converting to vector. A scanned image is enough for reference. But drawings of assets that will be modified are worth converting to editable CAD.\n\n- **Raster editing:** tools such as GTX RasterCAD and Autodesk Raster Design let you edit the scanned image directly, which is useful for quick revisions.\n- **Raster-to-vector conversion:** GTX ImageCAD and similar tools turn raster linework into CAD entities that can be used in AutoCAD or MicroStation.\n- **Hybrid drawings:** keeping the scan as a background underlay and redrawing only the areas that change is often the most cost-effective option.\n\n## Step 4: Index, store and retrieve\n\nA digital archive is only useful if people can find things in it. Set naming conventions and metadata early, including drawing number, title, revision, facility and discipline. Store files in a managed location with backups. A document management system such as FileHold adds search, version control and access permissions, so the right people can find the right drawing quickly.\n\nFor storage, choose whatever suits your IT environment: a network storage location (NAS), external drives, or optical media for offline copies. For important records, keep more than one copy, in more than one place.\n\n## In-house or bureau service?\n\nThere are two ways to run a digitisation project:\n\n1. **In-house:** CDSS supplies, installs and supports the scanners and software on your premises, and trains your staff to run them. This suits organisations with ongoing scanning needs or drawings that must not leave site.\n2. **Managed bureau service:** CDSS scans, converts and archives the drawings for you, using Contex scanners, HP DesignJet plotters and GTX conversion software. This suits one-off backlogs, or teams without the capacity to do the work themselves.\n\n:::callout{icon=file title=\"Get an appraisal of your archive\"}\nTell us roughly what you hold, and we will recommend the right approach, in-house or managed. [Explore bureau services](/about/bureau-services).\n:::\n",
+    "body": "Many organisations hold thousands of paper drawings, from A3 sheets to A0+ plans and maps. Together they record how facilities, buildings and infrastructure were actually built. One fire, flood or leaking roof can destroy them, and so can decades of handling. Digitising the archive protects it, and it also makes the information much easier to use.\n\n## Why paper archives are at risk\n\nPaper archives usually decline slowly and without anyone noticing. Sheets tear along their folds. Diazo prints fade. Drawings are borrowed and never returned. Sometimes the only person who knows where a drawing is filed retires. When a drawing is finally needed for a modification, an inspection or a dispute, it may be damaged or missing.\n\nA digital archive removes most of these risks. Scanned drawings can be copied, backed up, searched and shared without the original ever leaving storage.\n\n## Step 1: Survey and prioritise\n\nBefore any scanning begins, find out what you have:\n\n- **Volume and sizes:** roughly how many sheets there are in each size, from A4 and A3 up to A0 and oversized rolls.\n- **Condition:** fragile, torn or taped sheets need careful handling and may call for a different scanner or feed.\n- **Content type:** black-and-white line drawings, colour maps, and marked-up or annotated prints.\n- **Business value:** which drawings describe live assets that will be modified or inspected. Scan these first.\n\n## Step 2: Scan at the right settings\n\nLarge-format scanners such as Contex capture sheets up to 44″ and 60″ wide at unlimited length, in monochrome or colour. A few settings make a big difference to the result:\n\n- **Colour mode:** monochrome or greyscale suits most line drawings and keeps files small. Use colour for maps, coloured markups and anything where colour carries meaning.\n- **Resolution:** for engineering line drawings, 300 to 400 dpi is a common choice. Very fine detail or small text may need more.\n- **Clean-up:** deskewing, despeckling and background removal make scans easier to read and give better results if the drawing is later converted to CAD.\n- **File format:** multi-page TIFF or PDF are common archive formats. Agree on one standard at the start and keep to it.\n\nAvision A3/A4 document scanners handle the smaller documents that usually sit next to the drawings, such as specifications, letters and data sheets.\n\n## Step 3: Decide what needs to become CAD\n\nNot every drawing needs converting to vector. A scanned image is enough for reference. But drawings of assets that will be modified are worth converting to editable CAD.\n\n- **Raster editing:** tools such as GTXRaster CAD and Autodesk Raster Design let you edit the scanned image directly, which is useful for quick revisions.\n- **Raster-to-vector conversion:** GTXImage CAD and similar tools turn raster linework into CAD entities that can be used in AutoCAD or MicroStation.\n- **Hybrid drawings:** keeping the scan as a background underlay and redrawing only the areas that change is often the most cost-effective option.\n\n## Step 4: Index, store and retrieve\n\nA digital archive is only useful if people can find things in it. Set naming conventions and metadata early, including drawing number, title, revision, facility and discipline. Store files in a managed location with backups. A document management system such as FileHold adds search, version control and access permissions, so the right people can find the right drawing quickly.\n\nFor storage, choose whatever suits your IT environment: a network storage location (NAS), external drives, or optical media for offline copies. For important records, keep more than one copy, in more than one place.\n\n## In-house or bureau service?\n\nThere are two ways to run a digitisation project:\n\n1. **In-house:** CDSS supplies, installs and supports the scanners and software on your premises, and trains your staff to run them. This suits organisations with ongoing scanning needs or drawings that must not leave site.\n2. **Managed bureau service:** CDSS scans, converts and archives the drawings for you, using Contex scanners, HP DesignJet plotters and GTX conversion software. This suits one-off backlogs, or teams without the capacity to do the work themselves.\n\n:::callout{icon=file title=\"Get an appraisal of your archive\"}\nTell us roughly what you hold, and we will recommend the right approach, in-house or managed. [Explore bureau services](/about/bureau-services).\n:::\n",
     "featured": false,
     "publishedOn": "2026-05-06"
   },
@@ -971,7 +979,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "ansys"
     ],
     "status": "published",
-    "body": "Pipelines are among the most valuable assets an oil & gas operator owns, and among the hardest to inspect and maintain. When an inspection run finds wall loss, a dent or a crack-like feature, the engineering team has to answer quickly and defensibly: is the line fit to keep operating, and for how long?\n\n## Ageing assets, higher stakes\n\nMany pipelines run in harsh conditions, including humid coastal environments, swamp crossings, offshore risers and produced fluids that can be corrosive. Over time, wall loss and mechanical damage build up. A failure can cost far more than lost production, with safety, environmental and reputational consequences as well.\n\nThat is why integrity management has become a discipline in its own right. It depends on consistent, repeatable engineering calculations.\n\n## Fitness-for-service assessment\n\nFitness-for-service (FFS) assessment checks whether a pipeline with a known defect can keep operating at its current pressure, needs to be de-rated, or must be repaired. Engineers use recognised methods such as ASME B31G for corroded pipelines. They assess each defect using its measured dimensions, the pipe properties and the operating conditions.\n\nDoing this by hand or in unmanaged spreadsheets is slow and error-prone, especially when an inline inspection reports hundreds of features. Dedicated integrity software applies the methods consistently and documents every assumption.\n\n## Corrosion evaluation and remaining life\n\nA single inspection gives a snapshot. Comparing inspections over time shows the corrosion rate, and that makes it possible to estimate remaining life and plan the next inspection or repair before a defect becomes critical. Integrity software helps turn inspection data into a maintenance plan with clear priorities.\n\n## Standardised design calculations\n\nIntegrity starts at design. Wall thickness selection, pressure ratings and crossing designs all set the margins an operator will depend on for decades. Standard calculation tools help different engineers and contractors produce consistent results across a portfolio of projects.\n\n## Connecting integrity to design and analysis\n\nPipeline integrity work rarely happens on its own. Piping stress analysis in AutoPIPE, detailed finite element analysis in ANSYS and plant models in OpenPlant all feed into, or depend on, integrity decisions. When these tools come from one partner that also supports them, teams spend less time sorting out licensing and more time on the engineering.\n\n## Training the people behind the numbers\n\nSoftware is only as reliable as the engineer using it. Technical Toolboxes pairs its pipeline engineering software with industry-standard training, and CDSS delivers that training locally alongside ongoing technical support. That way, engineers understand the methods behind each result as well as the buttons.\n\n:::callout{icon=shield title=\"Pipeline engineering tools, supported locally\"}\nCDSS supplies and supports Technical Toolboxes' pipeline integrity, corrosion and design software for Nigeria's upstream and midstream sector. [Explore Technical Toolboxes](/products/technical-toolboxes).\n:::\n",
+    "body": "Pipelines are among the most valuable assets an oil & gas operator owns, and among the hardest to inspect and maintain. When an inspection run finds wall loss, a dent or a crack-like feature, the engineering team has to answer quickly and defensibly: is the line fit to keep operating, and for how long?\n\n## Ageing assets, higher stakes\n\nMany pipelines run in harsh conditions, including humid coastal environments, swamp crossings, offshore risers and produced fluids that can be corrosive. Over time, wall loss and mechanical damage build up. A failure can cost far more than lost production, with safety, environmental and reputational consequences as well.\n\nThat is why integrity management has become a discipline in its own right. It depends on consistent, repeatable engineering calculations.\n\n## Fitness-for-service assessment\n\nFitness-for-service (FFS) assessment checks whether a pipeline with a known defect can keep operating at its current pressure, needs to be de-rated, or must be repaired. Engineers use recognised methods such as ASME B31G for corroded pipelines. They assess each defect using its measured dimensions, the pipe properties and the operating conditions.\n\nDoing this by hand or in unmanaged spreadsheets is slow and error-prone, especially when an inline inspection reports hundreds of features. Dedicated integrity software applies the methods consistently and documents every assumption.\n\n## Corrosion evaluation and remaining life\n\nA single inspection gives a snapshot. Comparing inspections over time shows the corrosion rate, and that makes it possible to estimate remaining life and plan the next inspection or repair before a defect becomes critical. Integrity software helps turn inspection data into a maintenance plan with clear priorities.\n\n## Standardised design calculations\n\nIntegrity starts at design. Wall thickness selection, pressure ratings and crossing designs all set the margins an operator will depend on for decades. Standard calculation tools help different engineers and contractors produce consistent results across a portfolio of projects.\n\n## Connecting integrity to design and analysis\n\nPipeline integrity work rarely happens on its own. Piping stress analysis in AutoPIPE, detailed finite element analysis in Ansys and plant models in OpenPlant all feed into, or depend on, integrity decisions. When these tools come from one partner that also supports them, teams spend less time sorting out licensing and more time on the engineering.\n\n## Training the people behind the numbers\n\nSoftware is only as reliable as the engineer using it. Technical Toolboxes pairs its pipeline engineering software with industry-standard training, and CDSS delivers that training locally alongside ongoing technical support. That way, engineers understand the methods behind each result as well as the buttons.\n\n:::callout{icon=shield title=\"Pipeline engineering tools, supported locally\"}\nCDSS supplies and supports Technical Toolboxes' pipeline integrity, corrosion and design software for Nigeria's upstream and midstream sector. [Explore Technical Toolboxes](/products/technical-toolboxes).\n:::\n",
     "featured": false,
     "publishedOn": "2026-08-12"
   },
@@ -982,7 +990,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
     "title": "Simulate before you build: how engineering simulation reduces project risk",
     "excerpt": "Fixing a design problem on the computer costs far less than fixing it on site. Here is where engineering simulation fits alongside design tools, and how to get results you can trust.",
     "tags": [
-      "ANSYS",
+      "Ansys",
       "Simulation",
       "Engineering"
     ],
@@ -991,7 +999,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "bentley"
     ],
     "status": "published",
-    "body": "Fixing a design problem costs the least before anything is built. Engineering simulation lets teams test how a component, structure or system will behave under real loads, temperatures and flows while changes are still cheap to make.\n\n## Why simulate?\n\nCode-based design methods are reliable for standard situations. But many engineering problems don't fit the standard cases: unusual geometry, combined loads, local stress concentrations, heat transfer or complex fluid behaviour. Simulation fills that gap. It shows where stresses concentrate, how heat moves through a component and how fluid flows, which a hand calculation can only approximate.\n\n- **Fewer surprises:** find weak points and failure modes before fabrication.\n- **Better designs:** compare options quickly and optimise for weight, cost or performance.\n- **Fewer physical prototypes:** use testing to confirm a design rather than to discover problems.\n- **Defensible decisions:** give clients, certifying bodies and insurers clear evidence of how the design will perform.\n\n## Structural, thermal, fluid, or all three\n\nANSYS covers the main physics engineering teams need. That includes structural mechanics and stress analysis, heat transfer and thermal simulation, and computational fluid dynamics (CFD). Many real problems involve more than one: a hot component expands and causes stress, and a flowing fluid loads a structure. Multiphysics simulation couples these effects so the model behaves like the real thing.\n\n## Where simulation fits alongside design tools\n\nSimulation adds to design tools; it doesn't replace them. A typical workflow uses:\n\n1. **Design and code checks** in tools such as STAAD.Pro for structures or AutoPIPE for piping systems.\n2. **Detailed simulation** in ANSYS for components, connections or conditions outside the standard code cases.\n3. **Design updates** fed back into the CAD or BIM model, so drawings and models stay consistent.\n\n## Getting results you can trust\n\nA colourful contour plot is not the same as a correct answer. Reliable simulation depends on good practice:\n\n- Represent supports, loads and contacts realistically. Boundary conditions cause more errors than anything else.\n- Check mesh quality, and refine the mesh until the results stop changing meaningfully.\n- Sense-check results against hand calculations or known solutions.\n- Use appropriate material data, and understand where linear assumptions stop being valid.\n- Document assumptions so that a reviewer can follow and repeat the analysis.\n\n## Building in-house capability\n\nSimulation delivers the most value when engineers use it regularly, not as a rare specialist exercise. That takes the right licences, structured training and someone to call when a model misbehaves. CDSS provides all three, and ANSYS sits within the same training and support model we use across our whole portfolio.\n\n:::callout{icon=cpu title=\"Explore engineering simulation\"}\nTalk to us about ANSYS licensing, training and support for your engineering team. [Explore ANSYS](/products/ansys).\n:::\n",
+    "body": "Fixing a design problem costs the least before anything is built. Engineering simulation lets teams test how a component, structure or system will behave under real loads, temperatures and flows while changes are still cheap to make.\n\n## Why simulate?\n\nCode-based design methods are reliable for standard situations. But many engineering problems don't fit the standard cases: unusual geometry, combined loads, local stress concentrations, heat transfer or complex fluid behaviour. Simulation fills that gap. It shows where stresses concentrate, how heat moves through a component and how fluid flows, which a hand calculation can only approximate.\n\n- **Fewer surprises:** find weak points and failure modes before fabrication.\n- **Better designs:** compare options quickly and optimise for weight, cost or performance.\n- **Fewer physical prototypes:** use testing to confirm a design rather than to discover problems.\n- **Defensible decisions:** give clients, certifying bodies and insurers clear evidence of how the design will perform.\n\n## Structural, thermal, fluid, or all three\n\nAnsys covers the main physics engineering teams need. That includes structural mechanics and stress analysis, heat transfer and thermal simulation, and computational fluid dynamics (CFD). Many real problems involve more than one: a hot component expands and causes stress, and a flowing fluid loads a structure. Multiphysics simulation couples these effects so the model behaves like the real thing.\n\n## Where simulation fits alongside design tools\n\nSimulation adds to design tools; it doesn't replace them. A typical workflow uses:\n\n1. **Design and code checks** in tools such as STAAD.Pro for structures or AutoPIPE for piping systems.\n2. **Detailed simulation** in Ansys for components, connections or conditions outside the standard code cases.\n3. **Design updates** fed back into the CAD or BIM model, so drawings and models stay consistent.\n\n## Getting results you can trust\n\nA colourful contour plot is not the same as a correct answer. Reliable simulation depends on good practice:\n\n- Represent supports, loads and contacts realistically. Boundary conditions cause more errors than anything else.\n- Check mesh quality, and refine the mesh until the results stop changing meaningfully.\n- Sense-check results against hand calculations or known solutions.\n- Use appropriate material data, and understand where linear assumptions stop being valid.\n- Document assumptions so that a reviewer can follow and repeat the analysis.\n\n## Building in-house capability\n\nSimulation delivers the most value when engineers use it regularly, not as a rare specialist exercise. That takes the right licences, structured training and someone to call when a model misbehaves. CDSS provides all three, and Ansys sits within the same training and support model we use across our whole portfolio.\n\n:::callout{icon=cpu title=\"Explore engineering simulation\"}\nTalk to us about Ansys licensing, training and support for your engineering team. [Explore Ansys](/products/ansys).\n:::\n",
     "featured": false,
     "publishedOn": "2026-09-15"
   }

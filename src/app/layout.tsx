@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     template: '%s | CDSS (Nig.) Limited',
   },
   description:
-    "Nigeria's first CADD technology company. Authorised partner for Autodesk, Bentley, Seequent, ANSYS, Technical Toolboxes, Contex and more — with certified training and local support since 1989.",
+    "Nigeria's first CADD technology company. Authorised partner for Autodesk, Bentley, Seequent, Ansys, Technical Toolboxes, Contex and more — with certified training and local support since 1989.",
   applicationName: 'CDSS (Nig.) Limited',
   icons: { icon: '/brand/cdss-logo.png' },
   openGraph: { type: 'website', siteName: 'CDSS (Nig.) Limited', locale: 'en_NG' },
@@ -24,7 +24,7 @@ export const viewport: Viewport = { themeColor: '#0d0a86' };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-NG" className={`${inter.variable} ${jakarta.variable}`} suppressHydrationWarning>
+    <html lang="en-NG" className={`${inter.variable} ${jakarta.variable}`} data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
         {/* Enables scroll-reveal styles only when JS runs, so content is never hidden without it. */}
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />

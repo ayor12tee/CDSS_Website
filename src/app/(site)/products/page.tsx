@@ -10,7 +10,7 @@ import { CtaBand } from '@/components/layout/CtaBand';
 export const metadata: Metadata = {
   title: 'Solutions & Product Lines',
   description:
-    'Software and hardware from every vendor CDSS is authorised to sell, license, train and support — Autodesk, Bentley, Seequent, ANSYS, Technical Toolboxes, Contex and Avision.',
+    'Software and hardware from every vendor CDSS is authorised to sell, license, train and support — Autodesk, Bentley, Seequent, Ansys, Technical Toolboxes, Contex and Avision.',
   alternates: { canonical: '/products' },
 };
 
