@@ -6,7 +6,7 @@ import { CtaBand } from '@/components/layout/CtaBand';
 
 export const metadata: Metadata = {
   title: 'Vendor Partners',
-  description: 'CDSS is an authorised vendor and distributor for Autodesk, Bentley, Seequent, ANSYS, Technical Toolboxes, Contex, Avision, CYPE, MasterSeries, GTX and more.',
+  description: 'CDSS is an authorised vendor and distributor for Autodesk, Bentley, Seequent, Ansys, Technical Toolboxes, Contex, Avision, CYPE, MasterSeries, GTX and more.',
   alternates: { canonical: '/about/vendor-partners' },
 };
 

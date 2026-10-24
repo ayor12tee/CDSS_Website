@@ -44,7 +44,7 @@ export function buildNav(industries: Industry[]): NavItem[] {
         {
           heading: 'Simulation & Pipeline',
           links: [
-            { title: 'ANSYS', desc: 'Structural, thermal & CFD simulation', href: '/products/ansys' },
+            { title: 'Ansys', desc: 'Structural, thermal & CFD simulation', href: '/products/ansys' },
             { title: 'Technical Toolboxes', desc: 'Pipeline integrity & design', href: '/products/technical-toolboxes' },
             { title: 'All vendor partners', desc: 'Every authorised vendor relationship', href: '/about/vendor-partners' },
           ],

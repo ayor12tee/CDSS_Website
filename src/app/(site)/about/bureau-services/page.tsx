@@ -43,7 +43,7 @@ export default function BureauServicesPage() {
           <SectionHead center eyebrow="The process" title="From paper to protected digital asset." />
           <Steps
             steps={[
-              ['Scan', 'Paper drawings and maps up to A0+ (44″ wide), any length, in monochrome or colour.'],
+              ['Scan', 'Paper drawings and maps from A4 to A0+ and wider, at any length, in monochrome or colour.'],
               ['Convert', 'Raster-to-vector conversion of scanned drawings and maps where you need editable CAD files.'],
               ['Store', 'Saved securely to CD, DVD, a network storage location (NAS) or your own external drive.'],
               ['Retrieve', 'Retrieve, print, edit or reference any drawing whenever you need it, long after the original paper is gone.'],
@@ -67,7 +67,7 @@ export default function BureauServicesPage() {
             </div>
             <h3>Software behind the service</h3>
             <CheckList
-              items={['Bentley and Autodesk raster/CAD tools', 'GTX RasterCAD and ImageCAD for raster-to-vector conversion', 'FileHold for document management and archiving']}
+              items={['Bentley and Autodesk raster/CAD tools', 'GTXRaster CAD and GTXImage CAD for raster editing and raster-to-vector conversion', 'FileHold for document management and archiving']}
             />
           </div>
         </div>

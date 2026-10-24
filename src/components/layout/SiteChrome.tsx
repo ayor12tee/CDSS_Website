@@ -24,7 +24,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
           foundingDate: '1989',
           email: company.email,
           telephone: company.phones[0],
-          address: { '@type': 'PostalAddress', streetAddress: company.address, addressCountry: 'NG' },
+          address: { '@type': 'PostalAddress', streetAddress: company.address, addressLocality: 'Lagos', addressCountry: 'NG' },
         }}
       />
       <Header nav={buildNav(industries)} company={company} announcement={settings.announcement} />

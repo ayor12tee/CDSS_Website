@@ -18,7 +18,7 @@ const COURSES: [string, string, string][] = [
   ['Autodesk', 'AutoCAD, Revit, Civil 3D, Inventor, Navisworks', '/products/autodesk'],
   ['Bentley Systems', 'MicroStation, STAAD.Pro, AutoPIPE, OpenPlant, OpenRoads', '/products/bentley'],
   ['Seequent', 'Leapfrog Geo, MX Deposit, Oasis montaj', '/products/seequent'],
-  ['ANSYS', 'Structural, thermal and fluid simulation', '/products/ansys'],
+  ['Ansys', 'Structural, thermal and fluid simulation', '/products/ansys'],
   ['Technical Toolboxes', 'Pipeline integrity and design engineering', '/products/technical-toolboxes'],
   ['CAD-to-BIM Programme', 'Role-based transition from 2D CAD to BIM', '/publications/cad-to-bim-transition-guide'],
 ];
@@ -71,9 +71,9 @@ export default async function TrainingPage() {
               items={[
                 'Vendor-certified instructors across every product line',
                 'Corporate training for teams, and personal training for individuals',
-                'Certified tracks, including delivery as a Bentley Institute training partner',
+                "Certified tracks, including Bentley's official curriculum as a Bentley training partner",
                 'CAD-to-BIM transition programme for design offices',
-                'Postgraduate education in partnership with Zigurat Global Institute of Technology',
+                'Postgraduate education in partnership with ZIGURAT Institute of Technology',
               ]}
             />
           </div>
