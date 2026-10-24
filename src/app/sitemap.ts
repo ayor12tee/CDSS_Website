@@ -1,15 +1,16 @@
 import type { MetadataRoute } from 'next';
 import { SITE_URL } from '@/content/site';
-import { getIndustries, getProducts, getPublications } from '@/lib/content';
+import { getIndustries, getProducts, getPublications, getWebinars } from '@/lib/content';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const [products, industries, publications] = await Promise.all([getProducts(), getIndustries(), getPublications()]);
+  const [products, industries, publications, webinars] = await Promise.all([getProducts(), getIndustries(), getPublications(), getWebinars()]);
 
   const pages = [
     '',
     '/products',
     '/industries',
     '/training',
+    '/webinars',
     '/publications',
     '/about',
     '/about/profile',
@@ -22,6 +23,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     '/contact',
     ...products.map(p => `/products/${p.slug}`),
     ...industries.map(i => `/industries/${i.slug}`),
+    ...webinars.map(w => `/webinars/${w.slug}`),
   ].map(path => ({ url: `${SITE_URL}${path}`, changeFrequency: 'monthly' as const, priority: path === '' ? 1 : 0.7 }));
 
   const articles = publications.map(p => ({

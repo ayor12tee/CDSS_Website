@@ -25,6 +25,7 @@ export function Footer({ company, industries, products }: FooterProps) {
         ['Guides', '/publications?category=guides'],
         ['News', '/about/news'],
         ['Training', '/training#training'],
+        ['Webinars', '/webinars'],
         ['Support Plans', '/training#support'],
         ['Remote Support', '/training#remote'],
       ],

@@ -4,7 +4,8 @@ import { redirect } from 'next/navigation';
 import { z } from 'zod';
 import { requireUser } from '@/lib/auth';
 import { requireDb } from '@/lib/supabase';
-import { fromClient, fromFaq, fromIndustry, fromPartner, fromProduct, fromPublication } from '@/lib/mappers';
+import { fromClient, fromFaq, fromIndustry, fromPartner, fromProduct, fromPublication, fromWebinar } from '@/lib/mappers';
+import { isTeamsUrl, lagosToIso, youtubeId } from '@/lib/webinars';
 import { ICON_NAMES } from '@/components/ui/Icon';
 import { bool, csv, fail, fromDb, fromZod, int, lines, many, ok, optional, revalidateSite, str, toSlug } from './form';
 import type { ActionState } from './state';
@@ -91,6 +92,55 @@ export async function savePublication(_prev: ActionState, fd: FormData): Promise
 
 export async function deletePublication(id: string) {
   await remove('publications', id, '/admin/publications');
+}
+
+// ---------------------------------------------------------------------------
+// Webinars
+// ---------------------------------------------------------------------------
+const webinarSchema = z.object({
+  title: text(200, true),
+  slug,
+  summary: text(400, true),
+  description: z.string().max(50_000),
+  date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Choose a date'),
+  time: z.string().regex(/^\d{2}:\d{2}$/, 'Choose a start time'),
+  durationMinutes: z.number().int().min(5, 'At least 5 minutes').max(600, 'At most 10 hours'),
+  speakers: z.array(z.string().trim().min(1).max(160)).max(12),
+  products: list,
+  registrationUrl: z.string().trim().max(2000).nullable(),
+  recordingUrl: z.string().trim().max(500).nullable(),
+  published: z.boolean(),
+});
+
+export async function saveWebinar(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireUser();
+  const parsed = webinarSchema.safeParse({
+    title: str(fd, 'title'),
+    slug: str(fd, 'slug') || toSlug(str(fd, 'title')),
+    summary: str(fd, 'summary'),
+    description: String(fd.get('description') ?? ''),
+    date: str(fd, 'date'),
+    time: str(fd, 'time'),
+    durationMinutes: int(fd, 'durationMinutes', 60),
+    speakers: lines(fd, 'speakers'),
+    products: many(fd, 'products'),
+    registrationUrl: optional(fd, 'registrationUrl'),
+    recordingUrl: optional(fd, 'recordingUrl'),
+    published: bool(fd, 'published'),
+  });
+  if (!parsed.success) return fromZod(parsed.error);
+  const { date, time, ...w } = parsed.data;
+  if (w.registrationUrl && !isTeamsUrl(w.registrationUrl)) {
+    return fail('Use the registration link from Microsoft Teams.', { registrationUrl: 'Paste a https://teams.microsoft.com or events.teams.microsoft.com link' });
+  }
+  if (w.recordingUrl && !youtubeId(w.recordingUrl)) {
+    return fail('The recording link must be a YouTube video.', { recordingUrl: 'Paste the YouTube link, e.g. https://youtu.be/…' });
+  }
+  return upsert('webinars', 'webinar', str(fd, 'id'), fromWebinar({ ...w, startsAt: lagosToIso(date, time) }), '/admin/webinars');
+}
+
+export async function deleteWebinar(id: string) {
+  await remove('webinars', id, '/admin/webinars');
 }
 
 // ---------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 // Admin-side reads. Unlike src/lib/content.ts these include drafts and unpublished items.
 import 'server-only';
 import { mediaPublicUrl, requireDb } from '@/lib/supabase';
-import { USER_COLUMNS, toAdminUser, toClient, toFaq, toIndustry, toMedia, toPartner, toProduct, toPublication, toSubmission } from '@/lib/mappers';
+import { USER_COLUMNS, toAdminUser, toClient, toFaq, toIndustry, toMedia, toPartner, toProduct, toPublication, toSubmission, toWebinar } from '@/lib/mappers';
 import { seedSettings } from '@/content/seed';
 import type { SiteSettings } from '@/lib/types';
 
@@ -22,6 +22,16 @@ export async function listPublications(status?: 'draft' | 'published') {
 }
 export async function getPublicationById(id: string) {
   return row(await requireDb().from('publications').select('*').eq('id', id).maybeSingle(), toPublication);
+}
+
+/** All webinars, newest first. Null when the webinars table has not been created yet. */
+export async function listWebinars() {
+  const res = await requireDb().from('webinars').select('*').order('starts_at', { ascending: false });
+  if (res.error?.code === '42P01' || res.error?.code === 'PGRST205') return null;
+  return rows(res, toWebinar);
+}
+export async function getWebinarById(id: string) {
+  return row(await requireDb().from('webinars').select('*').eq('id', id).maybeSingle(), toWebinar);
 }
 
 export async function listProducts() {

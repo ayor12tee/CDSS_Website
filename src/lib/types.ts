@@ -94,6 +94,27 @@ export interface Publication {
   updatedAt?: string;
 }
 
+export interface Webinar {
+  id: string;
+  slug: string;
+  title: string;
+  summary: string;
+  /** Markdown */
+  description: string;
+  /** ISO timestamp (UTC) */
+  startsAt: string;
+  durationMinutes: number;
+  /** one per line, e.g. "Jane Doe, BIM Manager" */
+  speakers: string[];
+  /** related product slugs */
+  products: string[];
+  /** Microsoft Teams webinar registration page */
+  registrationUrl: string | null;
+  /** YouTube video URL */
+  recordingUrl: string | null;
+  published: boolean;
+}
+
 export interface Partner {
   id: string;
   name: string;

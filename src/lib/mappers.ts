@@ -1,5 +1,5 @@
 // Database row <-> domain object mapping (snake_case columns -> camelCase types).
-import type { AdminUser, Client, Faq, Industry, MediaItem, Partner, Product, Publication, Submission } from './types';
+import type { AdminUser, Client, Faq, Industry, MediaItem, Partner, Product, Publication, Submission, Webinar } from './types';
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 type Row = Record<string, any>;
@@ -130,6 +130,35 @@ export const fromPartner = (p: Omit<Partner, 'id'>) => ({
   description: p.description,
   product_slug: p.productSlug,
   sort_order: p.sortOrder,
+});
+
+export const toWebinar = (r: Row): Webinar => ({
+  id: r.id,
+  slug: r.slug,
+  title: r.title,
+  summary: r.summary,
+  description: r.description ?? '',
+  startsAt: r.starts_at,
+  durationMinutes: r.duration_minutes,
+  speakers: r.speakers ?? [],
+  products: r.products ?? [],
+  registrationUrl: r.registration_url,
+  recordingUrl: r.recording_url,
+  published: r.published,
+});
+
+export const fromWebinar = (w: Omit<Webinar, 'id'>) => ({
+  slug: w.slug,
+  title: w.title,
+  summary: w.summary,
+  description: w.description,
+  starts_at: w.startsAt,
+  duration_minutes: w.durationMinutes,
+  speakers: w.speakers,
+  products: w.products,
+  registration_url: w.registrationUrl,
+  recording_url: w.recordingUrl,
+  published: w.published,
 });
 
 export const toClient = (r: Row): Client => ({ id: r.id, name: r.name, group: r.client_group, onLogoWall: r.on_logo_wall, sortOrder: r.sort_order });
