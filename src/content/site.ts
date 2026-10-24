@@ -96,6 +96,7 @@ export function buildNav(industries: Industry[]): NavItem[] {
         { title: 'Certified Training', desc: 'In person in Lagos or online via Zoom & Teams', href: '/training#training' },
         { title: 'Support Plans', desc: 'Three tiers, from phone & email to on-site', href: '/training#support' },
         { title: 'Remote Support', desc: 'Fast diagnosis via AnyDesk', href: '/training#remote' },
+        { title: 'Webinars', desc: 'Live sessions on Teams, plus recordings', href: '/webinars' },
       ],
     },
     {
@@ -131,7 +132,7 @@ export function buildNav(industries: Industry[]): NavItem[] {
 export function navKeyFor(pathname: string): string {
   if (pathname.startsWith('/products') || pathname.startsWith('/about/bureau-services') || pathname.startsWith('/bim-implementation')) return 'solutions';
   if (pathname.startsWith('/industries')) return 'industries';
-  if (pathname.startsWith('/training')) return 'training';
+  if (pathname.startsWith('/training') || pathname.startsWith('/webinars')) return 'training';
   if (pathname.startsWith('/publications') || pathname.startsWith('/about/news')) return 'publications';
   if (pathname.startsWith('/about')) return 'about';
   if (pathname.startsWith('/contact')) return 'contact';

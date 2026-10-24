@@ -3,8 +3,8 @@
 import 'server-only';
 import { cache } from 'react';
 import { getDb } from './supabase';
-import { readTime, toClient, toFaq, toIndustry, toPartner, toProduct, toPublication } from './mappers';
-import type { Client, Faq, FaqSection, Industry, Partner, Product, Publication, SiteSettings } from './types';
+import { readTime, toClient, toFaq, toIndustry, toPartner, toProduct, toPublication, toWebinar } from './mappers';
+import type { Client, Faq, FaqSection, Industry, Partner, Product, Publication, SiteSettings, Webinar } from './types';
 import { seedClients, seedFaqs, seedIndustries, seedPartners, seedProducts, seedPublications, seedSettings } from '@/content/seed';
 
 const withSeedIds = <T,>(items: T[], prefix: string) => items.map((item, i) => ({ ...item, id: `${prefix}-${i}` }));
@@ -77,6 +77,23 @@ export const getPublications = cache(async (): Promise<Publication[]> => {
 
 export async function getPublication(slug: string) {
   return (await getPublications()).find(p => p.slug === slug);
+}
+
+/** Published webinars, soonest first. Empty without Supabase or before the webinars migration has run. */
+export const getWebinars = cache(async (): Promise<Webinar[]> => {
+  const db = getDb();
+  if (!db) return [];
+  const { data, error } = await db.from('webinars').select('*').eq('published', true).order('starts_at');
+  if (error) {
+    // a missing table just means the webinars migration hasn't been run yet
+    if (error.code !== '42P01' && error.code !== 'PGRST205') console.error('[content] Failed to load webinars from Supabase.', error);
+    return [];
+  }
+  return data.map(toWebinar);
+});
+
+export async function getWebinar(slug: string) {
+  return (await getWebinars()).find(w => w.slug === slug);
 }
 
 export const getPartners = cache(async (): Promise<Partner[]> => {

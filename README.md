@@ -3,7 +3,7 @@
 Website, publications hub and admin dashboard for **CDSS (Nig.) Limited**. Built with [Next.js 16](https://nextjs.org) (App Router), React 19, TypeScript and [Supabase](https://supabase.com) (Postgres + Storage).
 
 - **Public site:** pre-rendered static pages. Content comes from Supabase and each page refreshes automatically when content is saved in the admin.
-- **Admin dashboard** (`/admin`): publications (Markdown editor with live preview), products, industries, vendor partners, clients, FAQs, site settings, media library, enquiry inbox, newsletter subscribers and user management.
+- **Admin dashboard** (`/admin`): publications (Markdown editor with live preview), webinars, products, industries, vendor partners, clients, FAQs, site settings, media library, enquiry inbox, newsletter subscribers and user management.
 - **Sign-in:** built-in email and password, plus a **one-time code from an authenticator app** (two-factor authentication) for every account. No third-party auth service.
 
 ## Getting started
@@ -25,8 +25,17 @@ On first sign-in you will scan a QR code with an authenticator app (Google Authe
 | `npm run build` / `npm start` | Production build / serve it |
 | `npm run lint` · `npm run typecheck` | ESLint · TypeScript |
 | `npm run db:seed` | Load the built-in content into empty tables (`-- --force` replaces all content) |
+| `npm run db:sync` | Preview pushing edits in `src/content/seed.ts` into an existing database (`-- --apply` writes them; never deletes) |
 | `npm run user:create -- --email … --name … --role admin\|editor` | Create a user, or reset an existing user's password and two-factor setup |
 | `npm run illustrations` | Regenerate the blueprint SVGs in `public/img/` |
+
+## Webinars
+
+`/webinars` lists upcoming sessions (registration happens on Microsoft Teams) and recordings of past ones (YouTube videos played on the page). Add them in **Admin → Webinars**.
+
+- **Setup:** run `supabase/migrations/20261025000000_webinars.sql` once in the Supabase SQL Editor. Until then the page shows "no sessions" and the admin shows a setup notice.
+- **Before a session:** create a webinar in Teams, copy its registration page link, and add it in the admin with the date and start time (Lagos time).
+- **After a session:** upload the recording to YouTube (public or unlisted, not private) and paste the link into the webinar. Sessions move from "Upcoming" to "Recordings" by themselves once they end; the page refreshes every 15 minutes.
 
 ## Environment
 

@@ -31,6 +31,7 @@ export function AdminShell({ role, unread, children, footer }: AdminNavProps) {
       heading: 'Content',
       items: [
         { href: '/admin/publications', label: 'Publications', icon: 'file' },
+        { href: '/admin/webinars', label: 'Webinars', icon: 'calendar' },
         { href: '/admin/products', label: 'Products', icon: 'layers' },
         { href: '/admin/industries', label: 'Industries', icon: 'building' },
         { href: '/admin/partners', label: 'Vendor partners', icon: 'handshake' },
