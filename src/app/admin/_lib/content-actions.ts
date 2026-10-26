@@ -18,6 +18,13 @@ const slug = z
 const text = (max: number, required = false) => (required ? z.string().trim().min(1, 'Required').max(max) : z.string().trim().max(max));
 const list = z.array(z.string().trim().min(1).max(300)).max(60);
 const icon = z.enum(ICON_NAMES as [string, ...string[]]);
+/** Optional image: an https URL, a site path (/img/…) or a built-in illustration name; empty means none. */
+const imageRef = z
+  .string()
+  .trim()
+  .max(500)
+  .regex(/^(https:\/\/\S+|\/[\w./-]+|[a-z0-9-]+)?$/, 'Choose an image, or paste a link starting with https://')
+  .transform(v => v || null);
 
 /** Insert or update a row, then send the editor to the right place. */
 async function upsert(table: string, what: string, id: string, values: Record<string, unknown>, listPath: string): Promise<ActionState> {
@@ -264,6 +271,8 @@ const productSchema = z.object({
   industries: list,
   sortOrder: z.number().int(),
   published: z.boolean(),
+  logo: imageRef,
+  image: imageRef,
 });
 
 export async function saveProduct(_prev: ActionState, fd: FormData): Promise<ActionState> {
@@ -281,6 +290,8 @@ export async function saveProduct(_prev: ActionState, fd: FormData): Promise<Act
     industries: many(fd, 'industries'),
     sortOrder: int(fd, 'sortOrder'),
     published: bool(fd, 'published'),
+    logo: str(fd, 'logo'),
+    image: str(fd, 'image'),
   });
   if (!parsed.success) return fromZod(parsed.error);
   return upsert('products', 'product', str(fd, 'id'), fromProduct(parsed.data), '/admin/products');
@@ -375,6 +386,7 @@ const clientSchema = z.object({
   group: z.string().trim().max(80).nullable(),
   onLogoWall: z.boolean(),
   sortOrder: z.number().int(),
+  logo: imageRef,
 });
 
 export async function saveClient(_prev: ActionState, fd: FormData): Promise<ActionState> {
@@ -384,6 +396,7 @@ export async function saveClient(_prev: ActionState, fd: FormData): Promise<Acti
     group: str(fd, 'group') === '__new' ? optional(fd, 'newGroup') : optional(fd, 'group'),
     onLogoWall: bool(fd, 'onLogoWall'),
     sortOrder: int(fd, 'sortOrder'),
+    logo: str(fd, 'logo'),
   });
   if (!parsed.success) return fromZod(parsed.error);
   if (!parsed.data.group && !parsed.data.onLogoWall) return fail('Choose a Client Base group, show the client on the home page logo wall, or both.');

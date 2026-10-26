@@ -44,6 +44,10 @@ export interface Product {
   industries: string[];
   sortOrder: number;
   published: boolean;
+  /** vendor logo: media-library or https image URL */
+  logo?: string | null;
+  /** feature image: illustration name or image URL */
+  image?: string | null;
 }
 
 export interface Capability {
@@ -133,6 +137,8 @@ export interface Client {
   group: string | null;
   onLogoWall: boolean;
   sortOrder: number;
+  /** logo image URL; the name is shown when there is none */
+  logo?: string | null;
 }
 
 export interface Faq {

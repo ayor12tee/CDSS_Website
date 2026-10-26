@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { getClientGroups } from '@/lib/content';
 import { PageHero } from '@/components/ui/PageHero';
 import { CtaBand } from '@/components/layout/CtaBand';
+import { ClientChip, clientFinePrint } from '@/components/clients/ClientMarks';
 
 export const metadata: Metadata = {
   title: 'Client Base',
@@ -27,16 +28,20 @@ export default async function ClientBasePage() {
               <h3>{group}</h3>
               <div className="client-grid">
                 {list.map(c => (
-                  <div className="client-chip" key={c}>
-                    {c}
-                  </div>
+                  <ClientChip key={c.name} name={c.name} logo={c.logo} />
                 ))}
               </div>
             </div>
           ))}
           <p className="fine-print" style={{ marginTop: 40 }}>
-            Client names come from CDSS&apos;s own public client history. Each organisation&apos;s logo is its own trademark and is deliberately not reproduced
-            here. Names are listed as a factual record of relationships, not as endorsements.
+            {clientGroups.some(([, list]) => list.some(c => c.logo)) ? (
+              <>Client names come from CDSS&apos;s own client history. {clientFinePrint(true)}</>
+            ) : (
+              <>
+                Client names come from CDSS&apos;s own public client history. Each organisation&apos;s logo is its own trademark and is deliberately not reproduced
+                here. Names are listed as a factual record of relationships, not as endorsements.
+              </>
+            )}
           </p>
         </div>
       </section>

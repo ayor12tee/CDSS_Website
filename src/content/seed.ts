@@ -44,6 +44,8 @@ export const seedProducts: Omit<Product, 'id'>[] = [
   {
     "slug": "autodesk",
     "name": "Autodesk",
+    "logo": "/brand/cdss-logo.png",
+    "image": "/img/banner-autodesk.jpg",
     "group": "Software",
     "kind": "Design & Engineering",
     "tagline": "Create precise technical drawings, develop intelligent building models, and design civil infrastructure with industry-standard CAD, BIM and infrastructure design tools.",
@@ -74,6 +76,7 @@ export const seedProducts: Omit<Product, 'id'>[] = [
   {
     "slug": "bentley",
     "name": "Bentley Systems",
+    "logo": "/brand/cdss-logo.png",
     "group": "Software",
     "kind": "Infrastructure & Industrial Engineering",
     "tagline": "Design infrastructure, analyse structural performance, and evaluate piping systems and pressure vessels with specialised engineering software.",
@@ -609,6 +612,7 @@ export const seedPartners: Omit<Partner, 'id'>[] = [
 export const seedClients: Omit<Client, 'id'>[] = [
   {
     "name": "Addax Petroleum",
+    "logo": "/brand/cdss-logo.png",
     "group": "Oil & Gas",
     "onLogoWall": true,
     "sortOrder": 0
@@ -621,6 +625,7 @@ export const seedClients: Omit<Client, 'id'>[] = [
   },
   {
     "name": "Chevron",
+    "logo": "/brand/cdss-logo.png",
     "group": "Oil & Gas",
     "onLogoWall": true,
     "sortOrder": 2

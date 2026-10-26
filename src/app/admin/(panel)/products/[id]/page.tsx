@@ -7,7 +7,8 @@ import { ConfirmButton } from '../../../_components/buttons';
 import { CheckboxField, CheckboxGroupField, LinesField, SelectField, TextAreaField, TextField } from '../../../_components/fields';
 import { PageHeader } from '../../../_components/PageHeader';
 import { deleteProduct, saveProduct } from '../../../_lib/content-actions';
-import { getProductById, listIndustries } from '../../../_lib/queries';
+import { ImagePicker } from '../../../_components/ImagePicker';
+import { getProductById, listIndustries, listMedia } from '../../../_lib/queries';
 
 export const metadata: Metadata = { title: 'Edit product' };
 
@@ -17,8 +18,9 @@ export default async function ProductEditor({ params, searchParams }: Props) {
   const [{ id }, { created }] = await Promise.all([params, searchParams]);
   const isNew = id === 'new';
   if (!isNew && !/^[0-9a-f-]{36}$/.test(id)) notFound();
-  const [p, industries] = await Promise.all([isNew ? null : getProductById(id), listIndustries()]);
+  const [p, industries, media] = await Promise.all([isNew ? null : getProductById(id), listIndustries(), listMedia()]);
   if (!isNew && !p) notFound();
+  const images = media.filter(m => m.mimeType.startsWith('image/'));
 
   return (
     <>
@@ -61,6 +63,27 @@ export default async function ProductEditor({ params, searchParams }: Props) {
                   hint="One per line. Put product names in brackets to show them as a label, e.g. “Offshore structural analysis (SACS)”."
                 />
                 <LinesField name="keyProducts" label="Key products" rows={6} defaultValue={p?.keyProducts} hint="One per line. Shown as chips on the page." />
+              </section>
+              <section className="adm-card adm-fields">
+                <h2 className="adm-section-title">Images</h2>
+                <ImagePicker
+                  name="logo"
+                  label="Logo"
+                  defaultValue={p?.logo}
+                  images={images}
+                  optional
+                  illustrations={false}
+                  fit="contain"
+                  hint="Optional. Shown on the product card and page. A PNG with a transparent background, at least 400px wide, works best. Use the vendor's official logo."
+                />
+                <ImagePicker
+                  name="image"
+                  label="Feature image"
+                  defaultValue={p?.image}
+                  images={images}
+                  optional
+                  hint="Optional. Shown at the top of the product card and beside the introduction on the product page. Wide images (16:9 or 16:10) work best."
+                />
               </section>
             </div>
             <div className="adm-grid">

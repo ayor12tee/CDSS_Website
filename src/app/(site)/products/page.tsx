@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { getProducts, getSettings } from '@/lib/content';
 import type { ProductGroup } from '@/lib/types';
 import { Icon } from '@/components/ui/Icon';
 import { PageHero } from '@/components/ui/PageHero';
-import { Eyebrow, SectionHead } from '@/components/ui/primitives';
+import { Art, Eyebrow, SectionHead } from '@/components/ui/primitives';
 import { CtaBand } from '@/components/layout/CtaBand';
 
 export const metadata: Metadata = {
@@ -55,10 +56,21 @@ export default async function ProductsPage() {
               {products
                 .filter(p => p.group === group)
                 .map(p => (
-                  <Link className="info-card" href={`/products/${p.slug}`} key={p.slug}>
-                    <div className="icon-box">
-                      <Icon name={group === 'Software' ? 'layers' : 'printer'} />
-                    </div>
+                  <Link className={`info-card${p.image ? ' has-cover' : ''}`} href={`/products/${p.slug}`} key={p.slug}>
+                    {p.image && (
+                      <div className="card-cover">
+                        <Art name={p.image} />
+                      </div>
+                    )}
+                    {p.logo ? (
+                      <div className="card-logo">
+                        <Image src={p.logo} alt={`${p.name} logo`} width={240} height={96} unoptimized />
+                      </div>
+                    ) : (
+                      <div className="icon-box">
+                        <Icon name={group === 'Software' ? 'layers' : 'printer'} />
+                      </div>
+                    )}
                     <div className="kicker">{p.kind}</div>
                     <h3>{p.name}</h3>
                     <p>{p.tagline}</p>
