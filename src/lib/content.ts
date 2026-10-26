@@ -119,17 +119,22 @@ export const getClients = cache(async (): Promise<Client[]> => {
 });
 
 /** Client Base page groups, in first-seen order. */
-export async function getClientGroups(): Promise<[string, string[]][]> {
-  const groups = new Map<string, string[]>();
+export async function getClientGroups(): Promise<[string, Client[]][]> {
+  const groups = new Map<string, Client[]>();
   for (const c of await getClients()) {
     if (!c.group) continue;
-    groups.set(c.group, [...(groups.get(c.group) ?? []), c.name]);
+    groups.set(c.group, [...(groups.get(c.group) ?? []), c]);
   }
   return [...groups.entries()];
 }
 
 export async function getLogoWall() {
-  return (await getClients()).filter(c => c.onLogoWall).map(c => c.name);
+  return (await getClients()).filter(c => c.onLogoWall);
+}
+
+/** Client name -> logo URL, for pages that list clients by name (industry pages). */
+export async function getClientLogos() {
+  return new Map((await getClients()).filter(c => c.logo).map(c => [c.name, c.logo as string]));
 }
 
 export const getFaqs = cache(async (section: FaqSection): Promise<[string, string][]> => {

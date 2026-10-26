@@ -40,7 +40,13 @@ export default async function ClientsAdmin({ searchParams }: { searchParams: Pro
                 {clients.map(c => (
                   <tr key={c.id}>
                     <td className="title-cell">
-                      <Link href={`/admin/clients/${c.id}`}>{c.name}</Link>
+                      <Link href={`/admin/clients/${c.id}`} style={{ display: 'inline-flex', alignItems: 'center', gap: 10 }}>
+                        {c.logo && (
+                          // eslint-disable-next-line @next/next/no-img-element
+                          <img src={c.logo} alt="" style={{ width: 44, height: 24, objectFit: 'contain' }} />
+                        )}
+                        {c.name}
+                      </Link>
                     </td>
                     <td>{c.group ?? <span style={{ color: 'var(--muted)' }}>—</span>}</td>
                     <td>{c.onLogoWall ? <span className="adm-badge ok">Shown</span> : <span style={{ color: 'var(--muted)' }}>—</span>}</td>

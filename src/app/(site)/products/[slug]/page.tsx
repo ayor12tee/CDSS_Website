@@ -1,10 +1,11 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getIndustries, getProduct, getProducts, getPublications } from '@/lib/content';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { PageHero } from '@/components/ui/PageHero';
-import { CheckList, Eyebrow, InfoCard, SectionHead } from '@/components/ui/primitives';
+import { Art, CheckList, Eyebrow, InfoCard, SectionHead } from '@/components/ui/primitives';
 import { CtaBand } from '@/components/layout/CtaBand';
 import { PostGrid } from '@/components/publications/PostCard';
 import { truncate } from '@/lib/format';
@@ -47,6 +48,12 @@ export default async function ProductPage({ params }: Props) {
   const pubs = publications
     .filter(a => a.products.includes(p.slug))
     .slice(0, 3);
+  const chips = p.keyProducts.slice(0, 6).map(k => (
+    <span className="chip" key={k}>
+      {k}
+    </span>
+  ));
+  const logo = p.logo && <Image src={p.logo} alt={`${p.name} logo`} width={320} height={120} unoptimized />;
 
   return (
     <>
@@ -66,19 +73,30 @@ export default async function ProductPage({ params }: Props) {
             </Link>
           </>
         }
-        visual={
-          <div className="vendor-mark">
-            <span className="sub">Authorised {p.group.toLowerCase()} partner</span>
-            <span className="wm">{p.name}</span>
-            <span className="tagline">{p.tagline}</span>
-            <div className="chip-list" style={{ marginTop: 10 }}>
-              {p.keyProducts.slice(0, 6).map(k => (
-                <span className="chip" key={k}>
-                  {k}
-                </span>
-              ))}
+        extra={
+          p.image ? (
+            <div className="chip-list" style={{ marginTop: 28 }}>
+              {chips}
             </div>
-          </div>
+          ) : undefined
+        }
+        visual={
+          p.image ? (
+            <div className="page-hero-visual product-visual">
+              <Art name={p.image} alt="" priority />
+              {logo && <div className="logo-plate">{logo}</div>}
+            </div>
+          ) : (
+            <div className="vendor-mark">
+              {logo && <div className="logo-plate">{logo}</div>}
+              <span className="sub">Authorised {p.group.toLowerCase()} partner</span>
+              <span className="wm">{p.name}</span>
+              <span className="tagline">{p.tagline}</span>
+              <div className="chip-list" style={{ marginTop: 10 }}>
+                {chips}
+              </div>
+            </div>
+          )
         }
       />
 

@@ -7,6 +7,7 @@ import { CtaBand } from '@/components/layout/CtaBand';
 import { PostGrid } from '@/components/publications/PostCard';
 import { Newsletter } from '@/components/forms/Newsletter';
 import { HeroCarousel, type HeroSlide } from '@/components/home/HeroCarousel';
+import { LogoCell, clientFinePrint } from '@/components/clients/ClientMarks';
 
 const SLIDES: HeroSlide[] = [
   { image: '/img/banner-oil-gas.png', label: 'Oil and gas', tone: 'dark' },
@@ -323,13 +324,11 @@ export default async function HomePage() {
               <LinkArrow href="/about/client-base">View our client base</LinkArrow>
             </div>
             <div className="logo-wall">
-              {logoWall.map(n => (
-                <div className="logo-cell" key={n}>
-                  {n}
-                </div>
+              {logoWall.map(c => (
+                <LogoCell key={c.name} name={c.name} logo={c.logo} />
               ))}
             </div>
-            <p className="fine-print">Organisation names are listed as a factual record of client relationships. They are not endorsements.</p>
+            <p className="fine-print">{clientFinePrint(logoWall.some(c => c.logo))}</p>
           </div>
         </div>
       </section>

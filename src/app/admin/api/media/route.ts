@@ -2,7 +2,7 @@ import { randomUUID } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { revalidatePath } from 'next/cache';
 import { getCurrentUser } from '@/lib/auth';
-import { MEDIA_BUCKET, requireDb } from '@/lib/supabase';
+import { MEDIA_BUCKET, mediaPublicUrl, requireDb } from '@/lib/supabase';
 
 const ALLOWED: Record<string, string> = {
   'image/png': 'png',
@@ -49,6 +49,7 @@ export async function POST(request: Request) {
 
   const db = requireDb();
   let uploaded = 0;
+  const saved: { url: string; filename: string }[] = [];
   for (const file of files) {
     if (file.size > MAX_BYTES) return NextResponse.json({ error: `${file.name} is larger than 10 MB.` }, { status: 413 });
     const bytes = new Uint8Array(await file.arrayBuffer());
@@ -66,8 +67,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: `Could not record ${file.name}: ${dbErr.message}` }, { status: 500 });
     }
     uploaded++;
+    saved.push({ url: mediaPublicUrl(path), filename: file.name.slice(0, 200) });
   }
 
   revalidatePath('/admin/media');
-  return NextResponse.json({ uploaded });
+  // `files` lets an image picker select what was just uploaded
+  return NextResponse.json({ uploaded, files: saved });
 }

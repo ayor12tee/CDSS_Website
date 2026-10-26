@@ -23,9 +23,13 @@ export const toProduct = (r: Row): Product => ({
   industries: r.industries ?? [],
   sortOrder: r.sort_order,
   published: r.published,
+  logo: r.logo ?? null,
+  image: r.image ?? null,
 });
 
 export const fromProduct = (p: Omit<Product, 'id'>) => ({
+  logo: p.logo,
+  image: p.image,
   slug: p.slug,
   name: p.name,
   product_group: p.group,
@@ -164,9 +168,9 @@ export const fromWebinar = (w: Omit<Webinar, 'id'>) => ({
   published: w.published,
 });
 
-export const toClient = (r: Row): Client => ({ id: r.id, name: r.name, group: r.client_group, onLogoWall: r.on_logo_wall, sortOrder: r.sort_order });
+export const toClient = (r: Row): Client => ({ id: r.id, name: r.name, group: r.client_group, onLogoWall: r.on_logo_wall, sortOrder: r.sort_order, logo: r.logo ?? null });
 
-export const fromClient = (c: Omit<Client, 'id'>) => ({ name: c.name, client_group: c.group, on_logo_wall: c.onLogoWall, sort_order: c.sortOrder });
+export const fromClient = (c: Omit<Client, 'id'>) => ({ name: c.name, client_group: c.group, on_logo_wall: c.onLogoWall, sort_order: c.sortOrder, logo: c.logo });
 
 export const toFaq = (r: Row): Faq => ({ id: r.id, section: r.section, question: r.question, answer: r.answer, sortOrder: r.sort_order });
 

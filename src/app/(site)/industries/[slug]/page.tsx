@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { getIndustries, getIndustry, getProducts, getPublications } from '@/lib/content';
+import { getClientLogos, getIndustries, getIndustry, getProducts, getPublications } from '@/lib/content';
+import { ClientChip, clientFinePrint } from '@/components/clients/ClientMarks';
 import { Icon } from '@/components/ui/Icon';
 import { PageHero } from '@/components/ui/PageHero';
 import { Art, Eyebrow, InfoCard, SectionHead } from '@/components/ui/primitives';
@@ -37,7 +38,7 @@ export default async function IndustryPage({ params }: Props) {
   const ind = await getIndustry((await params).slug);
   if (!ind) notFound();
 
-  const [products, publications] = await Promise.all([getProducts(), getPublications()]);
+  const [products, publications, logos] = await Promise.all([getProducts(), getPublications(), getClientLogos()]);
   const solutions = ind.solutions.map(s => products.find(p => p.slug === s)).filter((p): p is Product => p !== undefined);
   const articles = ind.articles.map(s => publications.find(a => a.slug === s)).filter((a): a is Publication => a !== undefined);
 
@@ -91,13 +92,11 @@ export default async function IndustryPage({ params }: Props) {
             <p className="lead" style={{ marginTop: 16 }}>
               A sample of organisations in this sector that have worked with CDSS.
             </p>
-            <p className="fine-print">Names are listed as a factual record of relationships, not as endorsements.</p>
+            <p className="fine-print">{clientFinePrint(ind.clients.some(c => logos.has(c)))}</p>
           </div>
           <div className="client-grid cols-2 reveal">
             {ind.clients.map(c => (
-              <div className="client-chip" key={c}>
-                {c}
-              </div>
+              <ClientChip key={c} name={c} logo={logos.get(c)} />
             ))}
           </div>
         </div>

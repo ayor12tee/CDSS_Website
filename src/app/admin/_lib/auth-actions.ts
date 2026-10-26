@@ -152,7 +152,18 @@ export async function verifyCodeAction(_prev: ActionState, fd: FormData): Promis
       .update({ backup_codes: remaining.filter(h => h !== hash) })
       .eq('id', user.id);
   } else {
-    const step = verifyTotp(decryptSecret(user.totp_secret), code, Number(user.totp_last_step ?? 0));
+    let secret: string;
+    try {
+      secret = decryptSecret(user.totp_secret);
+    } catch {
+      // the secret was encrypted with a different TOTP_ENCRYPTION_KEY (e.g. set up on another deployment)
+      console.error(`[auth] cannot decrypt the 2FA secret for user ${user.id}; TOTP_ENCRYPTION_KEY differs from the one used at setup`);
+      return fail(
+        "Your authenticator was set up on a site with a different encryption key, so this site can't check codes from it. Sign in with a backup code instead, or ask an admin to reset your two-factor authentication.",
+        { code: 'Use a backup code' },
+      );
+    }
+    const step = verifyTotp(secret, code, Number(user.totp_last_step ?? 0));
     if (step === null) {
       await recordFailure(`otp:${user.id}`);
       return fail('That code is not correct or has already been used. Enter the newest code from your app.', { code: 'Incorrect code' });

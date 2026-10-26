@@ -32,7 +32,7 @@ const preview = (v: unknown) => {
 
 let changes = 0;
 
-async function syncTable(table: string, rows: Row[], match: string, opts: { insertOnly?: boolean } = {}) {
+async function syncTable(table: string, rows: Row[], match: string, opts: { insertOnly?: boolean; fillOnly?: string[] } = {}) {
   const { data, error } = await db.from(table).select('*');
   if (error) throw new Error(`${table}: ${error.message}`);
   for (const row of rows) {
@@ -47,8 +47,14 @@ async function syncTable(table: string, rows: Row[], match: string, opts: { inse
       }
       continue;
     }
-    if (opts.insertOnly) continue;
-    const diff = Object.keys(row).filter(k => !same(row[k], existing[k]));
+    // Fields seed.ts leaves unset are never touched. "Fill-only" fields (starter logos and images) are written
+    // only while empty, so an image replaced in /admin is never overwritten. Insert-only tables get fill-only fields alone.
+    const fill = new Set(opts.fillOnly ?? []);
+    const diff = Object.keys(row).filter(k => {
+      if (row[k] === undefined) return false;
+      if (fill.has(k)) return Boolean(row[k]) && !existing[k];
+      return !opts.insertOnly && !same(row[k], existing[k]);
+    });
     if (!diff.length) continue;
     changes += diff.length;
     console.log(`  ~ ${label}`);
@@ -79,10 +85,10 @@ async function main() {
     if (up.error) throw new Error(`settings: ${up.error.message}`);
   }
 
-  await syncTable('products', seedProducts.map(fromProduct), 'slug');
+  await syncTable('products', seedProducts.map(fromProduct), 'slug', { fillOnly: ['logo', 'image'] });
   await syncTable('industries', seedIndustries.map(fromIndustry), 'slug');
   await syncTable('partners', seedPartners.map(fromPartner), 'sort_order');
-  await syncTable('clients', seedClients.map(fromClient), 'name', { insertOnly: true });
+  await syncTable('clients', seedClients.map(fromClient), 'name', { insertOnly: true, fillOnly: ['logo'] });
   await syncTable('faqs', seedFaqs.map(fromFaq), 'sort_order');
   await syncTable('publications', seedPublications.map(fromPublication), 'slug');
 
