@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import type { Webinar } from '@/lib/types';
-import { dateBadge, formatWebinarDay, formatWebinarTime, youtubeId } from '@/lib/webinars';
+import { dateBadge, formatWebinarDay, formatWebinarTime, joinLabel, youtubeId } from '@/lib/webinars';
 import { Icon } from '@/components/ui/Icon';
 
 /** Upcoming session: date badge, details and a Teams registration button. */
@@ -27,7 +27,7 @@ export function UpcomingWebinar({ webinar: w }: { webinar: Webinar }) {
         <h3>
           <Link href={`/webinars/${w.slug}`}>{w.title}</Link>
         </h3>
-        <p>{w.summary}</p>
+        {w.summary && <p>{w.summary}</p>}
         {w.speakers.length > 0 && (
           <p className="webinar-speakers">
             <Icon name="user" />
@@ -38,7 +38,7 @@ export function UpcomingWebinar({ webinar: w }: { webinar: Webinar }) {
       <div className="webinar-row-actions">
         {w.registrationUrl ? (
           <a className="btn btn-primary" href={w.registrationUrl} target="_blank" rel="noopener noreferrer">
-            Register on Teams
+            {joinLabel(w)}
             <Icon name="external" />
           </a>
         ) : (
@@ -73,7 +73,7 @@ export function RecordingCard({ webinar: w }: { webinar: Webinar }) {
           </span>
         </div>
         <h3>{w.title}</h3>
-        <p>{w.summary}</p>
+        {w.summary && <p>{w.summary}</p>}
         <span className="link-arrow">
           Watch recording
           <Icon name="arrow" />

@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import { SITE_URL } from '@/content/site';
 import { getProducts, getSettings, getWebinar, getWebinars } from '@/lib/content';
 import { truncate } from '@/lib/format';
-import { endsAt, formatWebinarDay, formatWebinarTime, isUpcoming, youtubeId } from '@/lib/webinars';
+import { PLATFORMS, endsAt, formatWebinarDay, formatWebinarTime, isUpcoming, joinLabel, joinSteps, youtubeId } from '@/lib/webinars';
 import { Icon } from '@/components/ui/Icon';
 import { PageHero } from '@/components/ui/PageHero';
 import { JsonLd, SectionHead } from '@/components/ui/primitives';
@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!w) return {};
   return {
     title: `${w.title} — Webinar`,
-    description: w.summary,
+    description: w.summary || `CDSS webinar: ${w.title}.`,
     alternates: { canonical: `/webinars/${w.slug}` },
   };
 }
@@ -37,6 +37,7 @@ export default async function WebinarPage({ params }: Props) {
   if (!w) notFound();
 
   const upcoming = isUpcoming(w);
+  const platform = PLATFORMS[w.platform];
   const videoId = youtubeId(w.recordingUrl);
   const related = products.filter(p => w.products.includes(p.slug));
   const moreRecordings = all.filter(o => o.slug !== slug && !isUpcoming(o) && youtubeId(o.recordingUrl)).reverse().slice(0, 3);
@@ -49,7 +50,7 @@ export default async function WebinarPage({ params }: Props) {
           '@context': 'https://schema.org',
           '@type': 'Event',
           name: w.title,
-          description: w.summary,
+          ...(w.summary ? { description: w.summary } : {}),
           startDate: w.startsAt,
           endDate: endsAt(w).toISOString(),
           eventStatus: 'https://schema.org/EventScheduled',
@@ -63,11 +64,11 @@ export default async function WebinarPage({ params }: Props) {
         trail={[['Webinars', '/webinars'], [truncate(w.title, 48)]]}
         eyebrow={upcoming ? 'Upcoming webinar' : videoId ? 'Webinar recording' : 'Past webinar'}
         title={w.title}
-        lede={w.summary}
+        lede={w.summary || undefined}
         actions={
           upcoming && w.registrationUrl ? (
             <a className="btn btn-light" href={w.registrationUrl} target="_blank" rel="noopener noreferrer">
-              Register on Microsoft Teams
+              {joinLabel(w)}
               <Icon name="external" />
             </a>
           ) : videoId ? (
@@ -121,19 +122,21 @@ export default async function WebinarPage({ params }: Props) {
                   <time dateTime={w.startsAt}>{formatWebinarDay(w.startsAt)}</time>
                 </dd>
               </div>
-              <div>
-                <dt>
-                  <Icon name="clock" />
-                  Time
-                </dt>
-                <dd>{formatWebinarTime(w)}</dd>
-              </div>
+              {upcoming && (
+                <div>
+                  <dt>
+                    <Icon name="clock" />
+                    Time
+                  </dt>
+                  <dd>{formatWebinarTime(w)}</dd>
+                </div>
+              )}
               <div>
                 <dt>
                   <Icon name="monitor" />
                   Where
                 </dt>
-                <dd>Online, on Microsoft Teams</dd>
+                <dd>Online, on {platform.name}</dd>
               </div>
               {w.speakers.length > 0 && (
                 <div>
@@ -169,13 +172,13 @@ export default async function WebinarPage({ params }: Props) {
               <div className="webinar-join">
                 <h2>How to join</h2>
                 <ol>
-                  <li>Register on the Microsoft Teams page.</li>
-                  <li>Teams emails you a confirmation with your personal joining link.</li>
-                  <li>At the start time, open the link in the Teams app or your web browser.</li>
+                  {joinSteps(w).map(step => (
+                    <li key={step}>{step}</li>
+                  ))}
                 </ol>
                 {w.registrationUrl ? (
                   <a className="btn btn-primary btn-block" href={w.registrationUrl} target="_blank" rel="noopener noreferrer">
-                    Register on Teams
+                    {joinLabel(w)}
                     <Icon name="external" />
                   </a>
                 ) : (
