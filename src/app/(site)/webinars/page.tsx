@@ -11,7 +11,7 @@ import { RecordingCard, UpcomingWebinar } from '@/components/webinars/WebinarCar
 export const metadata: Metadata = {
   title: 'Webinars',
   description:
-    'CDSS webinars on engineering software, BIM, simulation and document digitisation. Register for upcoming sessions on Microsoft Teams, or watch past recordings.',
+    'CDSS webinars on engineering software, BIM, simulation and document digitisation. Join upcoming sessions on Microsoft Teams or Google Meet, or watch past recordings.',
   alternates: { canonical: '/webinars' },
 };
 
@@ -30,7 +30,7 @@ export default async function WebinarsPage() {
         trail={[['Training & Support', '/training'], ['Webinars']]}
         eyebrow="Webinars"
         title="Learn from the people behind the tools."
-        lede="Live sessions on Microsoft Teams covering engineering software, BIM, simulation and document digitisation, with time for your questions. Missed one? Watch the recording."
+        lede="Live sessions on Microsoft Teams and Google Meet covering engineering software, BIM, simulation and document digitisation, with time for your questions. Missed one? Watch the recording."
         actions={
           <>
             <a className="btn btn-light" href="#upcoming">
@@ -46,7 +46,11 @@ export default async function WebinarsPage() {
 
       <section className="section" id="upcoming">
         <div className="container">
-          <SectionHead eyebrow="Upcoming" title="Register for a live session." lead="Registration takes place on Microsoft Teams, which emails you the joining link and reminders. All times are West Africa Time (WAT)." />
+          <SectionHead
+            eyebrow="Upcoming"
+            title="Join a live session."
+            lead="Each session runs on Microsoft Teams or Google Meet. Use its button to register or join. All times are West Africa Time (WAT)."
+          />
           {upcoming.length ? (
             <div className="webinar-list reveal-stagger">
               {upcoming.map(w => (

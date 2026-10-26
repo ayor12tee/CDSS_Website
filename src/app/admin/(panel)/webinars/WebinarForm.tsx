@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import type { MediaItem, Product, Webinar } from '@/lib/types';
-import { isoToLagos } from '@/lib/webinars';
+import { PLATFORMS, isoToLagos } from '@/lib/webinars';
 import { Icon } from '@/components/ui/Icon';
 import { ActionForm } from '../../_components/ActionForm';
 import { ConfirmButton } from '../../_components/buttons';
-import { CheckboxField, CheckboxGroupField, LinesField, TextAreaField, TextField } from '../../_components/fields';
+import { CheckboxField, CheckboxGroupField, LinesField, SelectField, TextAreaField, TextField } from '../../_components/fields';
 import { MarkdownEditor } from '../../_components/MarkdownEditor';
 import { deleteWebinar, saveWebinar } from '../../_lib/content-actions';
 
@@ -46,23 +46,28 @@ export function WebinarForm({ webinar: w, products, media, created }: Props) {
             <TextAreaField
               name="summary"
               label="Summary"
-              required
               rows={3}
               defaultValue={w?.summary}
               maxLength={400}
-              hint="One or two sentences. Shown on the webinar cards and in search results."
+              hint="One or two sentences, shown on the webinar cards and in search results. Recommended for upcoming webinars."
               full
             />
           </section>
           <section className="adm-card adm-fields">
             <h2 className="adm-section-title">Links</h2>
+            <SelectField
+              name="platform"
+              label="Platform"
+              defaultValue={w?.platform ?? 'teams'}
+              options={Object.entries(PLATFORMS).map(([value, p]) => ({ value, label: p.name }))}
+            />
             <TextField
               name="registrationUrl"
               type="url"
-              label="Microsoft Teams registration link"
+              label="Registration or joining link"
               defaultValue={w?.registrationUrl}
-              placeholder="https://events.teams.microsoft.com/event/…"
-              hint="In Teams, open the webinar's details and copy the registration page link. Leave blank until registration opens."
+              placeholder="https://events.teams.microsoft.com/… or https://meet.google.com/…"
+              hint="Teams: copy the webinar's registration page link. Google Meet: paste the Meet link, or a Google Form or Calendar link if people register first. Leave blank until it's ready."
               full
             />
             <TextField
@@ -76,7 +81,14 @@ export function WebinarForm({ webinar: w, products, media, created }: Props) {
             />
           </section>
           <section className="adm-card adm-fields">
-            <MarkdownEditor name="description" defaultValue={w?.description} images={images.map(m => ({ url: m.url, filename: m.filename, alt: m.alt }))} />
+            <MarkdownEditor
+              name="description"
+              label="Description"
+              required={false}
+              hint="Optional. What the session covers, who it's for, and anything attendees should prepare. Written in Markdown; use the toolbar for headings and lists."
+              defaultValue={w?.description}
+              images={images.map(m => ({ url: m.url, filename: m.filename, alt: m.alt }))}
+            />
           </section>
         </div>
 

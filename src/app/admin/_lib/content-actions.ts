@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { requireUser } from '@/lib/auth';
 import { requireDb } from '@/lib/supabase';
 import { fromClient, fromFaq, fromIndustry, fromPartner, fromProduct, fromPublication, fromWebinar } from '@/lib/mappers';
-import { isTeamsUrl, lagosToIso, youtubeId } from '@/lib/webinars';
+import { PLATFORMS, isPlatformUrl, lagosToIso, parseDate, youtubeId } from '@/lib/webinars';
 import { ICON_NAMES } from '@/components/ui/Icon';
 import { bool, csv, fail, fromDb, fromZod, int, lines, many, ok, optional, revalidateSite, str, toSlug } from './form';
 import type { ActionState } from './state';
@@ -100,8 +100,9 @@ export async function deletePublication(id: string) {
 const webinarSchema = z.object({
   title: text(200, true),
   slug,
-  summary: text(400, true),
+  summary: text(400),
   description: z.string().max(50_000),
+  platform: z.enum(['teams', 'meet']),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'Choose a date'),
   time: z.string().regex(/^\d{2}:\d{2}$/, 'Choose a start time'),
   durationMinutes: z.number().int().min(5, 'At least 5 minutes').max(600, 'At most 10 hours'),
@@ -119,6 +120,7 @@ export async function saveWebinar(_prev: ActionState, fd: FormData): Promise<Act
     slug: str(fd, 'slug') || toSlug(str(fd, 'title')),
     summary: str(fd, 'summary'),
     description: String(fd.get('description') ?? ''),
+    platform: str(fd, 'platform') || 'teams',
     date: str(fd, 'date'),
     time: str(fd, 'time'),
     durationMinutes: int(fd, 'durationMinutes', 60),
@@ -130,8 +132,9 @@ export async function saveWebinar(_prev: ActionState, fd: FormData): Promise<Act
   });
   if (!parsed.success) return fromZod(parsed.error);
   const { date, time, ...w } = parsed.data;
-  if (w.registrationUrl && !isTeamsUrl(w.registrationUrl)) {
-    return fail('Use the registration link from Microsoft Teams.', { registrationUrl: 'Paste a https://teams.microsoft.com or events.teams.microsoft.com link' });
+  if (w.registrationUrl && !isPlatformUrl(w.platform, w.registrationUrl)) {
+    const p = PLATFORMS[w.platform];
+    return fail(`That link isn't from ${p.name}. Check the link, or change the platform.`, { registrationUrl: `Paste ${p.linkHint}` });
   }
   if (w.recordingUrl && !youtubeId(w.recordingUrl)) {
     return fail('The recording link must be a YouTube video.', { recordingUrl: 'Paste the YouTube link, e.g. https://youtu.be/…' });
@@ -141,6 +144,108 @@ export async function saveWebinar(_prev: ActionState, fd: FormData): Promise<Act
 
 export async function deleteWebinar(id: string) {
   await remove('webinars', id, '/admin/webinars');
+}
+
+/** Title of a public or unlisted YouTube video, via YouTube's oEmbed endpoint; null if it's private, deleted or unreachable. */
+async function youtubeTitle(videoId: string) {
+  try {
+    const res = await fetch(`https://www.youtube.com/oembed?format=json&url=${encodeURIComponent(`https://www.youtube.com/watch?v=${videoId}`)}`, {
+      signal: AbortSignal.timeout(8000),
+    });
+    if (!res.ok) return null;
+    const { title } = (await res.json()) as { title?: string };
+    return title?.trim().slice(0, 200) || null;
+  } catch {
+    return null;
+  }
+}
+
+const DATE_IN_TEXT = /\d{4}-\d{1,2}-\d{1,2}|\d{1,2}\/\d{1,2}\/\d{4}/;
+const EDGE_SEPARATORS = /^[\s|,;–—-]+|[\s|,;–—-]+$/g;
+
+/**
+ * Bulk-add past webinars from pasted lines, each holding a date and a YouTube link, with an optional title
+ * (otherwise the video's YouTube title is used). Videos already on the site are skipped, so a corrected
+ * list can be pasted again safely.
+ */
+export async function importWebinars(_prev: ActionState, fd: FormData): Promise<ActionState> {
+  await requireUser();
+  const platform = str(fd, 'platform') === 'meet' ? 'meet' : 'teams';
+  const published = bool(fd, 'published');
+  const entries = String(fd.get('lines') ?? '')
+    .split(/\r?\n/)
+    .map((text, i) => ({ text: text.trim(), line: i + 1 }))
+    .filter(e => e.text);
+  if (!entries.length) return fail('Paste at least one webinar.', { lines: 'One webinar per line' });
+  if (entries.length > 50) return fail('Import up to 50 webinars at a time.', { lines: `${entries.length} lines` });
+
+  const db = requireDb();
+  const { data: existing, error } = await db.from('webinars').select('slug, recording_url');
+  if (error) return fromDb(error, 'webinars');
+  const slugs = new Set(existing.map(r => r.slug as string));
+  const videos = new Set(existing.map(r => youtubeId(r.recording_url)).filter(Boolean));
+
+  const parsed = await Promise.all(
+    entries.map(async ({ text, line }) => {
+      const url = text.match(/https?:\/\/\S+/)?.[0];
+      const videoId = youtubeId(url);
+      if (!url || !videoId) return { line, problem: 'no YouTube link' };
+      const rest = text.replace(url, ' ');
+      const dateText = rest.match(DATE_IN_TEXT)?.[0];
+      const date = dateText ? parseDate(dateText) : null;
+      if (!date) return { line, problem: 'no valid date (use 17/09/2026 or 2026-09-17)' };
+      const youtube = await youtubeTitle(videoId);
+      if (!youtube) return { line, problem: "video not found, or it's private" };
+      const title = rest.replace(dateText!, ' ').replace(EDGE_SEPARATORS, '').replace(/\s{2,}/g, ' ').slice(0, 200) || youtube;
+      return { line, videoId, date, title };
+    }),
+  );
+
+  const problems: string[] = [];
+  let skipped = 0;
+  const rows = [];
+  for (const p of parsed) {
+    if ('problem' in p) {
+      problems.push(`line ${p.line}: ${p.problem}`);
+      continue;
+    }
+    if (videos.has(p.videoId)) {
+      skipped++;
+      continue;
+    }
+    videos.add(p.videoId);
+    const base = toSlug(p.title) || 'webinar';
+    let slugFor = base;
+    for (let n = 2; slugs.has(slugFor); n++) slugFor = `${base}-${n}`;
+    slugs.add(slugFor);
+    rows.push(
+      fromWebinar({
+        slug: slugFor,
+        title: p.title,
+        summary: '',
+        description: '',
+        // a recording's time of day isn't shown on the site, so noon keeps the date safe in every timezone
+        startsAt: lagosToIso(p.date, '12:00'),
+        durationMinutes: 60,
+        speakers: [],
+        products: [],
+        platform,
+        registrationUrl: null,
+        recordingUrl: `https://www.youtube.com/watch?v=${p.videoId}`,
+        published,
+      }),
+    );
+  }
+
+  if (rows.length) {
+    const ins = await db.from('webinars').insert(rows);
+    if (ins.error) return fromDb(ins.error, 'webinars');
+    revalidateSite();
+  }
+
+  const done = [`Imported ${rows.length} webinar${rows.length === 1 ? '' : 's'}.`, skipped ? `${skipped} already on the site, skipped.` : ''].filter(Boolean).join(' ');
+  if (problems.length) return fail(`${done} Not imported: ${problems.join('; ')}. Fix those lines and import again.`, { lines: `${problems.length} line(s) need fixing` });
+  return ok(`${done} Open each one to add a summary, speakers or products.`);
 }
 
 // ---------------------------------------------------------------------------

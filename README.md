@@ -31,10 +31,11 @@ On first sign-in you will scan a QR code with an authenticator app (Google Authe
 
 ## Webinars
 
-`/webinars` lists upcoming sessions (registration happens on Microsoft Teams) and recordings of past ones (YouTube videos played on the page). Add them in **Admin → Webinars**.
+`/webinars` lists upcoming sessions (on Microsoft Teams or Google Meet) and recordings of past ones (YouTube videos played on the page). Add them in **Admin → Webinars**.
 
-- **Setup:** run `supabase/migrations/20261025000000_webinars.sql` once in the Supabase SQL Editor. Until then the page shows "no sessions" and the admin shows a setup notice.
-- **Before a session:** create a webinar in Teams, copy its registration page link, and add it in the admin with the date and start time (Lagos time).
+- **Setup:** run `supabase/migrations/20261025000000_webinars.sql`, then `20261026000000_webinars_platform.sql`, once each in the Supabase SQL Editor. Until then the page shows "no sessions" and the admin shows a setup notice.
+- **Before a session:** choose the platform and paste the Teams registration link, or the Google Meet link (or a Google Form/Calendar link if people register first), with the date and start time (Lagos time).
+- **Existing recordings:** **Admin → Webinars → Import past webinars** takes one line per webinar, holding a date and a YouTube link and optionally ` | Title`, and fills titles in from YouTube. Videos already on the site are skipped.
 - **After a session:** upload the recording to YouTube (public or unlisted, not private) and paste the link into the webinar. Sessions move from "Upcoming" to "Recordings" by themselves once they end; the page refreshes every 15 minutes.
 
 ## Environment

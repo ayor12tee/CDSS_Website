@@ -26,10 +26,13 @@ interface MarkdownEditorProps {
   defaultValue?: string;
   /** images from the media library that can be inserted */
   images?: { url: string; filename: string; alt: string }[];
+  label?: string;
+  required?: boolean;
+  hint?: string;
 }
 
 /** Markdown textarea with a formatting toolbar and a live preview that uses the website's own renderer. */
-export function MarkdownEditor({ name, defaultValue = '', images = [] }: MarkdownEditorProps) {
+export function MarkdownEditor({ name, defaultValue = '', images = [], label = 'Article body', required = true, hint }: MarkdownEditorProps) {
   const [value, setValue] = useState(defaultValue);
   const [mode, setMode] = useState<Mode>('split');
   const [showImages, setShowImages] = useState(false);
@@ -104,7 +107,8 @@ export function MarkdownEditor({ name, defaultValue = '', images = [] }: Markdow
   return (
     <div className={`adm-field full${error ? ' invalid' : ''}`}>
       <span className="label">
-        Article body <span className="req">*</span>
+        {label}
+        {required && <span className="req"> *</span>}
       </span>
       <div className="md-editor">
         <div className="md-toolbar" role="toolbar" aria-label="Formatting">
@@ -160,7 +164,7 @@ export function MarkdownEditor({ name, defaultValue = '', images = [] }: Markdow
             value={value}
             onChange={e => setValue(e.target.value)}
             spellCheck
-            aria-label="Article body (Markdown)"
+            aria-label={`${label} (Markdown)`}
             style={{ display: mode === 'preview' ? 'none' : undefined }}
           />
           {mode !== 'write' && (
@@ -170,8 +174,12 @@ export function MarkdownEditor({ name, defaultValue = '', images = [] }: Markdow
           )}
         </div>
         <div className="md-help">
-          Write in Markdown. The first paragraph is styled as the introduction. <code>## Heading</code> sections build the &ldquo;On this page&rdquo; menu. End a
-          quote with a <code>— Name, Title</code> line to credit it. Use the toolbar for callouts and key-fact rows.
+          {hint ?? (
+            <>
+              Write in Markdown. The first paragraph is styled as the introduction. <code>## Heading</code> sections build the &ldquo;On this page&rdquo; menu. End
+              a quote with a <code>— Name, Title</code> line to credit it. Use the toolbar for callouts and key-fact rows.
+            </>
+          )}
         </div>
       </div>
       {error && <span className="field-err">{error}</span>}

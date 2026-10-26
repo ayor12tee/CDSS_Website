@@ -142,6 +142,8 @@ export const toWebinar = (r: Row): Webinar => ({
   durationMinutes: r.duration_minutes,
   speakers: r.speakers ?? [],
   products: r.products ?? [],
+  // rows saved before the platform migration ran are Teams webinars
+  platform: r.platform === 'meet' ? 'meet' : 'teams',
   registrationUrl: r.registration_url,
   recordingUrl: r.recording_url,
   published: r.published,
@@ -156,6 +158,7 @@ export const fromWebinar = (w: Omit<Webinar, 'id'>) => ({
   duration_minutes: w.durationMinutes,
   speakers: w.speakers,
   products: w.products,
+  platform: w.platform,
   registration_url: w.registrationUrl,
   recording_url: w.recordingUrl,
   published: w.published,

@@ -94,6 +94,8 @@ export interface Publication {
   updatedAt?: string;
 }
 
+export type WebinarPlatform = 'teams' | 'meet';
+
 export interface Webinar {
   id: string;
   slug: string;
@@ -108,7 +110,8 @@ export interface Webinar {
   speakers: string[];
   /** related product slugs */
   products: string[];
-  /** Microsoft Teams webinar registration page */
+  platform: WebinarPlatform;
+  /** registration page or joining link on the chosen platform */
   registrationUrl: string | null;
   /** YouTube video URL */
   recordingUrl: string | null;

@@ -21,8 +21,8 @@ export default async function WebinarsAdmin({ searchParams }: { searchParams: Pr
           <div className="adm-notice warn">
             <Icon name="alert" />
             <div>
-              <strong>One-time setup needed.</strong> The webinars table doesn&apos;t exist in the database yet. In Supabase, open the SQL Editor, paste the
-              contents of <code>supabase/migrations/20261025000000_webinars.sql</code> and run it, then reload this page.
+              <strong>One-time setup needed.</strong> The webinars table doesn&apos;t exist in the database yet. In Supabase, open the SQL Editor and run
+              <code>supabase/migrations/20261025000000_webinars.sql</code>, then <code>20261026000000_webinars_platform.sql</code>, then reload this page.
             </div>
           </div>
         </div>
@@ -41,10 +41,16 @@ export default async function WebinarsAdmin({ searchParams }: { searchParams: Pr
       <PageHeader
         title="Webinars"
         actions={
-          <Link className="adm-btn primary" href="/admin/webinars/new">
-            <Icon name="plus" />
-            New webinar
-          </Link>
+          <>
+            <Link className="adm-btn secondary" href="/admin/webinars/import">
+              <Icon name="upload" />
+              Import past webinars
+            </Link>
+            <Link className="adm-btn primary" href="/admin/webinars/new">
+              <Icon name="plus" />
+              New webinar
+            </Link>
+          </>
         }
       />
       <div className="adm-content">
@@ -66,7 +72,9 @@ export default async function WebinarsAdmin({ searchParams }: { searchParams: Pr
           {list.length === 0 ? (
             <div className="adm-empty">
               <h3>No webinars here yet</h3>
-              <p>Create a webinar in Microsoft Teams, then add it here with its registration link.</p>
+              <p>
+                Add an upcoming webinar with its Teams or Google Meet link, or <Link href="/admin/webinars/import">import past recordings</Link> from YouTube.
+              </p>
             </div>
           ) : (
             <div className="adm-table-wrap">

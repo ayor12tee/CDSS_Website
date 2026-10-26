@@ -52,6 +52,8 @@ export function fromZod(err: ZodError): ActionState {
 export function fromDb(error: { code?: string; message: string }, what = 'item'): ActionState {
   console.error(`[admin] database error saving ${what}:`, error);
   if (error.code === '23505') return fail(`Another ${what} already uses this slug or email. Choose a different one.`, { slug: 'Already in use', email: 'Already in use' });
+  // PostgREST: column not in the schema cache, i.e. a newer migration hasn't been run yet
+  if (error.code === 'PGRST204') return fail(`The database is missing a column for this ${what}. Run the newest files in supabase/migrations/ in the Supabase SQL Editor, then try again.`);
   if (error.code === '23514') return fail(`One of the values is not allowed for this ${what}. Check the slug format (lowercase letters, numbers and dashes).`);
   return fail(`Could not save the ${what}. ${error.message}`);
 }
