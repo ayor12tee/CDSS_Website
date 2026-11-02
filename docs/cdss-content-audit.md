@@ -89,7 +89,7 @@ Outcomes: **KEEP** (no change), **CORRECT** (factual or naming error fixed), **U
 1. **Founding year.** The site and Autodesk's partner profile say incorporated June 1989; CDSS's original website (cdss-nigeria.com) says "since 1991". The site keeps 1989.
 2. **First AutoCAD installation, Chevron, 1992.** Autodesk's profile only says CDSS introduced AutoCAD to Nigeria "in the early 1990s". No public source names Chevron or 1992.
 3. **"Authorised reseller or partner for every vendor line"** (home FAQ). Verified for Autodesk and Bentley (partner directories); not verifiable publicly for the others.
-4. **Octave (formerly Hexagon PPM).** Hexagon spun this business off as Octave Intelligence plc in May 2026. Confirm CDSS's reseller agreement carried over.
+4. **Octave (formerly Hexagon PPM).** Hexagon spun this business off as Octave Intelligence plc in May 2026. CDSS confirmed its agreement carried over (2 November 2026).
 5. **InnoDraw.** The only InnoDraw found is a laser-measurement drawing tool (sold with Leica DISTO). If CDSS sells a different product of that name, tell us and the description will be restored.
 6. **BeyondWare.** No company of this name found. Confirm the name and what it supplies.
 7. **VSee** (telehealth software). Confirm it is still offered; it is outside CDSS's engineering focus.
@@ -97,4 +97,4 @@ Outcomes: **KEEP** (no change), **CORRECT** (factual or naming error fixed), **U
 9. **Training and support claims:** "vendor-certified instructors across every product line", the three support tiers (6 site visits a year for Tier 2), Zoom/Teams delivery, ZIGURAT postgraduate partnership.
 10. **Bureau scanner width.** Confirm the widest sheet the bureau service handles (the page previously said 44″, the equipment list says 60″).
 11. **Stats:** "35+ years as an authorised Autodesk reseller" (continuous since December 1989?) and "20+ vendor, training and technology partners".
-12. **Contex "trusted in over 100 countries".** Contex's own claim; not independently verified.
+12. **Contex "trusted in over 100 countries".** Kept: CDSS's own Contex page says "over 100 countries" (reviewed 2 November 2026). Not independently verified.

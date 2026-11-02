@@ -98,7 +98,7 @@ export default async function ProductsPage() {
             <Eyebrow>Also available</Eyebrow>
             <h2 className="h3">More lines we are authorised to supply</h2>
             <p className="lead" style={{ marginTop: 14 }}>
-              We also supply and support these specialist products. Ask our team for details and pricing.
+              We also supply and support these specialist vendors and product lines. Ask our team for details and pricing.
             </p>
           </div>
           <div className="chip-list reveal">

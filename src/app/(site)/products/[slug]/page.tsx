@@ -9,6 +9,7 @@ import { Art, CheckList, Eyebrow, InfoCard, SectionHead } from '@/components/ui/
 import { CtaBand } from '@/components/layout/CtaBand';
 import { PostGrid } from '@/components/publications/PostCard';
 import { truncate } from '@/lib/format';
+import type { Product } from '@/lib/types';
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -34,6 +35,19 @@ const VALUE_PROPS = [
 ];
 const USE_ICONS: IconName[] = ['layers', 'building', 'activity', 'box', 'scan', 'map'];
 
+// Vendors are companies, so copy names their range ("Autodesk software"), not the company as if it were a product.
+// Each entry is [standalone, before a noun]. Anything not listed becomes "{name} software" or "{name} hardware".
+const RANGE_NAMES: Record<string, [string, string]> = {
+  bentley: ['Bentley software', 'Bentley software'],
+  contex: ['Contex scanners', 'Contex scanner'],
+  avision: ['Avision scanners', 'Avision scanner'],
+};
+
+function rangeNames(p: Product) {
+  const fallback = `${p.name} ${p.group.toLowerCase()}`;
+  return RANGE_NAMES[p.slug] ?? [fallback, fallback];
+}
+
 function splitUse(text: string) {
   const m = text.match(/^(.*?)\s*\((.*)\)$/);
   return m ? { title: m[1], kicker: m[2] } : { title: text, kicker: '' };
@@ -54,6 +68,7 @@ export default async function ProductPage({ params }: Props) {
     </span>
   ));
   const logo = p.logo && <Image src={p.logo} alt={`${p.name} logo`} width={320} height={120} unoptimized />;
+  const [range, rangeBeforeNoun] = rangeNames(p);
 
   return (
     <>
@@ -65,7 +80,7 @@ export default async function ProductPage({ params }: Props) {
         actions={
           <>
             <Link className="btn btn-light" href="/contact">
-              Talk to us about {p.name}
+              Talk to us about {range}
               <Icon name="arrow" />
             </Link>
             <Link className="btn btn-ghost" href="/products">
@@ -102,7 +117,7 @@ export default async function ProductPage({ params }: Props) {
 
       <section className="section">
         <div className="container">
-          <SectionHead eyebrow="Capabilities" title={`What ${p.name} is used for.`} />
+          <SectionHead eyebrow="Capabilities" title={`What you can do with ${range}.`} />
           <div className="grid-3 reveal-stagger">
             {p.uses.map(splitUse).map((u, i) => (
               <InfoCard key={u.title} icon={USE_ICONS[i % USE_ICONS.length]} kicker={u.kicker || undefined} title={u.title} />
@@ -115,7 +130,7 @@ export default async function ProductPage({ params }: Props) {
         <div className="container split top">
           <div className="reveal">
             <Eyebrow>Why CDSS</Eyebrow>
-            <h2 className="h2">Why buy {p.name} through CDSS.</h2>
+            <h2 className="h2">Why choose CDSS for your {rangeBeforeNoun} needs.</h2>
             <div className="body-copy" style={{ marginTop: 22 }}>
               <p>{p.why}</p>
             </div>
@@ -151,7 +166,7 @@ export default async function ProductPage({ params }: Props) {
 
       <section className={`section${pubs.length ? ' bg-soft' : ''}`}>
         <div className="container">
-          <SectionHead eyebrow="Related solutions" title={`Often paired with ${p.name}.`} />
+          <SectionHead eyebrow="Related solutions" title={`Often paired with ${range}.`} />
           <div className="grid-3 reveal-stagger">
             {related.map(o => (
               <InfoCard key={o.slug} href={`/products/${o.slug}`} kicker={o.kind} title={o.name} text={o.tagline} cta={`View ${o.name}`} />

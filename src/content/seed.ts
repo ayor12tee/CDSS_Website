@@ -53,9 +53,13 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "uses": [
       "Architectural design and documentation (Revit, AutoCAD)",
       "Civil infrastructure design (Civil 3D, InfraWorks)",
-      "Structural and steel detailing (Advance Steel, Robot Structural Analysis)",
+      "Structural analysis and steel detailing (Robot Structural Analysis Professional, Advance Steel)",
       "Manufacturing and product design (Inventor, Fusion)",
-      "Construction coordination and clash detection (Navisworks)"
+      "Construction coordination and clash detection (Navisworks)",
+      "Early-stage site planning and building design (Forma Site Design, Forma Building Design)",
+      "Cloud common data environment for project information (Forma Data Management)",
+      "Reality capture and laser-scan processing (ReCap Pro)",
+      "3D modelling, visualisation and rendering (3ds Max)"
     ],
     "keyProducts": [
       "AutoCAD",
@@ -63,9 +67,9 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "Civil 3D",
       "InfraWorks",
       "Navisworks",
-      "Forma"
+      "Forma Site Design"
     ],
-    "why": "CDSS has been an Autodesk reseller and training provider since AutoCAD's earliest days in Nigeria — including the country's first-ever AutoCAD installation, delivered for Chevron in 1992. Every licence we sell is genuine and vendor-backed, and comes with certified training and ongoing local support rather than a bare software key.",
+    "why": "CDSS has been an Autodesk reseller and training provider since AutoCAD's earliest days in Nigeria — including the country's first-ever AutoCAD installation, delivered for Chevron in 1992. Every licence we sell is genuine and vendor-backed, and comes with certified training and ongoing local support rather than a bare software key. Teams that need several tools can license them together through the Architecture, Engineering & Construction Collection, Autodesk's bundle that includes Revit, AutoCAD, Civil 3D, Navisworks Manage and Robot Structural Analysis Professional.",
     "industries": [
       "aec",
       "government-gis"
@@ -86,15 +90,19 @@ export const seedProducts: Omit<Product, 'id'>[] = [
       "Plant design and isometric drawing production (OpenPlant)",
       "Structural analysis, design and steel/concrete detailing (STAAD.Pro, ProStructures)",
       "Offshore structural analysis (SACS)",
-      "Geotechnical analysis of soil and foundations (PLAXIS)",
+      "Geotechnical analysis of soil and foundations (PLAXIS, from Seequent)",
       "Reality modelling from photographs and laser scans (iTwin Capture Modeler)",
-      "Civil infrastructure design (OpenRoads Designer, MicroStation)"
+      "Infrastructure CAD and roadway design (MicroStation, OpenRoads Designer)",
+      "Project delivery and engineering document management (ProjectWise)",
+      "4D construction planning (SYNCHRO 4D)",
+      "Water distribution and drainage network modelling (OpenFlows)"
     ],
     "keyProducts": [
       "MicroStation",
       "OpenRoads Designer",
       "STAAD.Pro",
       "AutoPIPE",
+      "SACS",
       "PLAXIS"
     ],
     "why": "CDSS has served primarily the oil & gas industry as a Bentley channel partner for many years — the relationship Bentley itself recognised with its 2025 Sub-Saharan Africa Top-Performing Partner award. That means genuine, vendor-backed licensing plus certified training and support from the same team that has supported Nigeria's Bentley users for decades.",
@@ -112,18 +120,22 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "group": "Software",
     "kind": "Geology, Geophysics & Subsurface Modelling",
     "tagline": "Turn geological and geophysical data into actionable subsurface insights with tools for 3D geological modelling, geoscience data management, and geophysical analysis.",
-    "lede": "Seequent, part of Bentley Systems, builds the geological and geotechnical modelling software used across mining, civil and environmental projects — including Leapfrog Geo, MX Deposit and Oasis montaj. CDSS brings Seequent's subsurface modelling tools to Nigeria's mining, survey and geoscience sector.",
+    "lede": "Seequent, part of Bentley Systems, builds the geological modelling, subsurface data management and geophysics software used across mining, energy, civil and environmental projects — including Leapfrog Geo, MX Deposit and Oasis montaj. CDSS brings Seequent's subsurface modelling tools to Nigeria's mining, survey and geoscience sector.",
     "uses": [
       "Geological and orebody modelling (Leapfrog Geo)",
       "Drillhole and sample data management (MX Deposit)",
       "Geophysical and geochemical data processing (Oasis montaj)",
-      "Geotechnical and environmental site modelling (Leapfrog)"
+      "Geotechnical and environmental site modelling (Leapfrog Works)",
+      "3D geological modelling for energy projects (Leapfrog Energy)",
+      "Geotechnical slope stability and seepage analysis (GeoStudio)"
     ],
     "keyProducts": [
       "Leapfrog Works",
       "Leapfrog Geo",
+      "Leapfrog Energy",
       "MX Deposit",
-      "Oasis montaj"
+      "Oasis montaj",
+      "GeoStudio"
     ],
     "why": "As part of the Bentley family, Seequent fits naturally alongside CDSS's long-standing Bentley relationship and engineering-office client base. CDSS pairs Seequent's subsurface modelling tools with its broader civil, structural, survey and document-management capabilities — useful for any mining or geoscience operation that needs more than one piece of the puzzle.",
     "industries": [
@@ -139,18 +151,22 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "group": "Software",
     "kind": "Engineering Simulation & Analysis",
     "tagline": "Predict how products and engineering systems perform under real-world conditions through advanced structural, thermal, fluid-flow and multiphysics simulation.",
-    "lede": "Ansys, now part of Synopsys, develops one of the most widely used engineering simulation portfolios, letting teams test how a design will perform — structurally, thermally or in a fluid flow — before it is ever built. CDSS licenses and supports Ansys simulation tools for Nigerian engineering teams who need to validate a design before committing to it.",
+    "lede": "Ansys, now part of Synopsys, develops one of the most widely used engineering simulation portfolios, letting teams test how a design will perform — structurally, thermally or in a fluid flow — before it is ever built. CDSS licenses and supports Ansys simulation tools for Nigerian engineering teams who need to validate a design before committing to it. Popular choices include Ansys Mechanical, Ansys Fluent and Ansys LS-DYNA, and other Ansys products are available on request.",
     "uses": [
-      "Structural mechanics and stress analysis (Mechanical)",
-      "Heat transfer and thermal simulation (Thermal)",
-      "Fluid flow and CFD analysis (Fluids)",
-      "Coupled multiphysics simulation (Multiphysics)"
+      "Structural mechanics and stress analysis (Ansys Mechanical)",
+      "Heat transfer and thermal simulation (Ansys Mechanical, Ansys Fluent)",
+      "Fluid flow and CFD analysis (Ansys Fluent, Ansys CFX)",
+      "Coupled multiphysics simulation (Ansys Workbench, Ansys Discovery)",
+      "Explicit impact, crash and drop-test simulation (Ansys LS-DYNA)",
+      "Electromagnetic simulation of antennas and electronics (Ansys HFSS)"
     ],
     "keyProducts": [
-      "Structural Analysis",
-      "Thermal Analysis",
-      "CFD & Fluid Flow",
-      "Multiphysics Simulation"
+      "Ansys Mechanical",
+      "Ansys Fluent",
+      "Ansys CFX",
+      "Ansys LS-DYNA",
+      "Ansys HFSS",
+      "Ansys Discovery"
     ],
     "why": "CDSS pairs Ansys licensing with the same certified training and technical support model used across its whole software line-up, so simulation isn't a standalone tool bought in isolation — it sits alongside the design and analysis software your team already uses.",
     "industries": [
@@ -166,18 +182,23 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "group": "Software",
     "kind": "Pipeline Engineering & Integrity",
     "tagline": "Support safer pipeline design, corrosion assessment, integrity management and engineering calculations with specialised tools for pipeline infrastructure and operations.",
-    "lede": "Technical Toolboxes builds specialised engineering software and training for the pipeline industry, covering integrity assessment, corrosion evaluation and pipeline design calculations used by oil & gas operators worldwide. CDSS brings Technical Toolboxes' pipeline engineering tools to Nigeria's upstream and midstream oil & gas sector.",
+    "lede": "Technical Toolboxes builds specialised engineering software and training for the pipeline industry, covering integrity assessment, corrosion evaluation and pipeline design calculations used by oil & gas operators worldwide. CDSS brings Technical Toolboxes' pipeline engineering tools to Nigeria's upstream and midstream oil & gas sector. Popular choices include Pipeline Toolbox, HDD PowerTool and RSTRENG+, and other Technical Toolboxes products are available on request.",
     "uses": [
-      "Pipeline integrity and fitness-for-service assessment (Integrity)",
-      "Corrosion evaluation and remaining-life calculations (Corrosion)",
-      "Pipeline design and engineering standardisation (Design)",
+      "Pipeline integrity and fitness-for-service assessment (Pipeline HUB)",
+      "Corrosion evaluation and remaining-strength calculations (RSTRENG+)",
+      "Pipeline design and engineering calculations (Pipeline Toolbox)",
+      "Horizontal directional drilling design and pull-force analysis (HDD PowerTool)",
+      "AC corrosion modelling and mitigation design (AC Mitigation PowerTool)",
+      "Subsea pipeline stability analysis (On-Bottom Stability Simulator)",
       "Industry-standard pipeline engineering training (Training)"
     ],
     "keyProducts": [
-      "Pipeline Design",
-      "Corrosion Analysis",
-      "Integrity Assessment",
-      "Engineering Calculations"
+      "Pipeline HUB",
+      "Pipeline Toolbox",
+      "HDD PowerTool",
+      "RSTRENG+",
+      "AC Mitigation PowerTool",
+      "On-Bottom Stability Simulator"
     ],
     "why": "Pipeline integrity software is a natural extension of CDSS's long-standing oil & gas client base — the same engineering offices already using CDSS for design and structural software often need pipeline-specific tools too, and CDSS can support both from one relationship.",
     "industries": [
@@ -192,7 +213,7 @@ export const seedProducts: Omit<Product, 'id'>[] = [
     "group": "Hardware",
     "kind": "Large-Format Technical Scanning",
     "tagline": "Digitise large-format technical drawings, engineering plans, maps and archival documents with professional scanning solutions designed for accuracy, image quality and efficient workflows.",
-    "lede": "Contex is a Danish manufacturer of large-format scanners used to digitise engineering drawings, maps and archives — trusted by engineering offices in over 100 countries. CDSS supplies and supports Contex scanners in 24″, 36″, 42″, 44″ and 60″ widths, and uses them in its own bureau services to convert paper drawings into usable digital and CAD-ready files.",
+    "lede": "Contex, a division of Denmark-based Global Scanning, makes large-format scanners used to digitise engineering drawings, maps and archives — trusted by engineering offices in over 100 countries. CDSS supplies and supports Contex scanners in 24″, 36″, 42″, 44″ and 60″ widths, and uses them in its own bureau services to convert paper drawings into usable digital and CAD-ready files.",
     "uses": [
       "Digitising engineering and CAD drawings (Monochrome & colour)",
       "Archiving maps, plans and technical documents (Up to 60″ wide)",
@@ -269,12 +290,12 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
       {
         "icon": "shield",
         "title": "Pipeline integrity",
-        "text": "Fitness-for-service, corrosion evaluation and remaining-life calculations with Technical Toolboxes."
+        "text": "Fitness-for-service, corrosion evaluation and remaining-life calculations with Technical Toolboxes software."
       },
       {
         "icon": "cpu",
         "title": "Simulation",
-        "text": "Structural, thermal and CFD simulation of critical equipment with Ansys."
+        "text": "Structural, thermal and CFD simulation of critical equipment with Ansys software."
       },
       {
         "icon": "file",
@@ -324,7 +345,7 @@ export const seedIndustries: Omit<Industry, 'id'>[] = [
       {
         "icon": "building",
         "title": "Structural design",
-        "text": "Analysis and design of steel and concrete structures with STAAD.Pro, Robot Structural Analysis, MasterSeries and CYPE."
+        "text": "Analysis and design of steel and concrete structures with STAAD.Pro, Robot Structural Analysis Professional, MasterSeries and CYPE."
       },
       {
         "icon": "layers",
@@ -505,21 +526,21 @@ export const seedPartners: Omit<Partner, 'id'>[] = [
   {
     "name": "Seequent",
     "tag": "Software Partner",
-    "description": "Leapfrog Geo, MX Deposit and Oasis montaj for geological and geotechnical modelling.",
+    "description": "Leapfrog Geo, MX Deposit and Oasis montaj for geological modelling, subsurface data management and geophysics.",
     "productSlug": "seequent",
     "sortOrder": 2
   },
   {
     "name": "Ansys",
     "tag": "Software Partner",
-    "description": "Multiphysics engineering simulation — structural, thermal and fluid flow. Ansys is now part of Synopsys.",
+    "description": "Multiphysics engineering simulation, including Ansys Mechanical, Ansys Fluent and Ansys LS-DYNA. Ansys is now part of Synopsys.",
     "productSlug": "ansys",
     "sortOrder": 3
   },
   {
     "name": "Technical Toolboxes",
     "tag": "Software Partner",
-    "description": "Pipeline integrity, corrosion evaluation and design calculation software.",
+    "description": "Pipeline integrity, corrosion evaluation and design calculation software, including Pipeline Toolbox, HDD PowerTool and RSTRENG+.",
     "productSlug": "technical-toolboxes",
     "sortOrder": 4
   },
@@ -984,7 +1005,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "ansys"
     ],
     "status": "published",
-    "body": "Pipelines are among the most valuable assets an oil & gas operator owns, and among the hardest to inspect and maintain. When an inspection run finds wall loss, a dent or a crack-like feature, the engineering team has to answer quickly and defensibly: is the line fit to keep operating, and for how long?\n\n## Ageing assets, higher stakes\n\nMany pipelines run in harsh conditions, including humid coastal environments, swamp crossings, offshore risers and produced fluids that can be corrosive. Over time, wall loss and mechanical damage build up. A failure can cost far more than lost production, with safety, environmental and reputational consequences as well.\n\nThat is why integrity management has become a discipline in its own right. It depends on consistent, repeatable engineering calculations.\n\n## Fitness-for-service assessment\n\nFitness-for-service (FFS) assessment checks whether a pipeline with a known defect can keep operating at its current pressure, needs to be de-rated, or must be repaired. Engineers use recognised methods such as ASME B31G for corroded pipelines. They assess each defect using its measured dimensions, the pipe properties and the operating conditions.\n\nDoing this by hand or in unmanaged spreadsheets is slow and error-prone, especially when an inline inspection reports hundreds of features. Dedicated integrity software applies the methods consistently and documents every assumption.\n\n## Corrosion evaluation and remaining life\n\nA single inspection gives a snapshot. Comparing inspections over time shows the corrosion rate, and that makes it possible to estimate remaining life and plan the next inspection or repair before a defect becomes critical. Integrity software helps turn inspection data into a maintenance plan with clear priorities.\n\n## Standardised design calculations\n\nIntegrity starts at design. Wall thickness selection, pressure ratings and crossing designs all set the margins an operator will depend on for decades. Standard calculation tools help different engineers and contractors produce consistent results across a portfolio of projects.\n\n## Connecting integrity to design and analysis\n\nPipeline integrity work rarely happens on its own. Piping stress analysis in AutoPIPE, detailed finite element analysis in Ansys and plant models in OpenPlant all feed into, or depend on, integrity decisions. When these tools come from one partner that also supports them, teams spend less time sorting out licensing and more time on the engineering.\n\n## Training the people behind the numbers\n\nSoftware is only as reliable as the engineer using it. Technical Toolboxes pairs its pipeline engineering software with industry-standard training, and CDSS delivers that training locally alongside ongoing technical support. That way, engineers understand the methods behind each result as well as the buttons.\n\n:::callout{icon=shield title=\"Pipeline engineering tools, supported locally\"}\nCDSS supplies and supports Technical Toolboxes' pipeline integrity, corrosion and design software for Nigeria's upstream and midstream sector. [Explore Technical Toolboxes](/products/technical-toolboxes).\n:::\n",
+    "body": "Pipelines are among the most valuable assets an oil & gas operator owns, and among the hardest to inspect and maintain. When an inspection run finds wall loss, a dent or a crack-like feature, the engineering team has to answer quickly and defensibly: is the line fit to keep operating, and for how long?\n\n## Ageing assets, higher stakes\n\nMany pipelines run in harsh conditions, including humid coastal environments, swamp crossings, offshore risers and produced fluids that can be corrosive. Over time, wall loss and mechanical damage build up. A failure can cost far more than lost production, with safety, environmental and reputational consequences as well.\n\nThat is why integrity management has become a discipline in its own right. It depends on consistent, repeatable engineering calculations.\n\n## Fitness-for-service assessment\n\nFitness-for-service (FFS) assessment checks whether a pipeline with a known defect can keep operating at its current pressure, needs to be de-rated, or must be repaired. Engineers use recognised methods such as ASME B31G for corroded pipelines. They assess each defect using its measured dimensions, the pipe properties and the operating conditions.\n\nDoing this by hand or in unmanaged spreadsheets is slow and error-prone, especially when an inline inspection reports hundreds of features. Dedicated integrity software applies the methods consistently and documents every assumption.\n\n## Corrosion evaluation and remaining life\n\nA single inspection gives a snapshot. Comparing inspections over time shows the corrosion rate, and that makes it possible to estimate remaining life and plan the next inspection or repair before a defect becomes critical. Integrity software helps turn inspection data into a maintenance plan with clear priorities.\n\n## Standardised design calculations\n\nIntegrity starts at design. Wall thickness selection, pressure ratings and crossing designs all set the margins an operator will depend on for decades. Standard calculation tools help different engineers and contractors produce consistent results across a portfolio of projects.\n\n## Connecting integrity to design and analysis\n\nPipeline integrity work rarely happens on its own. Piping stress analysis in AutoPIPE, detailed finite element analysis in Ansys software and plant models in OpenPlant all feed into, or depend on, integrity decisions. When these tools come from one partner that also supports them, teams spend less time sorting out licensing and more time on the engineering.\n\n## Training the people behind the numbers\n\nSoftware is only as reliable as the engineer using it. Technical Toolboxes pairs its pipeline engineering software with industry-standard training, and CDSS delivers that training locally alongside ongoing technical support. That way, engineers understand the methods behind each result as well as the buttons.\n\n:::callout{icon=shield title=\"Pipeline engineering tools, supported locally\"}\nCDSS supplies and supports Technical Toolboxes' pipeline integrity, corrosion and design software for Nigeria's upstream and midstream sector. [Explore Technical Toolboxes](/products/technical-toolboxes).\n:::\n",
     "featured": false,
     "publishedOn": "2026-08-12"
   },
@@ -1004,7 +1025,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "bentley"
     ],
     "status": "published",
-    "body": "Fixing a design problem costs the least before anything is built. Engineering simulation lets teams test how a component, structure or system will behave under real loads, temperatures and flows while changes are still cheap to make.\n\n## Why simulate?\n\nCode-based design methods are reliable for standard situations. But many engineering problems don't fit the standard cases: unusual geometry, combined loads, local stress concentrations, heat transfer or complex fluid behaviour. Simulation fills that gap. It shows where stresses concentrate, how heat moves through a component and how fluid flows, which a hand calculation can only approximate.\n\n- **Fewer surprises:** find weak points and failure modes before fabrication.\n- **Better designs:** compare options quickly and optimise for weight, cost or performance.\n- **Fewer physical prototypes:** use testing to confirm a design rather than to discover problems.\n- **Defensible decisions:** give clients, certifying bodies and insurers clear evidence of how the design will perform.\n\n## Structural, thermal, fluid, or all three\n\nAnsys covers the main physics engineering teams need. That includes structural mechanics and stress analysis, heat transfer and thermal simulation, and computational fluid dynamics (CFD). Many real problems involve more than one: a hot component expands and causes stress, and a flowing fluid loads a structure. Multiphysics simulation couples these effects so the model behaves like the real thing.\n\n## Where simulation fits alongside design tools\n\nSimulation adds to design tools; it doesn't replace them. A typical workflow uses:\n\n1. **Design and code checks** in tools such as STAAD.Pro for structures or AutoPIPE for piping systems.\n2. **Detailed simulation** in Ansys for components, connections or conditions outside the standard code cases.\n3. **Design updates** fed back into the CAD or BIM model, so drawings and models stay consistent.\n\n## Getting results you can trust\n\nA colourful contour plot is not the same as a correct answer. Reliable simulation depends on good practice:\n\n- Represent supports, loads and contacts realistically. Boundary conditions cause more errors than anything else.\n- Check mesh quality, and refine the mesh until the results stop changing meaningfully.\n- Sense-check results against hand calculations or known solutions.\n- Use appropriate material data, and understand where linear assumptions stop being valid.\n- Document assumptions so that a reviewer can follow and repeat the analysis.\n\n## Building in-house capability\n\nSimulation delivers the most value when engineers use it regularly, not as a rare specialist exercise. That takes the right licences, structured training and someone to call when a model misbehaves. CDSS provides all three, and Ansys sits within the same training and support model we use across our whole portfolio.\n\n:::callout{icon=cpu title=\"Explore engineering simulation\"}\nTalk to us about Ansys licensing, training and support for your engineering team. [Explore Ansys](/products/ansys).\n:::\n",
+    "body": "Fixing a design problem costs the least before anything is built. Engineering simulation lets teams test how a component, structure or system will behave under real loads, temperatures and flows while changes are still cheap to make.\n\n## Why simulate?\n\nCode-based design methods are reliable for standard situations. But many engineering problems don't fit the standard cases: unusual geometry, combined loads, local stress concentrations, heat transfer or complex fluid behaviour. Simulation fills that gap. It shows where stresses concentrate, how heat moves through a component and how fluid flows, which a hand calculation can only approximate.\n\n- **Fewer surprises:** find weak points and failure modes before fabrication.\n- **Better designs:** compare options quickly and optimise for weight, cost or performance.\n- **Fewer physical prototypes:** use testing to confirm a design rather than to discover problems.\n- **Defensible decisions:** give clients, certifying bodies and insurers clear evidence of how the design will perform.\n\n## Structural, thermal, fluid, or all three\n\nAnsys covers the main physics engineering teams need. That includes structural mechanics and stress analysis, heat transfer and thermal simulation, and computational fluid dynamics (CFD). Many real problems involve more than one: a hot component expands and causes stress, and a flowing fluid loads a structure. Multiphysics simulation couples these effects so the model behaves like the real thing.\n\n## Where simulation fits alongside design tools\n\nSimulation adds to design tools; it doesn't replace them. A typical workflow uses:\n\n1. **Design and code checks** in tools such as STAAD.Pro for structures or AutoPIPE for piping systems.\n2. **Detailed simulation** in Ansys software for components, connections or conditions outside the standard code cases.\n3. **Design updates** fed back into the CAD or BIM model, so drawings and models stay consistent.\n\n## Getting results you can trust\n\nA colourful contour plot is not the same as a correct answer. Reliable simulation depends on good practice:\n\n- Represent supports, loads and contacts realistically. Boundary conditions cause more errors than anything else.\n- Check mesh quality, and refine the mesh until the results stop changing meaningfully.\n- Sense-check results against hand calculations or known solutions.\n- Use appropriate material data, and understand where linear assumptions stop being valid.\n- Document assumptions so that a reviewer can follow and repeat the analysis.\n\n## Building in-house capability\n\nSimulation delivers the most value when engineers use it regularly, not as a rare specialist exercise. That takes the right licences, structured training and someone to call when a model misbehaves. CDSS provides all three, and Ansys sits within the same training and support model we use across our whole portfolio.\n\n:::callout{icon=cpu title=\"Explore engineering simulation\"}\nTalk to us about Ansys licensing, training and support for your engineering team. [Explore Ansys](/products/ansys).\n:::\n",
     "featured": false,
     "publishedOn": "2026-09-15"
   }
