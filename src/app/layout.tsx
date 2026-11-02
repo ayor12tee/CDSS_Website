@@ -15,7 +15,6 @@ export const metadata: Metadata = {
   description:
     "Nigeria's first CADD technology company. Authorised partner for Autodesk, Bentley, Seequent, Ansys, Technical Toolboxes, Contex and more — with certified training and local support since 1989.",
   applicationName: 'CDSS (Nig.) Limited',
-  icons: { icon: '/brand/cdss-logo.png' },
   openGraph: { type: 'website', siteName: 'CDSS (Nig.) Limited', locale: 'en_NG' },
   twitter: { card: 'summary_large_image' },
 };

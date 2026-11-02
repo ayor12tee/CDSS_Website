@@ -30,7 +30,7 @@ export default async function VendorPartnersPage() {
                 kicker={v.tag}
                 title={v.name}
                 text={v.description}
-                cta={v.productSlug ? 'View product page' : undefined}
+                cta={v.productSlug ? 'View solutions' : undefined}
               />
             ))}
           </div>
