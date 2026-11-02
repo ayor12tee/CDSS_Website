@@ -43,7 +43,7 @@ Accessed 2 November 2026. Autodesk pages block scripted requests, so they were r
 | N12 | Autodesk, Bentley, Seequent and Technical Toolboxes pages | 13 current products and bundles not listed | Forma Building Design, Forma Data Management, ReCap Pro, 3ds Max, AEC Collection, ProjectWise, SYNCHRO 4D, OpenFlows, Leapfrog Energy, GeoStudio, Pipeline Toolbox, RSTRENG+, HDD PowerTool | Names and descriptions as N2, N7 and N8 above, plus https://www.bentley.com/software/featured-software/ and https://technicaltoolboxes.com/product/ | High on names. Commercial availability confirmed by CDSS, 2 November 2026 |
 | N13 | Ansys and Technical Toolboxes pages, partner cards | Capabilities shown instead of products | Popular products named as examples, with others available on request | Ansys product pages — https://ansys.synopsys.com/products/structures/ansys-mechanical , https://ansys.synopsys.com/products/fluids/ansys-fluent , https://ansys.synopsys.com/products/structures/ansys-ls-dyna , https://ansys.synopsys.com/products/electronics/ansys-hfss ; Technical Toolboxes — https://technicaltoolboxes.com/Products/ , https://technicaltoolboxes.com/hub/ | High on names. No vendor publishes sales figures, so the site says "popular", never "best-selling". Selection approved by CDSS, 2 November 2026 |
 
-Checked and left unchanged: ProStructures, iTwin Capture Modeler, Octave Forte 3D, EdgeWise and Verity, CYPE, MasterSeries, InnoDraw (a company and a product of that name).
+Checked and left unchanged: ProStructures, iTwin Capture Modeler, Octave Forte 3D, EdgeWise and Verity, CYPE and MasterSeries.
 
 ## Claims verified and kept unchanged
 

@@ -90,7 +90,7 @@ Change made: "supports the full Autodesk AEC and manufacturing line-up" → "Aut
 | Hexagon PPM | Renamed Asset Lifecycle Intelligence (June 2022); spun off as **Octave Intelligence plc** (Nasdaq, 22 May 2026). Intergraph Smart 3D is now **Octave Forte 3D** | Renamed to "Octave (formerly Hexagon PPM)"; CDSS confirmed the agreement |
 | ClearEdge3D | Owned by Topcon since 2018; products are EdgeWise (point-cloud modelling) and Verity (construction verification) | Description corrected (it said "registration and BIM verification") |
 | GTX | Product names are GTXRaster CAD and GTXImage CAD; latest release found is the 2022 series (ZWCAD add-ons) | Names corrected. **Monitor** for long-term viability |
-| InnoDraw | Only product found is a laser-measurement CAD tool (Leica DISTO) | Description corrected; removed "rebar detailing" claim from the AEC page; confirm |
+| InnoDraw | Removed at CDSS's request (2 November 2026) | Partner card, "Also available" chip and the 35-years article mention removed |
 | CYPE, MasterSeries | Current; not researched in depth | Keep |
 | VSee (telehealth), BeyondWare | VSee exists; no company called BeyondWare found | Confirm both |
 | Bentley Institute | Training arm renamed (academic programme is now Bentley Education) | Renamed to "Bentley Systems Training"; confirm designation |

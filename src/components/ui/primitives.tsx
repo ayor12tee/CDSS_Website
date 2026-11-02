@@ -77,6 +77,7 @@ export function CheckList({ items }: { items: ReactNode[] }) {
 interface InfoCardProps {
   href?: string;
   icon?: IconName;
+  logo?: string;
   kicker?: string;
   title: string;
   text?: ReactNode;
@@ -84,9 +85,14 @@ interface InfoCardProps {
   children?: ReactNode;
 }
 
-export function InfoCard({ href, icon, kicker, title, text, cta, children }: InfoCardProps) {
+export function InfoCard({ href, icon, logo, kicker, title, text, cta, children }: InfoCardProps) {
   const inner = (
     <>
+      {logo && (
+        <div className="card-logo">
+          <Image src={logo} alt={`${title} logo`} width={240} height={96} unoptimized />
+        </div>
+      )}
       {icon && (
         <div className="icon-box">
           <Icon name={icon} />

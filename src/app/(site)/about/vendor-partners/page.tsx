@@ -3,6 +3,7 @@ import { getPartners } from '@/lib/content';
 import { PageHero } from '@/components/ui/PageHero';
 import { InfoCard } from '@/components/ui/primitives';
 import { CtaBand } from '@/components/layout/CtaBand';
+import { LOGO_FINE_PRINT, vendorLogo } from '@/content/vendor-logos';
 
 export const metadata: Metadata = {
   title: 'Vendor Partners',
@@ -27,6 +28,7 @@ export default async function VendorPartnersPage() {
               <InfoCard
                 key={v.id}
                 href={v.productSlug ? `/products/${v.productSlug}` : undefined}
+                logo={vendorLogo(v.name)}
                 kicker={v.tag}
                 title={v.name}
                 text={v.description}
@@ -34,6 +36,7 @@ export default async function VendorPartnersPage() {
               />
             ))}
           </div>
+          <p className="fine-print">{LOGO_FINE_PRINT}</p>
         </div>
       </section>
       <CtaBand />

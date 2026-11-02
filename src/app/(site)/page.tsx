@@ -1,4 +1,6 @@
+import Image from 'next/image';
 import Link from 'next/link';
+import { vendorLogo } from '@/content/vendor-logos';
 import { getFaqs, getIndustries, getLogoWall, getPartners, getPublications, getSettings } from '@/lib/content';
 import { Icon, type IconName } from '@/components/ui/Icon';
 import { Art, Eyebrow, Faq, LinkArrow, SectionHead, Steps } from '@/components/ui/primitives';
@@ -91,7 +93,13 @@ export default async function HomePage() {
   ]);
   const latest = publications.slice(0, 3);
   const { hero } = settings;
-  const partnerNames = partners.filter(p => /Software|Hardware/.test(p.tag)).map(p => p.name);
+  // the strip shows logos only, so a vendor appears here once its logo is in vendor-logos.ts
+  const stripLogos = partners
+    .filter(p => /Software|Hardware/.test(p.tag))
+    .flatMap(p => {
+      const logo = vendorLogo(p.name);
+      return logo ? [{ name: p.name, logo }] : [];
+    });
 
   return (
     <>
@@ -121,9 +129,9 @@ export default async function HomePage() {
             <p>Authorised partner for</p>
             <div className="marquee">
               <div className="marquee-track">
-                {[...partnerNames, ...partnerNames].map((n, i) => (
-                  <span key={i} aria-hidden={i >= partnerNames.length || undefined}>
-                    {n}
+                {[...stripLogos, ...stripLogos].map(({ name, logo }, i) => (
+                  <span className="marquee-logo" key={i} aria-hidden={i >= stripLogos.length || undefined}>
+                    <Image src={logo} alt={i < stripLogos.length ? name : ''} width={200} height={80} unoptimized />
                   </span>
                 ))}
               </div>

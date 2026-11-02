@@ -8,6 +8,7 @@ import { PageHero } from '@/components/ui/PageHero';
 import { Art, CheckList, Eyebrow, InfoCard, SectionHead } from '@/components/ui/primitives';
 import { CtaBand } from '@/components/layout/CtaBand';
 import { PostGrid } from '@/components/publications/PostCard';
+import { vendorLogo } from '@/content/vendor-logos';
 import { truncate } from '@/lib/format';
 import type { Product } from '@/lib/types';
 
@@ -67,7 +68,8 @@ export default async function ProductPage({ params }: Props) {
       {k}
     </span>
   ));
-  const logo = p.logo && <Image src={p.logo} alt={`${p.name} logo`} width={320} height={120} unoptimized />;
+  const logoSrc = p.logo ?? vendorLogo(p.name);
+  const logo = logoSrc && <Image src={logoSrc} alt={`${p.name} logo`} width={320} height={120} unoptimized />;
   const [range, rangeBeforeNoun] = rangeNames(p);
 
   return (
