@@ -90,7 +90,7 @@ Outcomes: **KEEP** (no change), **CORRECT** (factual or naming error fixed), **U
 2. **First AutoCAD installation, Chevron, 1992.** Autodesk's profile only says CDSS introduced AutoCAD to Nigeria "in the early 1990s". No public source names Chevron or 1992.
 3. **"Authorised reseller or partner for every vendor line"** (home FAQ). Verified for Autodesk and Bentley (partner directories); not verifiable publicly for the others.
 4. **Octave (formerly Hexagon PPM).** Hexagon spun this business off as Octave Intelligence plc in May 2026. CDSS confirmed its agreement carried over (2 November 2026).
-5. **InnoDraw.** The only InnoDraw found is a laser-measurement drawing tool (sold with Leica DISTO). If CDSS sells a different product of that name, tell us and the description will be restored.
+5. **InnoDraw.** Removed from the site at CDSS's request (2 November 2026).
 6. **BeyondWare.** No company of this name found. Confirm the name and what it supplies.
 7. **VSee** (telehealth software). Confirm it is still offered; it is outside CDSS's engineering focus.
 8. **Bentley training partner status.** Bentley's training arm was the Bentley Institute; the academic side is now Bentley Education. Confirm CDSS's current training-partner designation.

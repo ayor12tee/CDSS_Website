@@ -7,6 +7,7 @@ import { Icon } from '@/components/ui/Icon';
 import { PageHero } from '@/components/ui/PageHero';
 import { Art, Eyebrow, SectionHead } from '@/components/ui/primitives';
 import { CtaBand } from '@/components/layout/CtaBand';
+import { LOGO_FINE_PRINT, vendorLogo } from '@/content/vendor-logos';
 
 export const metadata: Metadata = {
   title: 'Solutions & Product Lines',
@@ -55,6 +56,7 @@ export default async function ProductsPage() {
             <div className="grid-3 reveal-stagger">
               {products
                 .filter(p => p.group === group)
+                .map(p => ({ ...p, logo: p.logo ?? vendorLogo(p.name) }))
                 .map(p => (
                   <Link className={`info-card${p.image ? ' has-cover' : ''}`} href={`/products/${p.slug}`} key={p.slug}>
                     {p.image && (
@@ -88,6 +90,7 @@ export default async function ProductsPage() {
                   </Link>
                 ))}
             </div>
+            {gi === GROUPS.length - 1 && <p className="fine-print">{LOGO_FINE_PRINT}</p>}
           </div>
         </section>
       ))}

@@ -33,7 +33,6 @@ export const seedSettings: SiteSettings = {
     "MasterSeries",
     "GTX",
     "ClearEdge3D",
-    "InnoDraw",
     "HP DesignJet",
     "Getac",
     "Peachel Innovations"
@@ -44,12 +43,11 @@ export const seedProducts: Omit<Product, 'id'>[] = [
   {
     "slug": "autodesk",
     "name": "Autodesk",
-    "logo": "/brand/cdss-logo.png",
     "image": "/img/banner-autodesk.jpg",
     "group": "Software",
     "kind": "Design & Engineering",
     "tagline": "Create precise technical drawings, develop intelligent building models, and design civil infrastructure with industry-standard CAD, BIM and infrastructure design tools.",
-    "lede": "Autodesk is the company behind AutoCAD, Revit, Civil 3D and Inventor — software used by millions of architects, engineers and manufacturers to design buildings, infrastructure and products. As an authorised Autodesk reseller, CDSS licenses, installs, trains and supports Autodesk's AEC and manufacturing software for engineering offices across Nigeria.",
+    "lede": "Autodesk is the company behind AutoCAD, Revit, Civil 3D, Navisworks, Forma and Inventor — software used by millions of architects, engineers and manufacturers to design buildings, infrastructure and products. As an authorised Autodesk reseller, CDSS licenses, installs, trains and supports Autodesk's AEC and manufacturing software for engineering offices across Nigeria.",
     "uses": [
       "Architectural design and documentation (Revit, AutoCAD)",
       "Civil infrastructure design (Civil 3D, InfraWorks)",
@@ -80,7 +78,7 @@ export const seedProducts: Omit<Product, 'id'>[] = [
   {
     "slug": "bentley",
     "name": "Bentley Systems",
-    "logo": "/brand/cdss-logo.png",
+    "image": "/img/bentley-infrastructure.jpg",
     "group": "Software",
     "kind": "Infrastructure & Industrial Engineering",
     "tagline": "Design infrastructure, analyse structural performance, and evaluate piping systems and pressure vessels with specialised engineering software.",
@@ -594,13 +592,6 @@ export const seedPartners: Omit<Partner, 'id'>[] = [
     "sortOrder": 11
   },
   {
-    "name": "InnoDraw",
-    "tag": "Software Partner",
-    "description": "On-site measuring software that turns laser distance meter readings into 2D and 3D drawings.",
-    "productSlug": null,
-    "sortOrder": 12
-  },
-  {
     "name": "VSee",
     "tag": "Software Partner",
     "description": "Telehealth and virtual-care platform software, supplied and supported by CDSS.",
@@ -633,7 +624,6 @@ export const seedPartners: Omit<Partner, 'id'>[] = [
 export const seedClients: Omit<Client, 'id'>[] = [
   {
     "name": "Addax Petroleum",
-    "logo": "/brand/cdss-logo.png",
     "group": "Oil & Gas",
     "onLogoWall": true,
     "sortOrder": 0
@@ -646,7 +636,6 @@ export const seedClients: Omit<Client, 'id'>[] = [
   },
   {
     "name": "Chevron",
-    "logo": "/brand/cdss-logo.png",
     "group": "Oil & Gas",
     "onLogoWall": true,
     "sortOrder": 2
@@ -944,7 +933,7 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "bentley"
     ],
     "status": "published",
-    "body": "In 1989, most engineering drawings in Nigeria were still produced by hand. That year, a registered civil engineer set up a company to change it. Thirty-five years later, CDSS is still doing that work. The tools have changed a great deal; the mission has not.\n\n:::facts\n- **1989** CDSS incorporated in Lagos as Nigeria's first CADD-specific technology company\n- **1992** Nigeria's first AutoCAD installation, delivered for Chevron\n- **2025** Named Bentley's top-performing partner in Sub-Saharan Africa\n:::\n\n## 1989: a company built around CADD\n\nEng. Peter A. O. Fisher founded CDSS as a company dedicated to computer-aided design and drafting (CADD). It was the first of its kind in Nigeria. The company was incorporated in June 1989 and became an authorised AutoCAD reseller for Nigeria that December.\n\nBecause the founder was an engineer, he understood what design offices actually needed. They didn't just need software. They needed reliable systems, people trained to use them properly, and support they could count on when deadlines were close. That thinking still shapes how CDSS works today.\n\n## 1992: Nigeria's first AutoCAD installation\n\nIn 1992, CDSS installed Nigeria's first AutoCAD workstation, for Chevron. It was an early sign of how quickly computer-aided design would become the standard way to produce drawings, first in oil & gas and then across architecture, engineering and construction.\n\n## Growing into a multi-vendor partner\n\nAs the industry's needs grew, so did the portfolio. Today CDSS is an authorised partner for a broad range of software and hardware vendors, including:\n\n- **Design and engineering:** Autodesk, Bentley Systems, CYPE, MasterSeries and Octave (formerly Hexagon PPM).\n- **Simulation and integrity:** Ansys and Technical Toolboxes.\n- **Geoscience:** Seequent.\n- **Capture and conversion:** Contex, Avision, GTX, ClearEdge3D and InnoDraw.\n\nOffering all of this through one partner means an engineering office can source design, analysis, scanning and archiving through a single relationship. It no longer has to manage five separate suppliers.\n\n## What hasn't changed\n\nEvery product line CDSS carries still comes with certified training and tiered technical support, not just a licence key. We run training from a dedicated in-house facility and online, and our support covers installation, commissioning and application support, with remote diagnosis when a site visit isn't needed.\n\nThe same values still guide the business: integrity in every client relationship, and partnership rather than one-off transactions. We also keep looking for technologies ahead of the market and bring them in together with the skills to use them.\n\n## The next chapter\n\nThe next stage of engineering technology is about connection. Design models feed simulation. Laser scans and photographs become reality models. Paper archives become searchable digital records. 2D CAD standards turn into shared BIM workflows. Through partnerships built over three decades, CDSS now works with clients well beyond Nigeria, in Kenya, Zambia, Angola, South Africa, Ghana and Côte d'Ivoire.\n\nWe will keep following the same approach that got us here: the right tools, properly taught and properly supported.\n",
+    "body": "In 1989, most engineering drawings in Nigeria were still produced by hand. That year, a registered civil engineer set up a company to change it. Thirty-five years later, CDSS is still doing that work. The tools have changed a great deal; the mission has not.\n\n:::facts\n- **1989** CDSS incorporated in Lagos as Nigeria's first CADD-specific technology company\n- **1992** Nigeria's first AutoCAD installation, delivered for Chevron\n- **2025** Named Bentley's top-performing partner in Sub-Saharan Africa\n:::\n\n## 1989: a company built around CADD\n\nEng. Peter A. O. Fisher founded CDSS as a company dedicated to computer-aided design and drafting (CADD). It was the first of its kind in Nigeria. The company was incorporated in June 1989 and became an authorised AutoCAD reseller for Nigeria that December.\n\nBecause the founder was an engineer, he understood what design offices actually needed. They didn't just need software. They needed reliable systems, people trained to use them properly, and support they could count on when deadlines were close. That thinking still shapes how CDSS works today.\n\n## 1992: Nigeria's first AutoCAD installation\n\nIn 1992, CDSS installed Nigeria's first AutoCAD workstation, for Chevron. It was an early sign of how quickly computer-aided design would become the standard way to produce drawings, first in oil & gas and then across architecture, engineering and construction.\n\n## Growing into a multi-vendor partner\n\nAs the industry's needs grew, so did the portfolio. Today CDSS is an authorised partner for a broad range of software and hardware vendors, including:\n\n- **Design and engineering:** Autodesk, Bentley Systems, CYPE, MasterSeries and Octave (formerly Hexagon PPM).\n- **Simulation and integrity:** Ansys and Technical Toolboxes.\n- **Geoscience:** Seequent.\n- **Capture and conversion:** Contex, Avision, GTX and ClearEdge3D.\n\nOffering all of this through one partner means an engineering office can source design, analysis, scanning and archiving through a single relationship. It no longer has to manage five separate suppliers.\n\n## What hasn't changed\n\nEvery product line CDSS carries still comes with certified training and tiered technical support, not just a licence key. We run training from a dedicated in-house facility and online, and our support covers installation, commissioning and application support, with remote diagnosis when a site visit isn't needed.\n\nThe same values still guide the business: integrity in every client relationship, and partnership rather than one-off transactions. We also keep looking for technologies ahead of the market and bring them in together with the skills to use them.\n\n## The next chapter\n\nThe next stage of engineering technology is about connection. Design models feed simulation. Laser scans and photographs become reality models. Paper archives become searchable digital records. 2D CAD standards turn into shared BIM workflows. Through partnerships built over three decades, CDSS now works with clients well beyond Nigeria, in Kenya, Zambia, Angola, South Africa, Ghana and Côte d'Ivoire.\n\nWe will keep following the same approach that got us here: the right tools, properly taught and properly supported.\n",
     "featured": false,
     "publishedOn": "2026-03-18"
   },
@@ -1021,8 +1010,8 @@ export const seedPublications: Omit<Publication, 'id' | 'readTime' | 'updatedAt'
       "Engineering"
     ],
     "products": [
-      "ansys",
-      "bentley"
+      "bentley",
+      "ansys"
     ],
     "status": "published",
     "body": "Fixing a design problem costs the least before anything is built. Engineering simulation lets teams test how a component, structure or system will behave under real loads, temperatures and flows while changes are still cheap to make.\n\n## Why simulate?\n\nCode-based design methods are reliable for standard situations. But many engineering problems don't fit the standard cases: unusual geometry, combined loads, local stress concentrations, heat transfer or complex fluid behaviour. Simulation fills that gap. It shows where stresses concentrate, how heat moves through a component and how fluid flows, which a hand calculation can only approximate.\n\n- **Fewer surprises:** find weak points and failure modes before fabrication.\n- **Better designs:** compare options quickly and optimise for weight, cost or performance.\n- **Fewer physical prototypes:** use testing to confirm a design rather than to discover problems.\n- **Defensible decisions:** give clients, certifying bodies and insurers clear evidence of how the design will perform.\n\n## Structural, thermal, fluid, or all three\n\nAnsys covers the main physics engineering teams need. That includes structural mechanics and stress analysis, heat transfer and thermal simulation, and computational fluid dynamics (CFD). Many real problems involve more than one: a hot component expands and causes stress, and a flowing fluid loads a structure. Multiphysics simulation couples these effects so the model behaves like the real thing.\n\n## Where simulation fits alongside design tools\n\nSimulation adds to design tools; it doesn't replace them. A typical workflow uses:\n\n1. **Design and code checks** in tools such as STAAD.Pro for structures or AutoPIPE for piping systems.\n2. **Detailed simulation** in Ansys software for components, connections or conditions outside the standard code cases.\n3. **Design updates** fed back into the CAD or BIM model, so drawings and models stay consistent.\n\n## Getting results you can trust\n\nA colourful contour plot is not the same as a correct answer. Reliable simulation depends on good practice:\n\n- Represent supports, loads and contacts realistically. Boundary conditions cause more errors than anything else.\n- Check mesh quality, and refine the mesh until the results stop changing meaningfully.\n- Sense-check results against hand calculations or known solutions.\n- Use appropriate material data, and understand where linear assumptions stop being valid.\n- Document assumptions so that a reviewer can follow and repeat the analysis.\n\n## Building in-house capability\n\nSimulation delivers the most value when engineers use it regularly, not as a rare specialist exercise. That takes the right licences, structured training and someone to call when a model misbehaves. CDSS provides all three, and Ansys sits within the same training and support model we use across our whole portfolio.\n\n:::callout{icon=cpu title=\"Explore engineering simulation\"}\nTalk to us about Ansys licensing, training and support for your engineering team. [Explore Ansys](/products/ansys).\n:::\n",
