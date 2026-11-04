@@ -3,6 +3,7 @@ import { Icon } from '@/components/ui/Icon';
 import { ActionForm } from '../../_components/ActionForm';
 import { ConfirmButton, CopyText } from '../../_components/buttons';
 import { TextField } from '../../_components/fields';
+import { MediaPreview } from '../../_components/MediaPreview';
 import { MediaUploader } from '../../_components/MediaUploader';
 import { PageHeader } from '../../_components/PageHeader';
 import { deleteMedia, updateMediaAlt } from '../../_lib/media-actions';
@@ -28,14 +29,16 @@ export default async function MediaAdmin() {
           <div className="adm-media-grid">
             {media.map(m => (
               <div className="adm-media" key={m.id}>
-                <a className="thumb" href={m.url} target="_blank" rel="noreferrer">
-                  {m.mimeType.startsWith('image/') ? (
-                    // eslint-disable-next-line @next/next/no-img-element
+                {m.mimeType.startsWith('image/') ? (
+                  <MediaPreview url={m.url} alt={m.alt} filename={m.filename}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={m.url} alt={m.alt} loading="lazy" />
-                  ) : (
+                  </MediaPreview>
+                ) : (
+                  <a className="thumb" href={m.url} target="_blank" rel="noreferrer" aria-label={`Open ${m.filename}`}>
                     <Icon name="file" />
-                  )}
-                </a>
+                  </a>
+                )}
                 <div className="meta">
                   <strong title={m.filename}>{m.filename}</strong>
                   <span style={{ color: 'var(--muted)' }}>
@@ -49,7 +52,7 @@ export default async function MediaAdmin() {
                   )}
                   <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
                     <CopyText text={m.url} />
-                    <ConfirmButton action={deleteMedia.bind(null, m.id)} label="Delete" size="sm" confirm={`Delete ${m.filename}? Pages using it will show a broken image.`} />
+                    <ConfirmButton action={deleteMedia.bind(null, m.id)} label="Delete" size="sm" confirm={`Delete this file? “${m.filename}” will be removed from the library, and any page using it will show a broken image.`} />
                   </div>
                 </div>
               </div>

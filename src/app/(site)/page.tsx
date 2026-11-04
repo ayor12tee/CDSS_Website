@@ -11,6 +11,9 @@ import { Newsletter } from '@/components/forms/Newsletter';
 import { HeroCarousel, type HeroSlide } from '@/components/home/HeroCarousel';
 import { LogoCell, clientFinePrint } from '@/components/clients/ClientMarks';
 
+// Vendors CDSS still carries but doesn't feature in the home page logo strip.
+const HIDDEN_FROM_STRIP = new Set(['Octave (formerly Hexagon PPM)', 'ClearEdge3D']);
+
 const SLIDES: HeroSlide[] = [
   { image: '/img/banner-oil-gas.png', label: 'Oil and gas', tone: 'dark' },
   { image: '/img/banner-autodesk.jpg', label: 'BIM and digital construction', tone: 'light' },
@@ -95,7 +98,7 @@ export default async function HomePage() {
   const { hero } = settings;
   // the strip shows logos only, so a vendor appears here once its logo is in vendor-logos.ts
   const stripLogos = partners
-    .filter(p => /Software|Hardware/.test(p.tag))
+    .filter(p => /Software|Hardware/.test(p.tag) && !HIDDEN_FROM_STRIP.has(p.name))
     .flatMap(p => {
       const logo = vendorLogo(p.name);
       return logo ? [{ name: p.name, logo }] : [];
