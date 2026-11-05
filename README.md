@@ -38,6 +38,15 @@ On first sign-in you will scan a QR code with an authenticator app (Google Authe
 - **Existing recordings:** **Admin → Webinars → Import past webinars** takes one line per webinar, holding a date and a YouTube link and optionally ` | Title`, and fills titles in from YouTube. Videos already on the site are skipped.
 - **After a session:** upload the recording to YouTube (public or unlisted, not private) and paste the link into the webinar. Sessions move from "Upcoming" to "Recordings" by themselves once they end; the page refreshes every 15 minutes.
 
+## Pop-ups
+
+Festive greetings (Christmas, New Year, Easter, Ramadan, Eid, Independence Day) and announcements, shown over the public site for a set period. Manage them in **Admin → Pop-ups**.
+
+- **Setup:** run `supabase/migrations/20261105000000_popups.sql` once in the Supabase SQL Editor. Until then no pop-ups show and the admin shows a setup notice.
+- **Each pop-up** has an occasion (sets its colours, icon and small heading), a title and message, an optional image and button, start and end times in Lagos time, how often a visitor sees it (once, once a day, or once per visit) and where (every page or the home page only).
+- **Scheduling:** the browser checks the start and end times, so a pop-up appears and disappears on time without a rebuild. If several are live at once, the one that started most recently shows.
+- **Previewing:** use **Preview** in the list or editor to see it exactly as visitors will, whatever its dates.
+
 ## Environment
 
 | Variable | Required | Notes |

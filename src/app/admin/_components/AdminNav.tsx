@@ -37,6 +37,7 @@ export function AdminShell({ role, unread, children, footer }: AdminNavProps) {
         { href: '/admin/partners', label: 'Vendor partners', icon: 'handshake' },
         { href: '/admin/clients', label: 'Clients', icon: 'users' },
         { href: '/admin/faqs', label: 'FAQs', icon: 'help' },
+        { href: '/admin/popups', label: 'Pop-ups', icon: 'megaphone' },
         { href: '/admin/media', label: 'Media library', icon: 'image' },
       ],
     },

@@ -9,6 +9,8 @@ import { Art, CheckList, Eyebrow, InfoCard, SectionHead } from '@/components/ui/
 import { CtaBand } from '@/components/layout/CtaBand';
 import { PostGrid } from '@/components/publications/PostCard';
 import { vendorLogo } from '@/content/vendor-logos';
+import { vendorStore } from '@/content/vendor-promos';
+import { StoreEmbed } from '@/components/products/StoreEmbed';
 import { truncate } from '@/lib/format';
 import type { Product } from '@/lib/types';
 
@@ -71,6 +73,9 @@ export default async function ProductPage({ params }: Props) {
   const logoSrc = p.logo ?? vendorLogo(p.name);
   const logo = logoSrc && <Image src={logoSrc} alt={`${p.name} logo`} width={320} height={120} unoptimized />;
   const [range, rangeBeforeNoun] = rangeNames(p);
+  const store = vendorStore(p.slug);
+  // the store card fills whatever is left of the last row of the three-column grid
+  const storeSpan = 3 - (p.uses.length % 3);
 
   return (
     <>
@@ -124,6 +129,7 @@ export default async function ProductPage({ params }: Props) {
             {p.uses.map(splitUse).map((u, i) => (
               <InfoCard key={u.title} icon={USE_ICONS[i % USE_ICONS.length]} kicker={u.kicker || undefined} title={u.title} />
             ))}
+            {store && <StoreEmbed store={store} span={storeSpan} />}
           </div>
         </div>
       </section>

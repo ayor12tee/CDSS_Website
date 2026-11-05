@@ -5,6 +5,7 @@ import { cache } from 'react';
 import { getDb } from './supabase';
 import { readTime, toClient, toFaq, toIndustry, toPartner, toProduct, toPublication, toWebinar } from './mappers';
 import type { Client, Faq, FaqSection, Industry, Partner, Product, Publication, SiteSettings, Webinar } from './types';
+import { toPopup, type PopupContent } from './popups';
 import { seedClients, seedFaqs, seedIndustries, seedPartners, seedProducts, seedPublications, seedSettings } from '@/content/seed';
 
 const withSeedIds = <T,>(items: T[], prefix: string) => items.map((item, i) => ({ ...item, id: `${prefix}-${i}` }));
@@ -95,6 +96,26 @@ export const getWebinars = cache(async (): Promise<Webinar[]> => {
 export async function getWebinar(slug: string) {
   return (await getWebinars()).find(w => w.slug === slug);
 }
+
+/**
+ * Pop-ups that are switched on and not yet over, latest start first. Upcoming ones are included too: the
+ * browser checks the start and end times, so a scheduled pop-up appears on time without a rebuild.
+ * Empty without Supabase or before the pop-ups migration has run.
+ */
+export const getPopups = cache(async (): Promise<PopupContent[]> => {
+  const db = getDb();
+  if (!db || Date.now() < popupsMissingUntil) return [];
+  const { data, error } = await db.from('popups').select('*').eq('published', true).gt('ends_at', new Date().toISOString()).order('starts_at', { ascending: false });
+  if (error) {
+    // a missing table just means the pop-ups migration hasn't been run yet; don't ask again on every page
+    if (error.code === '42P01' || error.code === 'PGRST205') popupsMissingUntil = Date.now() + 10 * 60_000;
+    else console.error('[content] Failed to load pop-ups from Supabase.', error);
+    return [];
+  }
+  return data.map(toPopup);
+});
+// Until the pop-ups migration runs, every lookup fails; querying it on each page slows whole builds down.
+let popupsMissingUntil = 0;
 
 export const getPartners = cache(async (): Promise<Partner[]> => {
   const db = getDb();
