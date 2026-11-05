@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { buildNav, SITE_URL } from '@/content/site';
-import { getIndustries, getProducts, getSettings } from '@/lib/content';
+import { getIndustries, getPopups, getProducts, getSettings } from '@/lib/content';
+import { SitePopup } from '@/components/popup/SitePopup';
 import { JsonLd } from '@/components/ui/primitives';
 import { Header } from './Header';
 import { Footer } from './Footer';
@@ -8,7 +9,7 @@ import { RevealObserver } from './Motion';
 
 /** Public-site header, footer and organisation structured data around page content. */
 export async function SiteChrome({ children }: { children: ReactNode }) {
-  const [settings, industries, products] = await Promise.all([getSettings(), getIndustries(), getProducts()]);
+  const [settings, industries, products, popups] = await Promise.all([getSettings(), getIndustries(), getProducts(), getPopups()]);
   const { company } = settings;
 
   return (
@@ -31,6 +32,7 @@ export async function SiteChrome({ children }: { children: ReactNode }) {
       <main id="main">{children}</main>
       <Footer company={company} industries={industries} products={products} />
       <RevealObserver />
+      <SitePopup popups={popups} />
     </>
   );
 }
