@@ -1,12 +1,23 @@
 'use server';
 
+import { revalidatePath } from 'next/cache';
 import { cookies, headers } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { z } from 'zod';
-import { requireUser } from '@/lib/auth';
+import { getSessionClaims, requireUser } from '@/lib/auth';
 import { hashPassword, passwordProblem, verifyPassword } from '@/lib/auth/password';
-import { PENDING_COOKIE, pendingCookieOptions, SESSION_COOKIE, sessionCookieOptions, signPending, signSession, verifyPending } from '@/lib/auth/session';
-import { decryptSecret, encryptSecret, generateBackupCodes, hashBackupCode, verifyTotp } from '@/lib/auth/totp';
+import {
+  PENDING_COOKIE,
+  pendingCookieOptions,
+  SESSION_COOKIE,
+  SESSION_TTL_SECONDS,
+  sessionCookieOptions,
+  signPending,
+  signSession,
+  verifyPending,
+  verifySession,
+} from '@/lib/auth/session';
+import { decryptSecret, encryptSecret, generateBackupCodes, hashBackupCode, matchBackupCode, verifyTotp } from '@/lib/auth/totp';
 import { requireDb } from '@/lib/supabase';
 import { fail, fromZod, ok, str } from './form';
 import type { ActionState } from './state';
@@ -40,12 +51,35 @@ async function recordFailure(...keys: string[]) {
     .insert(keys.map(key => ({ key })));
 }
 
-/** Second factor passed: issue the real session and finish signing in. */
-async function completeSignIn(user: { id: string; session_version: number; role: 'admin' | 'editor' }) {
+/**
+ * Second factor passed: record a session for this browser, issue the cookie and finish signing in.
+ * Returns an error message if the session can't be recorded (e.g. the sessions migration hasn't run).
+ */
+async function completeSignIn(user: { id: string; session_version: number; role: 'admin' | 'editor' }): Promise<string | null> {
+  const db = requireDb();
+  const now = new Date();
+  // tidy this user's expired sessions while we're here
+  await db.from('sessions').delete().eq('user_id', user.id).lt('expires_at', now.toISOString());
+  const { data: session, error } = await db
+    .from('sessions')
+    .insert({
+      user_id: user.id,
+      expires_at: new Date(now.getTime() + SESSION_TTL_SECONDS * 1000).toISOString(),
+      user_agent: ((await headers()).get('user-agent') ?? '').slice(0, 300),
+      ip: (await clientIp()).slice(0, 64),
+    })
+    .select('id')
+    .single();
+  if (error || !session) {
+    console.error('[auth] could not create a session:', error?.message);
+    return 'Sign-in is unavailable right now because the session could not be saved. If this persists, an administrator needs to run the newest database migration.';
+  }
+
   const jar = await cookies();
-  jar.set(SESSION_COOKIE, await signSession({ sub: user.id, v: user.session_version, role: user.role }), sessionCookieOptions);
+  jar.set(SESSION_COOKIE, await signSession({ sub: user.id, v: user.session_version, role: user.role, sid: session.id }), sessionCookieOptions);
   jar.delete({ name: PENDING_COOKIE, path: '/admin' });
-  await requireDb().from('users').update({ last_login_at: new Date().toISOString() }).eq('id', user.id);
+  await db.from('users').update({ last_login_at: now.toISOString() }).eq('id', user.id);
+  return null;
 }
 
 // ---------------------------------------------------------------------------
@@ -77,6 +111,9 @@ export async function loginAction(_prev: ActionState, fd: FormData): Promise<Act
 
 export async function logoutAction() {
   const jar = await cookies();
+  // end this browser's session on the server too, so a copy of the cookie stops working
+  const claims = await verifySession(jar.get(SESSION_COOKIE)?.value);
+  if (claims) await requireDb().from('sessions').delete().eq('id', claims.sid).eq('user_id', claims.sub);
   jar.delete(SESSION_COOKIE);
   jar.delete({ name: PENDING_COOKIE, path: '/admin' });
   redirect('/admin/login');
@@ -120,11 +157,12 @@ export async function enrolAction(_prev: ActionState, fd: FormData): Promise<Act
   const backupCodes = generateBackupCodes();
   const { error } = await requireDb()
     .from('users')
-    .update({ totp_secret: encryptSecret(secret), totp_enabled_at: new Date().toISOString(), totp_last_step: step, backup_codes: backupCodes.map(hashBackupCode) })
+    .update({ totp_secret: encryptSecret(secret), totp_enabled_at: new Date().toISOString(), totp_last_step: step, backup_codes: await Promise.all(backupCodes.map(hashBackupCode)) })
     .eq('id', user.id);
   if (error) return fail(`Could not save your authenticator: ${error.message}`);
 
-  await completeSignIn(user);
+  const problem = await completeSignIn(user);
+  if (problem) return fail(problem);
   return { ok: true, message: 'Two-factor authentication is on.', backupCodes, at: Date.now() };
 }
 
@@ -141,15 +179,15 @@ export async function verifyCodeAction(_prev: ActionState, fd: FormData): Promis
   const db = requireDb();
   const code = str(fd, 'code');
   if (str(fd, 'mode') === 'backup') {
-    const hash = hashBackupCode(code);
     const remaining: string[] = user.backup_codes ?? [];
-    if (!code || !remaining.includes(hash)) {
+    const used = code ? await matchBackupCode(code, remaining) : null;
+    if (!used) {
       await recordFailure(`otp:${user.id}`);
       return fail('That backup code is not valid or has already been used.', { code: 'Invalid backup code' });
     }
     await db
       .from('users')
-      .update({ backup_codes: remaining.filter(h => h !== hash) })
+      .update({ backup_codes: remaining.filter(h => h !== used) })
       .eq('id', user.id);
   } else {
     let secret: string;
@@ -172,7 +210,8 @@ export async function verifyCodeAction(_prev: ActionState, fd: FormData): Promis
   }
 
   await db.from('login_attempts').delete().eq('key', `otp:${user.id}`);
-  await completeSignIn(user);
+  const problem = await completeSignIn(user);
+  if (problem) return fail(problem);
   redirect(safeNext(claims.next));
 }
 
@@ -209,8 +248,12 @@ export async function updateAccountAction(_prev: ActionState, fd: FormData): Pro
 
   if (update.session_version) {
     // keep this browser signed in with a fresh token; every other session is now revoked
-    const token = await signSession({ sub: user.id, v: user.sessionVersion + 1, role: user.role });
-    (await cookies()).set(SESSION_COOKIE, token, sessionCookieOptions);
+    const claims = await getSessionClaims();
+    if (claims) {
+      await db.from('sessions').delete().eq('user_id', user.id).neq('id', claims.sid);
+      const token = await signSession({ sub: user.id, v: user.sessionVersion + 1, role: user.role, sid: claims.sid });
+      (await cookies()).set(SESSION_COOKIE, token, sessionCookieOptions);
+    }
     return ok('Password changed. You have been signed out everywhere else.');
   }
   return ok('Account updated.');
@@ -225,7 +268,10 @@ export async function regenerateBackupCodesAction(_prev: ActionState, fd: FormDa
   const user = await requireUser();
   if (!(await checkPassword(user.id, String(fd.get('password') ?? '')))) return fail('Your password is incorrect.', { password: 'Incorrect password' });
   const backupCodes = generateBackupCodes();
-  const { error } = await requireDb().from('users').update({ backup_codes: backupCodes.map(hashBackupCode) }).eq('id', user.id);
+  const { error } = await requireDb()
+    .from('users')
+    .update({ backup_codes: await Promise.all(backupCodes.map(hashBackupCode)) })
+    .eq('id', user.id);
   if (error) return fail(error.message);
   return { ok: true, message: 'New backup codes created. Your old codes no longer work.', backupCodes, at: Date.now() };
 }
@@ -239,6 +285,31 @@ export async function resetOwnTwoFactorAction(_prev: ActionState, fd: FormData):
     .update({ totp_secret: null, totp_enabled_at: null, totp_last_step: 0, backup_codes: [], session_version: user.sessionVersion + 1 })
     .eq('id', user.id);
   if (error) return fail(error.message);
+  await requireDb().from('sessions').delete().eq('user_id', user.id);
   (await cookies()).delete(SESSION_COOKIE);
   redirect('/admin/login?reset=2fa');
+}
+
+// ---------------------------------------------------------------------------
+// Signed-in devices
+// ---------------------------------------------------------------------------
+
+/** Ends one of the signed-in user's other sessions. Scoped to the user, so another user's session id does nothing. */
+export async function endSessionAction(sessionId: string) {
+  const user = await requireUser();
+  const claims = await getSessionClaims();
+  if (sessionId === claims?.sid) throw new Error('Use "Sign out" to end this session.');
+  const { error } = await requireDb().from('sessions').delete().eq('id', sessionId).eq('user_id', user.id);
+  if (error) throw new Error('Could not end that session. Please try again.');
+  revalidatePath('/admin/account');
+}
+
+/** Signs this user out on every device, including this one. */
+export async function signOutEverywhereAction() {
+  const user = await requireUser();
+  const db = requireDb();
+  await db.from('users').update({ session_version: user.sessionVersion + 1 }).eq('id', user.id);
+  await db.from('sessions').delete().eq('user_id', user.id);
+  (await cookies()).delete(SESSION_COOKIE);
+  redirect('/admin/login');
 }

@@ -7,17 +7,24 @@ import { toAdminUser, USER_COLUMNS } from '@/lib/mappers';
 import type { AdminUser, Role } from '@/lib/types';
 import { SESSION_COOKIE, verifySession } from './session';
 
+/** Verified claims from this browser's session cookie (signature only; getCurrentUser also checks the database). */
+export const getSessionClaims = cache(async () => verifySession((await cookies()).get(SESSION_COOKIE)?.value));
+
 /**
- * The signed-in admin user, or null. Verifies the cookie signature AND re-checks the user in the
- * database on every request, so deleted users and revoked sessions (session_version bump) lose access immediately.
+ * The signed-in admin user, or null. Verifies the cookie signature AND re-checks the database on every
+ * request: the user must exist, its session_version must match (bumped to revoke everything), and this
+ * browser's sessions row must still exist (deleted on sign-out). Fails closed if the sessions table is missing.
  */
 export const getCurrentUser = cache(async (): Promise<AdminUser | null> => {
-  const claims = await verifySession((await cookies()).get(SESSION_COOKIE)?.value);
+  const claims = await getSessionClaims();
   if (!claims) return null;
   const db = getDb();
   if (!db) return null;
-  const { data } = await db.from('users').select(USER_COLUMNS).eq('id', claims.sub).maybeSingle();
-  if (!data || data.session_version !== claims.v) return null;
+  const [{ data }, { data: session }] = await Promise.all([
+    db.from('users').select(USER_COLUMNS).eq('id', claims.sub).maybeSingle(),
+    db.from('sessions').select('id').eq('id', claims.sid).eq('user_id', claims.sub).gt('expires_at', new Date().toISOString()).maybeSingle(),
+  ]);
+  if (!data || !session || data.session_version !== claims.v) return null;
   return toAdminUser(data);
 });
 
