@@ -9,9 +9,11 @@ export const SESSION_TTL_SECONDS = 60 * 60 * 24 * 7; // 7 days
 export interface SessionClaims {
   /** user id */
   sub: string;
-  /** users.session_version at sign-in; a mismatch means the session was revoked */
+  /** users.session_version at sign-in; a mismatch means every session was revoked */
   v: number;
   role: Role;
+  /** sessions.id for this browser; signing out deletes that row */
+  sid: string;
 }
 
 function secretKey() {
@@ -23,7 +25,7 @@ function secretKey() {
 }
 
 export async function signSession(claims: SessionClaims) {
-  return new SignJWT({ v: claims.v, role: claims.role })
+  return new SignJWT({ v: claims.v, role: claims.role, sid: claims.sid })
     .setProtectedHeader({ alg: 'HS256' })
     .setSubject(claims.sub)
     .setIssuedAt()
@@ -36,8 +38,9 @@ export async function verifySession(token: string | undefined): Promise<SessionC
   if (!token) return null;
   try {
     const { payload } = await jwtVerify(token, secretKey(), { algorithms: ['HS256'], audience: 'cdss-admin' });
-    if (typeof payload.sub !== 'string' || typeof payload.v !== 'number' || (payload.role !== 'admin' && payload.role !== 'editor')) return null;
-    return { sub: payload.sub, v: payload.v, role: payload.role };
+    // tokens issued before per-device sessions have no sid and are no longer accepted
+    if (typeof payload.sub !== 'string' || typeof payload.v !== 'number' || typeof payload.sid !== 'string' || (payload.role !== 'admin' && payload.role !== 'editor')) return null;
+    return { sub: payload.sub, v: payload.v, role: payload.role, sid: payload.sid };
   } catch {
     return null;
   }

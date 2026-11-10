@@ -71,7 +71,8 @@ function textOfReact(children: ReactNode): string {
 const components: Components = {
   h2: ({ children }) => <h2 id={slugify(textOfReact(children))}>{children}</h2>,
   a: ({ href = '', children }) =>
-    href.startsWith('/') ? (
+    // "//host/path" is a protocol-relative link to another site, not an internal page
+    href.startsWith('/') && !href.startsWith('//') ? (
       <Link href={href}>{children}</Link>
     ) : (
       <a href={href} target="_blank" rel="noopener noreferrer">

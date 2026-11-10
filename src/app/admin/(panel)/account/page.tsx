@@ -1,14 +1,23 @@
 import type { Metadata } from 'next';
 import { requireUser } from '@/lib/auth';
 import { ActionForm } from '../../_components/ActionForm';
+import { ConfirmButton } from '../../_components/buttons';
 import { TextField } from '../../_components/fields';
 import { PageHeader } from '../../_components/PageHeader';
-import { regenerateBackupCodesAction, resetOwnTwoFactorAction, updateAccountAction } from '../../_lib/auth-actions';
+import { endSessionAction, regenerateBackupCodesAction, resetOwnTwoFactorAction, signOutEverywhereAction, updateAccountAction } from '../../_lib/auth-actions';
+import { listMySessions } from '../../_lib/queries';
 
 export const metadata: Metadata = { title: 'My account' };
 
+/** "Chrome on Windows" from a user-agent string; good enough to recognise your own devices. */
+function describeDevice(ua: string) {
+  const browser = /Edg\//.test(ua) ? 'Edge' : /OPR\//.test(ua) ? 'Opera' : /Firefox\//.test(ua) ? 'Firefox' : /Chrome\//.test(ua) ? 'Chrome' : /Safari\//.test(ua) ? 'Safari' : 'Browser';
+  const os = /iPhone|iPad/.test(ua) ? 'iOS' : /Android/.test(ua) ? 'Android' : /Windows/.test(ua) ? 'Windows' : /Mac OS X/.test(ua) ? 'macOS' : /Linux/.test(ua) ? 'Linux' : 'unknown device';
+  return `${browser} on ${os}`;
+}
+
 export default async function AccountPage() {
-  const user = await requireUser();
+  const [user, sessions] = await Promise.all([requireUser(), listMySessions()]);
   return (
     <>
       <PageHeader title="My account" />
@@ -59,6 +68,53 @@ export default async function AccountPage() {
                 <TextField name="resetPassword" type="password" label="Confirm your password" autoComplete="current-password" />
               </ActionForm>
             </div>
+          </div>
+        </section>
+
+        <section className="adm-card">
+          <div className="adm-card-head">
+            <h2>Signed-in devices</h2>
+            <ConfirmButton
+              action={signOutEverywhereAction}
+              label="Sign out everywhere"
+              icon="logout"
+              variant="secondary"
+              size="sm"
+              confirm="Sign out on every device? You will need to sign in again here too."
+            />
+          </div>
+          <p style={{ color: 'var(--muted)', marginBottom: 14, fontSize: 13.5 }}>
+            Each browser you sign in from appears here until it signs out or its session expires after 7 days. If you don&apos;t recognise one, end it and
+            change your password.
+          </p>
+          <div className="adm-table-wrap">
+            <table className="adm-table">
+              <thead>
+                <tr>
+                  <th>Device</th>
+                  <th>Signed in</th>
+                  <th>IP address</th>
+                  <th className="actions">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sessions.map(s => (
+                  <tr key={s.id}>
+                    <td className="title-cell">
+                      {describeDevice(s.userAgent)}
+                      {s.current && <span className="adm-badge ok" style={{ marginLeft: 8 }}>This device</span>}
+                    </td>
+                    <td style={{ whiteSpace: 'nowrap' }}>{new Date(s.createdAt).toLocaleString('en-GB', { dateStyle: 'medium', timeStyle: 'short', timeZone: 'Africa/Lagos' })}</td>
+                    <td>{s.ip || '—'}</td>
+                    <td className="actions">
+                      {!s.current && (
+                        <ConfirmButton action={endSessionAction.bind(null, s.id)} label="Sign out" icon="logout" size="sm" confirm={`Sign out ${describeDevice(s.userAgent)}? It will need to sign in again.`} />
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
       </div>

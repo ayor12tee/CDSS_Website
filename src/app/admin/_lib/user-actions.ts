@@ -69,6 +69,8 @@ export async function updateUser(_prev: ActionState, fd: FormData): Promise<Acti
 
   const { error } = await db.from('users').update(update).eq('id', id);
   if (error) return fromDb(error, 'user');
+  // the version bump already revokes their tokens; this clears the now-unusable session rows
+  if (update.session_version) await db.from('sessions').delete().eq('user_id', id);
   revalidatePath('/admin/users');
   if (id === me.id && update.session_version) redirect('/admin/login');
   return ok(newPassword ? 'User updated and password reset. They have been signed out everywhere.' : 'User updated.');
@@ -80,6 +82,7 @@ export async function revokeSessions(id: string) {
   const { data } = await db.from('users').select('session_version').eq('id', id).single();
   if (!data) return;
   await db.from('users').update({ session_version: data.session_version + 1 }).eq('id', id);
+  await db.from('sessions').delete().eq('user_id', id);
   revalidatePath('/admin/users');
   if (id === me.id) redirect('/admin/login');
 }
@@ -95,6 +98,7 @@ export async function resetUserTwoFactor(id: string) {
     .update({ totp_secret: null, totp_enabled_at: null, totp_last_step: 0, backup_codes: [], session_version: data.session_version + 1 })
     .eq('id', id);
   if (error) throw new Error(error.message);
+  await db.from('sessions').delete().eq('user_id', id);
   revalidatePath('/admin/users');
   if (id === me.id) redirect('/admin/login?reset=2fa');
 }

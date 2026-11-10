@@ -1,6 +1,7 @@
 // Time-based one-time passwords (RFC 6238), compatible with Google Authenticator,
 // Microsoft Authenticator, Authy, 1Password, etc. Built on Node's crypto; no external service.
 import { createCipheriv, createDecipheriv, createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
+import { hashPassword, verifyPassword } from './password';
 
 const PERIOD = 30; // seconds
 const DIGITS = 6;
@@ -131,4 +132,23 @@ export function generateBackupCodes(count = 10) {
 
 export const normaliseBackupCode = (code: string) => code.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-export const hashBackupCode = (code: string) => createHash('sha256').update(normaliseBackupCode(code)).digest('hex');
+/** Stored form of a backup code: salted scrypt, like passwords, so a leaked database can't be brute-forced quickly. */
+export const hashBackupCode = (code: string) => hashPassword(normaliseBackupCode(code));
+
+/**
+ * The stored entry matching `code`, or null. Accepts scrypt entries and the older unsalted SHA-256 hex
+ * entries, so codes issued before the switch keep working until they are used or regenerated.
+ */
+export async function matchBackupCode(code: string, stored: string[]) {
+  const normalised = normaliseBackupCode(code);
+  if (normalised.length < 8) return null;
+  const legacy = Buffer.from(createHash('sha256').update(normalised).digest('hex'));
+  for (const entry of stored) {
+    if (entry.startsWith('scrypt$')) {
+      if (await verifyPassword(normalised, entry)) return entry;
+    } else if (entry.length === legacy.length && timingSafeEqual(Buffer.from(entry), legacy)) {
+      return entry;
+    }
+  }
+  return null;
+}

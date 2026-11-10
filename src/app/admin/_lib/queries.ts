@@ -1,5 +1,8 @@
 // Admin-side reads. Unlike src/lib/content.ts these include drafts and unpublished items.
+// Each function checks the signed-in user itself (the per-request user lookup is cached), because layouts
+// do not re-run on client navigation and so are not a reliable place for the only auth check.
 import 'server-only';
+import { getSessionClaims, requireUser } from '@/lib/auth';
 import { mediaPublicUrl, requireDb } from '@/lib/supabase';
 import { USER_COLUMNS, toAdminUser, toClient, toFaq, toIndustry, toMedia, toPartner, toProduct, toPublication, toSubmission, toWebinar } from '@/lib/mappers';
 import { seedSettings } from '@/content/seed';
@@ -16,87 +19,121 @@ function row<T>(res: { data: any | null; error: any }, map: (r: any) => T): T | 
 }
 
 export async function listPublications(status?: 'draft' | 'published') {
+  await requireUser();
   let q = requireDb().from('publications').select('*').order('published_on', { ascending: false }).order('updated_at', { ascending: false });
   if (status) q = q.eq('status', status);
   return rows(await q, toPublication);
 }
 export async function getPublicationById(id: string) {
+  await requireUser();
   return row(await requireDb().from('publications').select('*').eq('id', id).maybeSingle(), toPublication);
 }
 
 /** All webinars, newest first. Null when the webinars table has not been created yet. */
 export async function listWebinars() {
+  await requireUser();
   const res = await requireDb().from('webinars').select('*').order('starts_at', { ascending: false });
   if (res.error?.code === '42P01' || res.error?.code === 'PGRST205') return null;
   return rows(res, toWebinar);
 }
 export async function getWebinarById(id: string) {
+  await requireUser();
   return row(await requireDb().from('webinars').select('*').eq('id', id).maybeSingle(), toWebinar);
 }
 
 export async function listProducts() {
+  await requireUser();
   return rows(await requireDb().from('products').select('*').order('sort_order').order('name'), toProduct);
 }
 export async function getProductById(id: string) {
+  await requireUser();
   return row(await requireDb().from('products').select('*').eq('id', id).maybeSingle(), toProduct);
 }
 
 export async function listIndustries() {
+  await requireUser();
   return rows(await requireDb().from('industries').select('*').order('sort_order').order('name'), toIndustry);
 }
 export async function getIndustryById(id: string) {
+  await requireUser();
   return row(await requireDb().from('industries').select('*').eq('id', id).maybeSingle(), toIndustry);
 }
 
 export async function listPartners() {
+  await requireUser();
   return rows(await requireDb().from('partners').select('*').order('sort_order').order('name'), toPartner);
 }
 export async function getPartnerById(id: string) {
+  await requireUser();
   return row(await requireDb().from('partners').select('*').eq('id', id).maybeSingle(), toPartner);
 }
 
 export async function listClients() {
+  await requireUser();
   return rows(await requireDb().from('clients').select('*').order('sort_order').order('name'), toClient);
 }
 export async function getClientById(id: string) {
+  await requireUser();
   return row(await requireDb().from('clients').select('*').eq('id', id).maybeSingle(), toClient);
 }
 
 export async function listFaqs() {
+  await requireUser();
   return rows(await requireDb().from('faqs').select('*').order('section').order('sort_order'), toFaq);
 }
 export async function getFaqById(id: string) {
+  await requireUser();
   return row(await requireDb().from('faqs').select('*').eq('id', id).maybeSingle(), toFaq);
 }
 
 export async function listMedia() {
+  await requireUser();
   return rows(await requireDb().from('media').select('*').order('created_at', { ascending: false }), r => toMedia(r, mediaPublicUrl(r.path)));
 }
 
 export async function listSubmissions(filter?: 'unread' | 'contact' | 'newsletter') {
+  await requireUser();
   let q = requireDb().from('submissions').select('*').order('created_at', { ascending: false }).limit(500);
   if (filter === 'unread') q = q.eq('is_read', false);
   if (filter === 'contact' || filter === 'newsletter') q = q.eq('kind', filter);
   return rows(await q, toSubmission);
 }
 export async function getSubmission(id: string) {
+  await requireUser();
   return row(await requireDb().from('submissions').select('*').eq('id', id).maybeSingle(), toSubmission);
 }
 
 export async function listSubscribers() {
+  await requireUser();
   const res = await requireDb().from('subscribers').select('*').order('created_at', { ascending: false });
   if (res.error) throw new Error(res.error.message);
   return (res.data ?? []) as { id: string; email: string; source: string; created_at: string }[];
 }
 
+/** The signed-in user's unexpired sessions, newest first, with `current` marking this browser. */
+export async function listMySessions() {
+  const user = await requireUser();
+  const claims = await getSessionClaims();
+  const res = await requireDb()
+    .from('sessions')
+    .select('id, created_at, expires_at, user_agent, ip')
+    .eq('user_id', user.id)
+    .gt('expires_at', new Date().toISOString())
+    .order('created_at', { ascending: false });
+  return rows(res, r => ({ id: r.id as string, createdAt: r.created_at as string, userAgent: r.user_agent as string, ip: r.ip as string, current: r.id === claims?.sid }));
+}
+
 export async function listUsers() {
+  await requireUser('admin');
   return rows(await requireDb().from('users').select(USER_COLUMNS).order('created_at'), toAdminUser);
 }
 export async function getUserById(id: string) {
+  await requireUser('admin');
   return row(await requireDb().from('users').select(USER_COLUMNS).eq('id', id).maybeSingle(), toAdminUser);
 }
 
 export async function getAdminSettings(): Promise<SiteSettings> {
+  await requireUser('admin');
   const res = await requireDb().from('settings').select('value').eq('key', 'site').maybeSingle();
   if (res.error) throw new Error(res.error.message);
   const v = (res.data?.value ?? {}) as Partial<SiteSettings>;
@@ -117,6 +154,7 @@ async function count(table: string, filter?: (q: any) => any) {
 }
 
 export async function getDashboardCounts() {
+  await requireUser();
   const [published, drafts, unread, subscribers, products, industries] = await Promise.all([
     count('publications', q => q.eq('status', 'published')),
     count('publications', q => q.eq('status', 'draft')),
@@ -129,6 +167,7 @@ export async function getDashboardCounts() {
 }
 
 export async function unreadCount() {
+  await requireUser();
   try {
     return await count('submissions', q => q.eq('is_read', false));
   } catch {

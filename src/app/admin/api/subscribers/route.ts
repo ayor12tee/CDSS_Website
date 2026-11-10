@@ -5,7 +5,10 @@ import { requireDb } from '@/lib/supabase';
 export async function GET() {
   if (!(await getCurrentUser())) return new Response('Unauthorized', { status: 401 });
   const { data, error } = await requireDb().from('subscribers').select('email, source, created_at').order('created_at');
-  if (error) return new Response(error.message, { status: 500 });
+  if (error) {
+    console.error('[subscribers] export failed:', error.message);
+    return new Response('Could not export subscribers. Please try again.', { status: 500 });
+  }
 
   // quote every cell and neutralise spreadsheet formulas (=, +, -, @)
   const cell = (v: string) => `"${String(v).replace(/^[=+\-@]/, "'$&").replace(/"/g, '""')}"`;

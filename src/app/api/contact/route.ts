@@ -4,6 +4,28 @@ import { bodyFor, CONTACT_EMAIL, subjectFor, validate, type FormKind, type FormP
 
 const KINDS: FormKind[] = ['contact', 'newsletter'];
 const MAX_FIELD = 5000;
+const RATE_WINDOW_MINUTES = 10;
+const RATE_MAX_PER_IP = 5;
+
+/**
+ * Per-IP limit on submissions, stored in the login_attempts table (key "contact:<ip>").
+ * Returns true when the IP has used up its allowance. On Vercel, x-forwarded-for is set by the platform.
+ */
+async function overLimit(db: NonNullable<ReturnType<typeof getDb>>, request: Request) {
+  const ip = (request.headers.get('x-forwarded-for')?.split(',')[0] || request.headers.get('x-real-ip') || 'unknown').trim();
+  const key = `contact:${ip}`;
+  const since = new Date(Date.now() - RATE_WINDOW_MINUTES * 60_000).toISOString();
+  // tidy this key's expired entries so the table doesn't grow without bound
+  await db.from('login_attempts').delete().eq('key', key).lt('created_at', since);
+  const { count, error } = await db.from('login_attempts').select('*', { count: 'exact', head: true }).eq('key', key).gte('created_at', since);
+  if (error) {
+    console.error('[contact] rate limit check failed:', error.message);
+    return false;
+  }
+  if ((count ?? 0) >= RATE_MAX_PER_IP) return true;
+  await db.from('login_attempts').insert({ key });
+  return false;
+}
 
 /**
  * Receives contact and newsletter submissions.
@@ -38,12 +60,16 @@ export async function POST(request: Request) {
   const invalid = validate(kind, fields);
   if (invalid.length) return NextResponse.json({ ok: false, error: 'validation', fields: invalid }, { status: 400 });
 
+  const db = getDb();
+  if (db && (await overLimit(db, request))) {
+    return NextResponse.json({ ok: false, error: 'rate_limited' }, { status: 429, headers: { 'Retry-After': String(RATE_WINDOW_MINUTES * 60) } });
+  }
+
   const email = fields.email.toLowerCase();
   const subject = subjectFor(kind, fields);
   const text = bodyFor(fields);
 
   let stored = false;
-  const db = getDb();
   if (db) {
     const { error } = await db.from('submissions').insert({ kind, email, name: fields.name ?? '', fields });
     if (error) console.error('[contact] failed to store submission:', error);
